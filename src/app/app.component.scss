@@ -1,0 +1,367 @@
+@import '../assets/scss.scss';
+.header {
+    display: flex;
+    align-items: center;
+    margin: $auto0;
+    height: 60px;
+    background: #fff;
+    box-shadow: 1px 1px 1px #d6d7dc;
+    .box {
+        display: flex;
+        justify-content: space-between;
+        margin: $auto0;
+        width: 1430px;
+        .left,
+        .right {
+            display: flex;
+            justify-content: center;
+        }
+        .left {
+            align-items: center;
+            height: 60px;
+            img {
+                width: 116px;
+                height: 50px;
+            }
+            .wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .ul {
+                    width: 480px;
+                    ul {
+                        display: flex;
+                        justify-content: space-around;
+                        li {
+                            font-size: 20px;
+                            color: $c3;
+                            height: 60px;
+                            line-height: 60px;
+                            user-select: none;
+                            outline: 0;
+                        }
+                    }
+                }
+                .search {
+                    position: relative;
+                    input {
+                        width: 200px;
+                        height: 32px;
+                        font-size: 16px;
+                        color: $c9;
+                        border: 1px solid $e0;
+                        border-radius: 50px;
+                        text-indent: 20px;
+                        outline: 0;
+                    }
+                    span {
+                        position: absolute;
+                        z-index: 999;
+                        top: 8px;
+                        right: 14px;
+                        width: 25px;
+                        height: 25px;
+                        background: url(/assets/img/01icon_all.png);
+                        background-position: -13px -9px;
+                    }
+                }
+            }
+        }
+        .right {
+            height: 60px;
+            .wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .headImg {
+                    margin-right: 10px;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50px;
+                }
+                .direcIcon {
+                    margin-left: 10px;
+                    width: 15px;
+                    height: 10px;
+                    background: url(/assets/img/01icon_all.png);
+                    background-position: -93px -20px;
+                }
+                .login {
+                    margin-right: 20px;
+                    display: inline-block;
+                    width: 54px;
+                    height: 28px;
+                    line-height: 28px;
+                    text-align: center;
+                    background-color: #fdd209;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .header {
+        margin: $auto0;
+        height: 60px;
+        .box {
+            margin: $auto0;
+            width: $w1200;
+        }
+    }
+}
+
+.container {
+    margin: $auto0;
+    margin-top: 1px;
+    min-height: 800px;
+    background: $bgf5;
+    .box {
+        margin: $auto0;
+        width: 100%;
+    }
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    margin: $auto0;
+    text-align: $textCenter;
+    min-height: 160px;
+    background: $bg3;
+    .box {
+        margin: $auto0;
+        width: $w1200;
+        .wrap {
+            display: flex;
+            justify-content: center;
+            padding-top: 16px;
+            font-size: 14px;
+            color: $cf;
+            div {
+                padding: 0 12px;
+                border-right: 1px solid #fff;
+                &:last-child {
+                    border: 0;
+                }
+            }
+        }
+        .text {
+            font-size: 12px;
+            color: $cf;
+            &.item1 {
+                padding-top: 14px;
+            }
+            &.item2,
+            &.item3 {
+                padding-top: 18px;
+            }
+        }
+    }
+}
+
+.active {
+    color: #fe345e !important;
+    border-bottom: 2px solid #fe345e;
+}
+
+.masklayer,
+.family-masklayer {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, .4);
+}
+
+.masklayer .overlay {
+    width: 380px;
+    height: 480px;
+    position: absolute;
+    z-index: 100;
+    background-color: #fff;
+    top: 200px;
+    left: 50%;
+    margin-left: -190px;
+    padding-bottom: 30px;
+    overflow: hidden;
+}
+
+.overlay .over_top {
+    height: 60px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-top: 10px;
+    padding-left: 40px;
+}
+
+.overlay .over_top span {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    background: url(http://zb.jldgame.com/static/assets/images/sprits.png);
+    top: 18px;
+    right: 18px;
+    cursor: pointer;
+}
+
+.overlay .over_top span.del_icon {
+    background-position: -142px -120px;
+}
+
+.overlay .over_top ul li {
+    float: left;
+}
+
+.overlay .over_top a {
+    display: inline-block;
+    width: 80px;
+    height: 49px;
+    text-align: center;
+    line-height: 49px;
+    font-size: 18px;
+    color: #000;
+    text-decoration: none;
+}
+
+.overlay .over_top a.current {
+    border-bottom: 2px solid #fdd209;
+    color: #fdd209;
+}
+
+.overlay .over_top a {
+    display: inline-block;
+    width: 80px;
+    height: 49px;
+    text-align: center;
+    line-height: 49px;
+    font-size: 18px;
+    color: #000;
+    text-decoration: none;
+}
+
+.over_box {
+    overflow: hidden;
+    padding: 30px 40px 50px;
+}
+
+.ol_left ul,
+.ol_left ul li {
+    display: table;
+    width: 300px;
+}
+
+.ol_left ul li {
+    position: relative;
+}
+
+.ol_left ul li input[type=text],
+.ol_left ul li input[type=password] {
+    width: 298px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 15px;
+    background-color: #fff;
+    border: #bebebe 1px solid;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.ol_left ul li .get_cap {
+    margin-left: 10px;
+    color: #999;
+    background-color: #e9e9e9;
+    display: inline-block;
+    height: 38px;
+    width: 108px;
+    border: 1px solid #e3e3e3;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 8px;
+}
+
+.ol_left ul li .get_cap.active {
+    background: #fdd209;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.ol_left ul li .formtips {
+    height: 25px;
+    line-height: 20px;
+    font-size: 12px;
+}
+
+.ol_left ul li dd label a {
+    color: #fb9b00;
+    text-decoration: none;
+}
+
+.register_btn button {
+    display: inline-block;
+    height: 35px;
+    width: 300px;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 8px;
+    background-color: #fdd209;
+    margin-top: 30px;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    border: 0;
+    cursor: pointer;
+}
+
+.register_btn a:hover {
+    color: #fff;
+}
+
+.login_func .other_login {
+    color: #999;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login_func a {
+    display: inline-block;
+    zoom: 1;
+    overflow: hidden;
+    width: 54px;
+    height: 54px;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.ta_qq {
+    background: url(http://zb.jldgame.com/static/assets/images/sprits.png)no-repeat;
+    background-position: -70px -148px;
+}
+
+.ta_wx {
+    background: url(http://zb.jldgame.com/static/assets/images/sprits.png)no-repeat;
+    background-position: -134px -148px;
+}
+
+.ta_wb {
+    background: url(http://zb.jldgame.com/static/assets/images/sprits.png)no-repeat;
+    background-position: -198px -148px;
+}
+
+.forget_pwd {
+    position: relative;
+}
+
+.forget_pwd a {
+    color: #999;
+    text-decoration: none;
+    position: absolute;
+    font-size: 14px;
+    right: 0;
+}

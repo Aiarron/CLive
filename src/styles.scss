@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+
+@charset "utf-8";
+html,
+body {
+    font-family: '微软雅黑', 'Microsoft YaHei', '宋体', Tahoma, Helvetica, Arial, sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+table,
+td,
+img,
+div,
+tr {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style: none;
+    list-style-type: none;
+}
+
+a {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+        outline: none;
+    }
+}
+
+@import '~animate.css/animate.min.css';
+@import url('https://g.alicdn.com/de/prismplayer/1.9.4/skins/default/index-min.css');

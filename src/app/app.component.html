@@ -1,0 +1,147 @@
+<div class="header">
+  <div class="box">
+    <div class="left">
+      <img src="../assets/img/logo.png">
+      <div class="wrap">
+        <div class="ul">
+          <ul>
+            <li [routerLink]="['/live/lives']" routerLinkActive="active">首页</li>
+            <li [routerLink]="['/shop/shops']" routerLinkActive="active">商城</li>
+            <li>购物车</li>
+          </ul>
+        </div>
+        <div class="search">
+          <input type="" name="" value="" placeholder="主播昵称">
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="wrap" *ngIf="profiles">
+        <img src="{{profiles.avatar}}" class="headImg">
+        <p>{{profiles.nick}}</p>
+        <span class="direcIcon"></span>
+      </div>
+      <div class="wrap" *ngIf="!profiles">
+        <div class="login" (click)="choosePanle(1)">
+          登录
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="box">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<div class="footer animated infinite ">
+  <div class="box">
+    <div class="wrap">
+      <div>
+        用户协议
+      </div>
+      <div>
+        充值协议
+      </div>
+      <div>
+        新手上路
+      </div>
+      <div>
+        关于我们
+      </div>
+    </div>
+    <div class="text item1">
+      增值电信业务经营许可证B2-20090492互联网药品信息服务资格证（粤）-非经营性-2014-0018节目制作经营许可证粤第735号粤网文[2013]0244-094
+    </div>
+    <div class="text item2">
+      粤公网安备 44010602000140号
+    </div>
+    <div class="text item3">
+      Copyrught &copy; 2016 56.com 深圳红鸟网络科技有限公司 版权所有
+    </div>
+  </div>
+</div>
+
+<div class="masklayer hide" *ngIf="isLogin == 1 || isLogin == 2">
+  <div class="overlay">
+    <div class="over_top login-top">
+      <span class="del_icon" (click)="choosePanle(0)"></span>
+      <ul>
+        <li class="loginLi">
+          <a href="javascript:;" [class.current]="isLogin == 1" (click)="choosePanle(1)">登录</a>
+        </li>
+        <li class="registerLi">
+          <a href="javascript:;" [class.current]="isLogin == 2" (click)="choosePanle(2)">注册</a>
+        </li>
+      </ul>
+    </div>
+    <div class="over_box">
+      <div class="registerDiv" *ngIf="isLogin == 2">
+        <form (ngSubmit)="onSubmitReg()" #regForm="ngForm">
+          <div class="ol_left" id="registerForm">
+            <ul>
+              <li>
+                <input required [(ngModel)]="model.mobile" #mobile="ngModel" type="text" name="mobile" id="reg_uname" placeholder="请输入手机号"
+                  style="width: 176px">
+                <a class="get_cap active" (click)="sendCode()">获取验证码</a>
+                <div class="formtips "></div>
+              </li>
+              <li>
+                <input required [(ngModel)]="model.code" #code="ngModel" type="text" name="code" id="reg_captcha" placeholder="请输入验证码">
+                <div class="formtips "></div>
+              </li>
+              <li>
+                <input required [(ngModel)]="model.password" #password="ngModel" type="password" name="password" id="reg_pwd" placeholder="请输入密码">
+                <div class="formtips "></div>
+              </li>
+              <li>
+                <dd>
+                  <label>
+                  <input type="checkbox" name="tlchange" checked="" id="tlchange">
+                  我同意<a href="">《注册协议与服务条款》</a>
+                </label>
+                </dd>
+              </li>
+            </ul>
+          </div>
+          <div class="register_btn" id="registerBtn">
+            <button type="submit">注册</button>
+          </div>
+        </form>
+      </div>
+      <!-- 登录弹窗 -->
+      <div class="loginDiv" *ngIf="isLogin == 1">
+        <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
+          <div class="ol_left" id="loginForm">
+            <ul>
+              <li>
+                <input required [(ngModel)]="model.mobile" #mobile="ngModel" type="text" name="mobile" id="log_uname" placeholder="请输入手机号">
+                <div class="formtips "></div>
+              </li>
+              <li>
+                <input required [(ngModel)]="model.password" #password="ngModel" type="password" name="password" id="log_pwd" placeholder="请输入密码">
+                <div class="formtips "></div>
+              </li>
+              <div class="forget_pwd"><a href="/user/recoverPwd">忘记密码？</a></div>
+            </ul>
+          </div>
+          <div class="register_btn" id="loginBtn">
+            <button type="submit">登录</button>
+          </div>
+        </form>
+      </div>
+      <div class="login_func" *ngIf="isLogin == 1">
+        <div class="other_login">
+          ———— &nbsp;&nbsp;&nbsp;第三方账号直接登录&nbsp;&nbsp;&nbsp; ————
+        </div>
+        <a href="/api/login?type=qq" class="ta_qq"></a>
+        <a href="/api/login?type=weixin" class="ta_wx"></a>
+        <a href="/api/login?type=weibo" class="ta_wb"></a>
+      </div>
+    </div>
+  </div>
+
+</div>

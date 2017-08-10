@@ -1,0 +1,150 @@
+@import '../../assets/scss.scss';
+.bigBanner {
+    display: flex;
+    width: 100%;
+    height: 650px;
+    background: url(/assets/img/home_bg.png);
+    .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $w1200;
+        margin: $auto0;
+        .living {
+            margin-right: 10px;
+            width: 1008px;
+            height: 610px;
+            background: red;
+        }
+        .agian {
+            width: 182px;
+            height: 610px;
+            background: green;
+        }
+    }
+}
+
+.newLive {
+    .box {
+        width: $w1200;
+        margin: $auto0;
+        .title {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 80px 0 40px 0;
+            span {
+                display: block;
+                margin-right: 10px;
+                width: 30px;
+                height: 30px;
+                background: url(/assets/img/01icon_all.png);
+                background-position: -9px -50px;
+            }
+            p {
+                display: block;
+                font-size: 28px;
+                color: $c3;
+            }
+        }
+        .livebox {
+            display: flex;
+            justify-content: flex-start;
+            .item {
+                display: flex;
+                flex-direction: column;
+                margin-right: 20px;
+                width: 286px;
+                height: 224px;
+                &:last-child {
+                    margin-right: 0;
+                }
+                .showLive {
+                    position: relative;
+                    height: 160px;
+                    overflow: hidden;
+                    .liveLayer {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: inherit;
+                        height: 146px;
+                        background: rgba(0, 0, 0, 0.5);
+                        span {
+                            display: block;
+                            margin: 45.5px 115px;
+                            width: 55px;
+                            height: 55px;
+                            background: url(/assets/img/01icon_all.png);
+                            background-position: -123px -37px;
+                        }
+                    }
+                }
+                .context {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    height: 64px;
+                    background: $cf;
+                    img {
+                        margin-right: 10px;
+                        display: block;
+                        width: 42px;
+                        height: 42px;
+                    }
+                    .act {
+                        .act_title {
+                            margin-bottom: 6px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            width: 213px;
+                            font-size: 16px;
+                            color: $c3;
+                        }
+                        .nameBox {
+                            display: flex;
+                            justify-content: space-between;
+                            .name {
+                                font-size: 14px;
+                                color: $c9;
+                            }
+                            .nameIcon {
+                                display: flex;
+                                justify-content: inherit;
+                                .name_icon {
+                                    margin-right: 10px;
+                                    width: 15px;
+                                    height: 15px;
+                                    background: url(/assets/img/01icon_all.png);
+                                    background-position: -38px -12px;
+                                }
+                                .num {
+                                    font-size: 14px;
+                                    color: $c9;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.liveContainer {
+    display: flex;
+    margin: $auto0;
+    width: $w1200;
+    .wrapLive {
+        width: 895px;
+        margin-right: 20px;
+        background: red;
+    }
+    .advertising {
+        width: 365px;
+        background: green;
+    }
+}
