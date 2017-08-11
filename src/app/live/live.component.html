@@ -1,12 +1,22 @@
 <div class="bigBanner">
     <div class="box">
-        <div class="living">
+        <div class="living" gotoRoom>
             <div id="J_prismPlayer" class="prism-player"></div>
+            <div class="goRoom">
+                <a class="gotoRoom">进入直播间</a>
+            </div>
         </div>
         <div class="agian">
-            <!-- <ng-template *ngFor="let item of list">
-
-            </ng-template> -->
+            <ng-container *ngFor="let items of newLive">
+                <a class="line" (click)="updateIndexLive(items.liveaddress, items.livelogo)">
+                    <div class="wrap">
+                        <img src="{{items?.livelogo}}">
+                        <div class="title">
+                            {{items?.livetitle}}
+                        </div>
+                    </div>
+                </a>
+            </ng-container>
         </div>
     </div>
 </div>
@@ -19,31 +29,31 @@
             <p>最新直播</p>
         </div>
         <div class="livebox">
-            <!-- <ng-template *ngFor="let item of list">
-                
-            </ng-template> -->
-            <a class="item" ><!-- IndexShow -->
-                <div class="showLive">
-                    <img src="">
-                    <!-- 遮罩层 -->
-                    <div class="liveLayer" *ngIf="0==0">
-                        <span></span>
+            <!-- <ng-template ngFor let-xb [ngForOf]="tempData"> -->
+            <ng-container *ngFor="let items of newLive2">
+                <a class="item" appIndexShow>
+                    <div class="showLive">
+                        <img src="{{items?.livelogo}}">
+                        <!-- 遮罩层 -->
+                        <div class="liveLayer">
+                            <span></span>
+                        </div>
                     </div>
-                </div>
-                <div class="context">
-                    <img src="">
-                    <div class="act">
-                        <p class="act_title">夏季夏季夏季夏季夏季夏季</p>
-                        <div class="nameBox">
-                            <p class="name">廖红东</p>
-                            <div class="nameIcon">
-                                <span class="name_icon"></span>
-                                <p class="num">2.5万</p>
+                    <div class="context">
+                        <img src="{{items?.avatar}}">
+                        <div class="act">
+                            <p class="act_title">{{items?.livetitle}}</p>
+                            <div class="nameBox">
+                                <p class="name">{{items?.nick}}</p>
+                                <div class="nameIcon">
+                                    <span class="name_icon"></span>
+                                    <p class="num">{{items?.liveonlines / 10000 | round: 2}}万</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </ng-container>
 
         </div>
     </div>
@@ -51,10 +61,97 @@
 
 <div class="liveContainer">
     <div class="wrapLive">
-        1
+        <div class="wrap">
+            <div class="title">
+                <span></span>
+                <p>热门直播</p>
+            </div>
+            <a>
+                <p>查看更多</p>
+                <i></i>
+            </a>
+        </div>
+        <div class="box">
+            <a class="item" appIndexShow>
+                <div class="showLive">
+                    <img src="">
+                    <div class="liveLayer" style="display: none;">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="context">
+                    <img src="">
+                    <div class="act">
+                        <p class="act_title">wqhau</p>
+                        <div class="nameBox">
+                            <p class="name">13713922036</p>
+                            <div class="nameIcon">
+                                <span class="name_icon"></span>
+                                <p class="num">0.07万</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="wrap playBack">
+            <div class="title">
+                <span></span>
+                <p>精彩回放</p>
+            </div>
+            <a>
+                <p>查看更多</p>
+                <i></i>
+            </a>
+        </div>
+        <div class="box">
+            <a class="item" appIndexShow>
+                <div class="showLive">
+                    <img src="">
+                    <div class="liveLayer" style="display: none;">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="context">
+                    <img src="">
+                    <div class="act">
+                        <p class="act_title">wqhau</p>
+                        <div class="nameBox">
+                            <p class="name">13713922036</p>
+                            <div class="nameIcon">
+                                <span class="name_icon"></span>
+                                <p class="num">0.07万</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
     <div class="advertising">
         <!--广告-->
-        2
+        <div class="banner">
+            <img src="">
+        </div>
+        <div class="bannerBox">
+            <div class="item">
+                <a href="">
+                    <div class="adverImg">
+                        <img src="">
+                        <span>广告</span>
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="">
+                    <div class="adverImg">
+                        <img src="">
+                        <span>广告</span>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
     </div>
 </div>

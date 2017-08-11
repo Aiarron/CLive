@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
@@ -7,14 +7,16 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
 import { RoutingModule } from "./routing.module";
-import { HeadTabsDirective } from './directive/head-tabs.directive';
-
 import { ErrorsService } from "./service/errors.service";
+
+import { HeadTabsDirective } from './directive/head-tabs.directive';
+import { IndexShowInfoDirective } from './directive/index-show-info.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeadTabsDirective,
+    IndexShowInfoDirective,
   ],
   imports: [
     BrowserModule,
@@ -27,10 +29,7 @@ import { ErrorsService } from "./service/errors.service";
   ],
   providers: [
     ErrorsService,
-    {
-      provide: LocationStrategy,
-      useClass: HashLocationStrategy
-    }
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

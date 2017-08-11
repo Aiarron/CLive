@@ -37,8 +37,8 @@ export class AppComponent implements OnInit {
   getProfile() {
     this.profile.getProfile().subscribe(
       data => {
-        console.log(data);
-        if (data.c == 1) { // 遊客沒有許可權
+        // console.log(data);
+        if (data.c == 1) { // 遊客許可權
           localStorage.setItem('profile', JSON.stringify(data.d));
           this.profiles = data.d;
           this.choosePanle(0);

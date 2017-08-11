@@ -16,11 +16,41 @@
         </div>
       </div>
     </div>
+
     <div class="right">
-      <div class="wrap" *ngIf="profiles">
+      <div class="wrap" *ngIf="profiles" showInfo>
         <img src="{{profiles.avatar}}" class="headImg">
         <p>{{profiles.nick}}</p>
         <span class="direcIcon"></span>
+
+        <div class="showInfo">
+          <div class="smell"></div>
+          <div class="infoBox">
+            <div class="beanBox">
+              <span></span>
+              <p>10086</p>
+            </div>
+            <div class="operator">
+              <div class="item pay">
+                <span></span>
+                <p>1</p>
+              </div>
+              <div class="item info">
+                <span></span>
+                <p>1</p>
+              </div>
+              <div class="item order">
+                <span></span>
+                <p>1</p>
+              </div>
+              <div class="item exit">
+                <span></span>
+                <p>1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="wrap" *ngIf="!profiles">
         <div class="login" (click)="choosePanle(1)">
@@ -28,6 +58,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
 

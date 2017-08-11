@@ -11,15 +11,71 @@
         width: $w1200;
         margin: $auto0;
         .living {
+            position: relative;
             margin-right: 10px;
             width: 1008px;
             height: 610px;
-            background: red;
+            .goRoom {
+                position: absolute;
+                top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: calc(100% - 50px);
+                .gotoRoom {
+                    display: none;
+                    width: 180px;
+                    height: 48px;
+                    line-height: 48px;
+                    border: 2px solid #fe345e;
+                    border-radius: 50px;
+                    color: #fff;
+                    font-size: 18px;
+                    text-align: center;
+                    cursor: pointer;
+                }
+            }
         }
         .agian {
+            margin: $auto0;
             width: 182px;
             height: 610px;
-            background: green;
+            background: rgba(0, 0, 0, 0.4);
+            .line {
+                display: flex;
+                height: 100px;
+                &:hover,
+                &:first-child {
+                    z-index: 999;
+                    background: url(/assets/img/01icon_all.png);
+                    background-position: -10px -92px;
+                }
+                .wrap {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    margin: 10px;
+                    margin-bottom: 0;
+                    width: 100%;
+                    height: 90px;
+                    img {
+                        display: block;
+                        width: 160px;
+                        height: 90px;
+                    }
+                    .title {
+                        position: absolute;
+                        bottom: 0;
+                        width: 100%;
+                        height: 24px;
+                        background: rgba(0, 0, 0, 0.4);
+                        text-indent: 10px;
+                        color: #fff;
+                    }
+                }
+            }
         }
     }
 }
@@ -64,6 +120,7 @@
                     height: 160px;
                     overflow: hidden;
                     .liveLayer {
+                        display: none;
                         position: absolute;
                         top: 0;
                         left: 0;
@@ -137,14 +194,178 @@
 .liveContainer {
     display: flex;
     margin: $auto0;
+    margin-top: 80px;
     width: $w1200;
     .wrapLive {
         width: 895px;
         margin-right: 20px;
-        background: red;
+        margin-bottom: 80px;
+        .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .title {
+                display: flex;
+                align-items: center;
+                span {
+                    display: block;
+                    margin-right: 10px;
+                    width: 30px;
+                    height: 30px;
+                    background: url(/assets/img/01icon_all.png);
+                    background-position: -47px -50px;
+                }
+                p {
+                    display: block;
+                    font-size: 28px;
+                    color: #333;
+                }
+            }
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+                color: $c9;
+                i {
+                    display: block;
+                    width: 20px;
+                    height: 15px;
+                    background: url(/assets/img/01icon_all.png);
+                    background-position: -62px -15px;
+                }
+            }
+            &.playBack {
+                margin-top: 60px;
+                .title {
+                    span {
+                        background-position: -85px -50px !important;
+                    }
+                }
+            }
+        }
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            .item {
+                display: flex;
+                flex-direction: column;
+                margin: 0 20px 20px 0;
+                width: 285px;
+                height: 224px;
+                &:nth-child(3n) {
+                    margin-right: 0;
+                }
+                .showLive {
+                    position: relative;
+                    height: 160px;
+                    overflow: hidden;
+                    .liveLayer {
+                        display: none;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: inherit;
+                        height: 146px;
+                        background: rgba(0, 0, 0, 0.5);
+                        span {
+                            display: block;
+                            margin: 45.5px 115px;
+                            width: 55px;
+                            height: 55px;
+                            background: url(/assets/img/01icon_all.png);
+                            background-position: -123px -37px;
+                        }
+                    }
+                }
+                .context {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    height: 64px;
+                    background: $cf;
+                    img {
+                        margin-right: 10px;
+                        display: block;
+                        width: 42px;
+                        height: 42px;
+                    }
+                    .act {
+                        .act_title {
+                            margin-bottom: 6px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            width: 213px;
+                            font-size: 16px;
+                            color: $c3;
+                        }
+                        .nameBox {
+                            display: flex;
+                            justify-content: space-between;
+                            .name {
+                                font-size: 14px;
+                                color: $c9;
+                            }
+                            .nameIcon {
+                                display: flex;
+                                justify-content: inherit;
+                                .name_icon {
+                                    margin-right: 10px;
+                                    width: 15px;
+                                    height: 15px;
+                                    background: url(/assets/img/01icon_all.png);
+                                    background-position: -38px -12px;
+                                }
+                                .num {
+                                    font-size: 14px;
+                                    color: $c9;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     .advertising {
-        width: 365px;
-        background: green;
+        width: 282px;
+        .banner {
+            width: 100%;
+            height: 60px;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .bannerBox {
+            background: $cf;
+            .item {
+                width: 262px;
+                height: 150px;
+                padding: 10px 10px 0;
+                &:last-child {
+                    padding-bottom: 10px;
+                }
+                .adverImg {
+                    position: relative;
+                    height: 150px;
+                    overflow: hidden;
+                    background: red;
+                }
+                span {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 30px;
+                    height: 16px;
+                    background: #5775C0;
+                    font-size: 12px;
+                    text-align: center;
+                    color: #fff;
+                }
+            }
+        }
     }
 }

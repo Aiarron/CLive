@@ -73,6 +73,10 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                &:first-child {
+                    position: relative;
+                    cursor: pointer;
+                }
                 .headImg {
                     margin-right: 10px;
                     width: 30px;
@@ -85,6 +89,55 @@
                     height: 10px;
                     background: url(/assets/img/01icon_all.png);
                     background-position: -93px -20px;
+                }
+                .showInfo {
+                    display: none;
+                    position: absolute;
+                    top: 50px;
+                    right: 0;
+                    z-index: 9999;
+                    height: 200px;
+                    width: 340px;
+                    background: $cf;
+                    .smell {
+                        height: 12px;
+                        background: url(/assets/img/01icon_all.png);
+                        background-position: -28px -278px;
+                    }
+                    .infoBox {
+                        padding: 0 20px;
+                        .beanBox {
+                            display: flex;
+                            align-items: center;
+                            height: 50px;
+                            border-bottom: 1px solid #ddd;
+                            span {
+                                margin-right: 10px;
+                                width: 20px;
+                                height: 20px;
+                                background: url(/assets/img/01icon_all.png);
+                                background-position: -415px -11px;
+                            }
+                            p {
+                                color: #FF9B52;
+                            }
+                        }
+                        .operator {
+                            display: flex;
+                            align-items: center;
+                            flex-wrap: wrap;
+                            height: 137px;
+                            .item {
+                                width: 50%;
+                                &.pay {
+                                    span {
+                                        background: url(/assets/img/01icon_all.png);
+                                        background-position: -415px -11px;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 .login {
                     margin-right: 20px;
