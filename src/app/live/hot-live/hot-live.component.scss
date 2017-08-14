@@ -1,0 +1,106 @@
+@import '../../../assets/scss.scss';
+.container {
+    margin: $auto0;
+    width: $w1200;
+    .title {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 80px;
+        span {
+            display: block;
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            background: url(/assets/img/01icon_all.png);
+            background-position: -47px -50px;
+        }
+        p {
+            font-size: 28px;
+        }
+    }
+    .box {
+        margin-top: 40px;
+        .item {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            width: 286px;
+            height: 224px;
+            &:last-child {
+                margin-right: 0;
+            }
+            .showLive {
+                position: relative;
+                height: 160px;
+                overflow: hidden;
+                .liveLayer {
+                    display: none;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: inherit;
+                    height: 146px;
+                    background: rgba(0, 0, 0, 0.5);
+                    span {
+                        display: block;
+                        margin: 45.5px 115px;
+                        width: 55px;
+                        height: 55px;
+                        background: url(/assets/img/01icon_all.png);
+                        background-position: -123px -37px;
+                    }
+                }
+            }
+            .context {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                height: 64px;
+                background: $cf;
+                img {
+                    margin-right: 10px;
+                    display: block;
+                    width: 42px;
+                    height: 42px;
+                }
+                .act {
+                    .act_title {
+                        margin-bottom: 6px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 1;
+                        -webkit-box-orient: vertical;
+                        width: 213px;
+                        font-size: 16px;
+                        color: $c3;
+                    }
+                    .nameBox {
+                        display: flex;
+                        justify-content: space-between;
+                        .name {
+                            font-size: 14px;
+                            color: $c9;
+                        }
+                        .nameIcon {
+                            display: flex;
+                            justify-content: inherit;
+                            .name_icon {
+                                margin-right: 10px;
+                                width: 15px;
+                                height: 15px;
+                                background: url(/assets/img/01icon_all.png);
+                                background-position: -38px -12px;
+                            }
+                            .num {
+                                font-size: 14px;
+                                color: $c9;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

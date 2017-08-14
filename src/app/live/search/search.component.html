@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="box">
+     <ng-container *ngFor="let item of searchArray"> 
+      <div class="item">
+        <div class="headimg">
+          <img src="{{item?.avatar}}">
+        </div>
+        <div class="detailBox">
+          <div class="wrap">
+            <div class="detail">
+              <span class="name">{{item?.nick}}</span>
+              <p class="level"><span>LV{{item?.anchorlvl}}</span></p>
+            </div>
+            <div class="follow {{item?.isfollow?'':'active'}}" (click)="follow(item?.isfollow)">
+              {{item?.isfollow?'已关注':'关注'}}
+            </div>
+          </div>
+          <p class="descript">{{item?.intro}}</p>
+        </div>
+      </div>
+     </ng-container> 
+  </div>
+  <p-paginator 
+      rows="{{itemsPerPage}}"
+      totalRecords="{{totalRecords}}"
+      first="{{offset}}"
+      (onPageChange)="pageChanged($event)">
+    </p-paginator>
+</div>

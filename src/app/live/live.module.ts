@@ -9,24 +9,28 @@ import { LiveService } from "./service/live.service";
 
 import { NgMathPipesModule } from 'angular-pipes';
 import { IndexGotoRoomShowDirective } from './directive/index-goto-room-show.directive';
+import { LiveDetailComponent } from './live-detail/live-detail.component';
+import { HotLiveComponent } from './hot-live/hot-live.component';
+import { BackLiveComponent } from './back-live/back-live.component';
+import { SearchComponent } from './search/search.component';
+import { BackLiveDetailComponent } from './back-live/back-live-detail/back-live-detail.component';
 
+import { PaginatorModule } from 'primeng/primeng';
 
 const router: Routes = [
-    {
-        path: '',
-        redirectTo: 'lives',
-        pathMatch: 'full'
-    },
-    {
-        path: 'lives',
-        component: LiveComponent
-    }
+    { path: '', redirectTo: 'lives', pathMatch: 'full' },
+    { path: 'lives', component: LiveComponent },
+    { path: 'hot-live', component: HotLiveComponent },
+    { path: 'back-live', component: BackLiveComponent },
+    { path: 'search/:id', component: SearchComponent },
+    { path: 'back-live/:id', component: BackLiveDetailComponent },
 ]
 
 @NgModule({
     imports: [
         CommonModule,
         NgMathPipesModule,
+        PaginatorModule,
         RouterModule.forChild(router)
     ],
     exports: [
@@ -35,6 +39,11 @@ const router: Routes = [
         LiveComponent,
         IndexShowDirective,
         IndexGotoRoomShowDirective,
+        LiveDetailComponent,
+        HotLiveComponent,
+        BackLiveComponent,
+        SearchComponent,
+        BackLiveDetailComponent,
     ],
     providers: [
         LiveService

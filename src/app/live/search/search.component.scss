@@ -1,0 +1,86 @@
+@import '../../../assets/scss.scss';
+.container {
+    margin: $auto0;
+    width: $w1200;
+    .box {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding-top: 30px;
+        .item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-right: 30px;
+            margin-bottom: 30px;
+            padding: 20px;
+            width: 340px;
+            height: 88px;
+            background: $cf;
+            &:nth-child(3n) {
+                margin-right: 0;
+            }
+            &:hover {
+                box-shadow: 0px 4px 20px #ddd;
+            }
+            .headimg {
+                margin-right: 10px;
+                border-radius: 50px;
+                width: 80px;
+                height: 80px;
+                overflow: hidden;
+                img {
+                    width: 80px;
+                }
+            }
+            .detailBox {
+                display: flex;
+                flex-direction: column;
+                width: calc(100% - 90px);
+                .wrap {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .detail {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        .name {
+                            margin-right: 10px;
+                            font-weight: bold;
+                            font-size: 18px;
+                        }
+                        .level {
+                            width: 28px;
+                            height: 14px;
+                            color: $cf;
+                            background: #FF6600;
+                            border-radius: 2px;
+                            span {
+                                display: block;
+                                transform: scale(0.8);
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                    .follow {
+                        width: 66px;
+                        height: 30px;
+                        line-height: 30px;
+                        text-align: center;
+                        border-radius: 2px;
+                        color: $cf;
+                        background: $cc;
+                        &.active {
+                            background: #fe345e;
+                        }
+                    }
+                }
+                .descript {
+                    font-size: 14px;
+                    color: $c9;
+                }
+            }
+        }
+    }
+}

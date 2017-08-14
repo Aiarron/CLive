@@ -16,7 +16,7 @@ export class LoginService {
     constructor(
         public http: Http,
     ) { }
-
+    // 登录
     public login(mobile: string, password: string): Observable<any> {
         let data = new URLSearchParams();
         data.append('authtoken', mobile);
@@ -30,6 +30,7 @@ export class LoginService {
             .map((res: Response) => res.json());
     }
 
+    //注册
     public register(obj): Observable<any> {
         let data = new URLSearchParams();
         data.append('authtoken', obj.mobile);
@@ -43,6 +44,7 @@ export class LoginService {
             .map((res: Response) => res.json());
     }
 
+    //发验证码
     public sendCode(obj): Observable<any> {
         console.log(obj);
         let data = new URLSearchParams();

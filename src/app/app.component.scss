@@ -53,6 +53,7 @@
                         border-radius: 50px;
                         text-indent: 20px;
                         outline: 0;
+                        cursor: pointer;
                     }
                     span {
                         position: absolute;
@@ -63,6 +64,7 @@
                         height: 25px;
                         background: url(/assets/img/01icon_all.png);
                         background-position: -13px -9px;
+                        pointer-events: none;
                     }
                 }
             }
@@ -96,7 +98,6 @@
                     top: 50px;
                     right: 0;
                     z-index: 9999;
-                    height: 200px;
                     width: 340px;
                     background: $cf;
                     .smell {
@@ -105,34 +106,212 @@
                         background-position: -28px -278px;
                     }
                     .infoBox {
-                        padding: 0 20px;
-                        .beanBox {
-                            display: flex;
-                            align-items: center;
-                            height: 50px;
-                            border-bottom: 1px solid #ddd;
-                            span {
-                                margin-right: 10px;
-                                width: 20px;
-                                height: 20px;
-                                background: url(/assets/img/01icon_all.png);
-                                background-position: -415px -11px;
+                        display: flex;
+                        flex-direction: column;
+                        .info {
+                            padding: 0 10px;
+                            .exit {
+                                display: flex;
+                                justify-content: flex-end;
+                                align-items: center;
+                                font-size: 12px;
+                                color: $c9;
+                                span {
+                                    display: block;
+                                    margin-right: 6px;
+                                    width: 20px;
+                                    height: 20px;
+                                    background: url(/assets/img/01icon_all.png);
+                                    background-position: -117px -8px;
+                                }
                             }
-                            p {
-                                color: #FF9B52;
+                            .headImg2 {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                .imgBox {
+                                    margin-bottom: 10px;
+                                    width: 50px;
+                                    height: 50px;
+                                    overflow: hidden;
+                                    img {
+                                        display: block;
+                                        width: 50px;
+                                    }
+                                }
+                            }
+                            .nameLevelSex {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                font-size: 12px;
+                                p {
+                                    display: block;
+                                    margin-right: 10px;
+                                    color: #fe345e;
+                                }
+                                div {
+                                    background: #FF6600;
+                                    border-radius: 2px;
+                                    i {
+                                        display: block;
+                                        transform: scale(.8);
+                                        color: $cf;
+                                    }
+                                }
+                                span {
+                                    display: block;
+                                    height: 20px;
+                                    width: 20px;
+                                    &.man {
+                                        display: block;
+                                        width: 20px;
+                                        height: 20px;
+                                        background: url(/assets/img/01icon_all.png);
+                                        background-position: -369px -12px;
+                                    }
+                                    &.woman {
+                                        display: block;
+                                        width: 20px;
+                                        height: 20px;
+                                        background: url(/assets/img/01icon_all.png);
+                                        background-position: -390px -12px;
+                                    }
+                                }
+                            }
+                            .money {
+                                margin-top: 44px;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                .moneyBox {
+                                    display: flex;
+                                    justify-content: center;
+                                    .silver {
+                                        display: flex;
+                                        justify-content: center;
+                                        margin-right: 30px;
+                                        span {
+                                            display: block;
+                                            margin-right: 5px;
+                                            width: 20px;
+                                            height: 20px;
+                                            background: url(/assets/img/01icon_all.png);
+                                            background-position: -415px -12px;
+                                        }
+                                        p {
+                                            font-size: 12px;
+                                        }
+                                    }
+                                    .gold {
+                                        display: flex;
+                                        justify-content: center;
+                                        margin-right: 30px;
+                                        span {
+                                            display: block;
+                                            margin-right: 5px;
+                                            width: 20px;
+                                            height: 20px;
+                                            background: url(/assets/img/01icon_all.png);
+                                            background-position: -440px -12px;
+                                        }
+                                        p {
+                                            font-size: 12px;
+                                        }
+                                    }
+                                }
+                                .recharge {
+                                    width: 44px;
+                                    height: 22px;
+                                    background: #FE345E;
+                                    color: $cf;
+                                    font-size: 12px;
+                                    text-align: center;
+                                    line-height: 22px;
+                                    border-radius: 2px;
+                                }
                             }
                         }
                         .operator {
                             display: flex;
                             align-items: center;
-                            flex-wrap: wrap;
-                            height: 137px;
-                            .item {
-                                width: 50%;
-                                &.pay {
+                            padding: 0 10px;
+                            margin-top: 10px;
+                            height: 50px;
+                            background: #F5F5F5;
+                            ul {
+                                display: flex;
+                                justify-content: space-between;
+                                width: 100%;
+                                li {
+                                    width: 25%;
+                                    align-items: center;
                                     span {
-                                        background: url(/assets/img/01icon_all.png);
-                                        background-position: -415px -11px;
+                                        display: block;
+                                        margin: $auto0;
+                                        width: 20px;
+                                        height: 20px;
+                                    }
+                                    p {
+                                        font-size: 12px;
+                                        color: $c9;
+                                        text-align: center;
+                                    }
+                                    &:nth-child(1) {
+                                        span {
+                                            background: url(/assets/img/01icon_all.png);
+                                            background-position: -170px -12px;
+                                        }
+                                        &:hover {
+                                            span {
+                                                background-position: -196px -12px;
+                                            }
+                                            p {
+                                                color: #fe345e;
+                                            }
+                                        }
+                                    }
+                                    &:nth-child(2) {
+                                        span {
+                                            background: url(/assets/img/01icon_all.png);
+                                            background-position: -220px -12px;
+                                        }
+                                        &:hover {
+                                            span {
+                                                background-position: -246px -12px;
+                                            }
+                                            p {
+                                                color: #fe345e;
+                                            }
+                                        }
+                                    }
+                                    &:nth-child(3) {
+                                        span {
+                                            background: url(/assets/img/01icon_all.png);
+                                            background-position: -272px -12px;
+                                        }
+                                        &:hover {
+                                            span {
+                                                background-position: -298px -12px;
+                                            }
+                                            p {
+                                                color: #fe345e;
+                                            }
+                                        }
+                                    }
+                                    &:nth-child(4) {
+                                        span {
+                                            background: url(/assets/img/01icon_all.png);
+                                            background-position: -322px -12px;
+                                        }
+                                        &:hover {
+                                            span {
+                                                background-position: -348px -12px;
+                                            }
+                                            p {
+                                                color: #fe345e;
+                                            }
+                                        }
                                     }
                                 }
                             }

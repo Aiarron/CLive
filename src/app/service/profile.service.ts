@@ -19,6 +19,7 @@ export class ProfileService {
         public errors: ErrorsService
     ) { }
 
+    //获取个人信息
     public getProfile(): Observable<any> {
         return this.http.get(this.profileURL, {
             withCredentials: true

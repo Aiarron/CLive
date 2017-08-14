@@ -19,7 +19,7 @@ export class IndexShowInfoDirective {
   }
 
   onMouseLeave() {
-    this.el.nativeElement.querySelector('.showInfo').style.display = 'block';
+    this.el.nativeElement.querySelector('.showInfo').style.display = 'none';
   }
 
 }

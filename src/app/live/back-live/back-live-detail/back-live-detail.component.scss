@@ -1,0 +1,109 @@
+@import '../../../../assets/scss.scss';
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: $auto0;
+    width: $w1200;
+    .detail {
+        display: flex;
+        justify-content: space-between;
+        height: 96px;
+        background: $cf;
+        .info {
+            display: flex;
+            justify-content: flex-start;
+            .headimg {
+                margin-right: 20px;
+                width: 96px;
+                height: 96px;
+                overflow: hidden;
+                img {
+                    display: block;
+                    width: 96px;
+                }
+            }
+            .detailBox {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .nameLevel {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    align-self: flex-start;
+                    .name {
+                        margin-right: 10px;
+                        font-size: 28px;
+                        font-weight: bold;
+                    }
+                    .level {
+                        display: block;
+                        width: 32px;
+                        height: 16px;
+                        background: #FF6600;
+                        border-radius: 2px;
+                        span {
+                            display: block;
+                            width: 28px;
+                            height: 12px;
+                            transform: scale(0.6);
+                            color: $cf;
+                        }
+                    }
+                }
+                .id {
+                    align-self: flex-start;
+                    color: $c9;
+                }
+            }
+        }
+        .operator {
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            .box {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                p {
+                    margin-right: 20px;
+                    font-size: 14px;
+                    color: $c9;
+                }
+                .follow {
+                    font-size: 14px;
+                    color: $cf;
+                    width: 66px;
+                    height: 30px;
+                    line-height: 30px;
+                    text-align: center;
+                    border-radius: 4px;
+                    &.active {
+                        background: #fe345e;
+                    }
+                }
+            }
+            .shared {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                width: 100%;
+                color: $c9;
+                span {
+                    margin-right: 10px;
+                    width: 20px;
+                    height: 20px;
+                    background: url(/assets/img/01icon_all.png);
+                    background-position: -10px -394px;
+                }
+            }
+        }
+    }
+    .window{
+        margin-top: 10px;
+    }
+}

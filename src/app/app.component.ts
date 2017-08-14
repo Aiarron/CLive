@@ -1,10 +1,11 @@
 import { Component, ElementRef, Renderer, OnInit, } from '@angular/core';
-
+import { Router } from "@angular/router";
 import { IndexLogin } from "./model-data/index-login";
 import { IndexProfile } from "./model-data/index-profile";
 
 import { LoginService } from "./service/login.service";
 import { ProfileService } from "./service/profile.service";
+
 
 declare const $: any;
 declare const layer: any;
@@ -16,14 +17,17 @@ declare const layer: any;
   providers: [LoginService, ProfileService]
 })
 export class AppComponent implements OnInit {
-  isLogin: number = 0;
-  model = new IndexLogin('', '', '');
-  profiles;
+  public isLogin: number = 0;
+  public model = new IndexLogin('', '', '');
+  public profiles;
+  
   constructor(
     public elementRef: ElementRef,
     public renderer: Renderer,
+    public router: Router,
     public login: LoginService,
-    public profile: ProfileService
+    public profile: ProfileService,
+
   ) { }
 
   ngOnInit() {
@@ -103,6 +107,16 @@ export class AppComponent implements OnInit {
       },
       error => console.log(error)
       )
+  }
+
+  search(event, value) {
+    if (value) {
+      let data = JSON.stringify({
+        id: 1,
+        text: value
+      });
+      this.router.navigate(["/live/search", data]);
+    }
   }
 
 

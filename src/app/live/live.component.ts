@@ -2,26 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { LiveService } from "./service/live.service";
 
 import { IndexLive } from "../model-data/index-live";
+import { IndexLiveService } from "../service/index.Live.service";
 
 declare var prismplayer: any;
 
 @Component({
   selector: 'app-live',
   templateUrl: './live.component.html',
-  styleUrls: ['./live.component.scss']
+  styleUrls: ['./live.component.scss'],
+  providers: [IndexLiveService]
 })
 export class LiveComponent implements OnInit {
-  player;
-  newLive;
-  newLive2;
-  cover;
-  source;
+  public player;
+  public newLive1;
+  public newLive2;
+  public cover;
+  public source;
+  public backArray;
   constructor(
-    public liveService: LiveService
+    public liveService: LiveService,
+    public indexLiveService: IndexLiveService
   ) { }
 
   ngOnInit() {
-    this.getNewLive(1, 9);
+    this.getNewLive1(1, 9);
     this.getNewLive2(1, 4);
 
     this.player = new prismplayer({
@@ -41,6 +45,14 @@ export class LiveComponent implements OnInit {
       console.log("播放器暂停啦！");
     });
 
+    this.indexLiveService.getBackPlay()
+      .subscribe(
+      data => {
+        console.log(data);
+        this.backArray = data.d;
+      },
+      error => console.log(error)
+      );
   }
 
   // play() {
@@ -53,13 +65,15 @@ export class LiveComponent implements OnInit {
     console.log(this.cover, this.source);
   }
 
-  public getNewLive(page: number, pagesize: number) {
+  public getNewLive1(page: number, pagesize: number) {
     this.liveService.getNewLive(page, pagesize)
       .subscribe(
       data => {
-        this.newLive = data.d.items;
-        this.source = this.newLive[0].liveaddress;
-        this.cover = this.newLive[0].livelogo;
+        if (data.d) {
+          this.newLive1 = data.d.items;
+          this.source = this.newLive1[0].liveaddress;
+          this.cover = this.newLive1[0].livelogo;
+        }
       },
       error => console.log(error)
       )
@@ -69,7 +83,9 @@ export class LiveComponent implements OnInit {
     this.liveService.getNewLive(page, pagesize)
       .subscribe(
       data => {
-        this.newLive2 = data.d.items;
+        if (data.d) {
+          this.newLive2 = data.d.items;
+        }
       },
       error => console.log(error)
       )

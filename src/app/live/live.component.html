@@ -7,8 +7,8 @@
             </div>
         </div>
         <div class="agian">
-            <ng-container *ngFor="let items of newLive">
-                <a class="line" (click)="updateIndexLive(items.liveaddress, items.livelogo)">
+            <ng-container *ngFor="let items of newLive1">
+                <a class="line" (click)="updateIndexLive(items?.liveaddress, items?.livelogo)">
                     <div class="wrap">
                         <img src="{{items?.livelogo}}">
                         <div class="title">
@@ -66,7 +66,7 @@
                 <span></span>
                 <p>热门直播</p>
             </div>
-            <a>
+            <a [routerLink]="['/live/hot-live']">
                 <p>查看更多</p>
                 <i></i>
             </a>
@@ -87,7 +87,7 @@
                             <p class="name">13713922036</p>
                             <div class="nameIcon">
                                 <span class="name_icon"></span>
-                                <p class="num">0.07万</p>
+                                <p class="num">{{items?.liveonlines / 10000 | round: 2}}万</p>
                             </div>
                         </div>
                     </div>
@@ -100,33 +100,35 @@
                 <span></span>
                 <p>精彩回放</p>
             </div>
-            <a>
+            <a [routerLink]="['/live/back-live']">
                 <p>查看更多</p>
                 <i></i>
             </a>
         </div>
         <div class="box">
-            <a class="item" appIndexShow>
-                <div class="showLive">
-                    <img src="">
-                    <div class="liveLayer" style="display: none;">
-                        <span></span>
+            <ng-container *ngFor="let item of backArray">
+                <a class="item" [routerLink="['/live/back-live/item?.id']"] appIndexShow>
+                    <div class="showLive">
+                        <img src="{{item?.livelogo}}">
+                        <div class="liveLayer" style="display: none;">
+                            <span></span>
+                        </div>
                     </div>
-                </div>
-                <div class="context">
-                    <img src="">
-                    <div class="act">
-                        <p class="act_title">wqhau</p>
-                        <div class="nameBox">
-                            <p class="name">13713922036</p>
-                            <div class="nameIcon">
-                                <span class="name_icon"></span>
-                                <p class="num">0.07万</p>
+                    <div class="context">
+                        <img src="{{item?.avatar}}">
+                        <div class="act">
+                            <p class="act_title">{{item?.livetitle}}</p>
+                            <div class="nameBox">
+                                <p class="name">{{item?.nick}}</p>
+                                <div class="nameIcon">
+                                    <span class="name_icon"></span>
+                                    <p class="num">0.07万</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </ng-container>
         </div>
     </div>
     <div class="advertising">
@@ -151,7 +153,7 @@
                     </div>
                 </a>
             </div>
-            
+
         </div>
     </div>
 </div>

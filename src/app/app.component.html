@@ -11,7 +11,7 @@
           </ul>
         </div>
         <div class="search">
-          <input type="" name="" value="" placeholder="主播昵称">
+          <input #doSearch (keyup.enter)="search($event, doSearch.value)" (click)="search($event, doSearch.value)" type="" name="" value="" placeholder="主播昵称">
           <span></span>
         </div>
       </div>
@@ -26,27 +26,58 @@
         <div class="showInfo">
           <div class="smell"></div>
           <div class="infoBox">
-            <div class="beanBox">
-              <span></span>
-              <p>10086</p>
+            <div class="info">
+              <div class="exit">
+                <span></span>
+                <p>退出</p>
+              </div>
+              <div class="headImg2">
+                <div class="imgBox">
+                  <img src="">
+                </div>
+              </div>
+              <div class="nameLevelSex">
+                <p>寂寞如雪</p>
+                <div>
+                  <i>LV 34</i>
+                </div>
+                <span class="man"></span>
+              </div>
+              <div class="money">
+                <div class="moneyBox">
+                  <div class="silver">
+                    <span></span>
+                    <p>1234</p>
+                  </div>
+                  <div class="gold">
+                    <span></span>
+                    <p>1234</p>
+                  </div>
+                </div>
+                <div class="recharge">
+                  充值
+                </div>
+              </div>
             </div>
             <div class="operator">
-              <div class="item pay">
-                <span></span>
-                <p>1</p>
-              </div>
-              <div class="item info">
-                <span></span>
-                <p>1</p>
-              </div>
-              <div class="item order">
-                <span></span>
-                <p>1</p>
-              </div>
-              <div class="item exit">
-                <span></span>
-                <p>1</p>
-              </div>
+              <ul>
+                <li class="personCenter">
+                  <span></span>
+                  <p>个人中心</p>
+                </li>
+                <li class="order">
+                  <span></span>
+                  <p>订单</p>
+                </li>
+                <li class="message">
+                  <span></span>
+                  <p>消息</p>
+                </li>
+                <li class="startLive">
+                  <span></span>
+                  <p>开始直播</p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
