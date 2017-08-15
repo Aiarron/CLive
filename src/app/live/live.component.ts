@@ -19,12 +19,16 @@ export class LiveComponent implements OnInit {
   public cover;
   public source;
   public backArray;
+  public aaaaa; //11111111111111111111
   constructor(
     public liveService: LiveService,
     public indexLiveService: IndexLiveService
   ) { }
 
   ngOnInit() {
+
+    this.aaaaa = 1;//11111111111111111111
+
     this.getNewLive1(1, 9);
     this.getNewLive2(1, 4);
 

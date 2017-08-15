@@ -16,6 +16,8 @@ import { SearchComponent } from './search/search.component';
 import { BackLiveDetailComponent } from './back-live/back-live-detail/back-live-detail.component';
 
 import { PaginatorModule } from 'primeng/primeng';
+import { LiveRoomComponent } from './live-room/live-room.component';
+import { TabsDirective } from './live-room/tabs.directive';
 
 const router: Routes = [
     { path: '', redirectTo: 'lives', pathMatch: 'full' },
@@ -24,6 +26,7 @@ const router: Routes = [
     { path: 'back-live', component: BackLiveComponent },
     { path: 'search/:id', component: SearchComponent },
     { path: 'back-live/:id', component: BackLiveDetailComponent },
+    { path: 'live-room/:id', component: LiveRoomComponent },
 ]
 
 @NgModule({
@@ -44,6 +47,8 @@ const router: Routes = [
         BackLiveComponent,
         SearchComponent,
         BackLiveDetailComponent,
+        LiveRoomComponent,
+        TabsDirective,
     ],
     providers: [
         LiveService
