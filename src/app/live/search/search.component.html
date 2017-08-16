@@ -1,6 +1,6 @@
 <div class="container">
   <div class="box">
-     <ng-container *ngFor="let item of searchArray"> 
+    <ng-container *ngFor="let item of searchArray">
       <div class="item">
         <div class="headimg">
           <img src="{{item?.avatar}}">
@@ -18,12 +18,8 @@
           <p class="descript">{{item?.intro}}</p>
         </div>
       </div>
-     </ng-container> 
+    </ng-container>
   </div>
-  <p-paginator 
-      rows="{{itemsPerPage}}"
-      totalRecords="{{totalRecords}}"
-      first="{{offset}}"
-      (onPageChange)="pageChanged($event)">
-    </p-paginator>
+  <p-paginator rows="{{itemsPerPage}}" totalRecords="{{totalRecords}}" first="{{offset}}" (onPageChange)="pageChanged($event)">
+  </p-paginator>
 </div>

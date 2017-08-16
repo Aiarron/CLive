@@ -260,11 +260,22 @@
         </div>
         <div class="operator">
           <div class="col">
-            <div class="emoji"></div>
-            <div class="sms"></div>
-            <div class="barrage" [appBarrageSwitch]="barrageSwitch" (barrage)="getBarrage($event)"></div>
+            <div class="operatorBox">
+              <div class="emoji"></div>
+              <div class="sms"></div>
+              <div class="barrage" [appBarrageSwitch]="barrageSwitch" (barrage)="getBarrage($event)"></div>
+            </div>
+            <div class="limit">
+              {{textAreNum}}/30
+            </div>
           </div>
-          <div class="messageBox"></div>
+          <div class="messageBox">
+            <textarea class="saveBarrage" (keyup)="saveBarrageNum(saveBarrage.value)" maxlength="30" #saveBarrage placeholder="来来来，话筒塞到他嘴里。请开始你的表演。"></textarea>
+            <div class="sendBarrage" (click)="sendBarrage(saveBarrage.value)">
+              发送
+              <!-- {{saveBarrage.value}} -->
+            </div>
+          </div>
           <div class="spend">消耗1个银币</div>
         </div>
       </div>
@@ -272,6 +283,22 @@
     </div>
   </div>
   <div class="anchorStore">
-
+    <p>我的店铺</p>
+    <div class="shopBox">
+      <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,0,1]">
+        <div class="item">
+          <div class="img">
+            <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+          </div>
+          <div class="detail">
+            <div class="title">哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈啊哈哈哈</div>
+            <div class="pirce">&yen;555.00</div>
+            <div class="send" [innerHTML]="'推送'"></div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <p-paginator rows="{{itemsPerPage}}" totalRecords="{{totalRecords}}" first="{{offset}}" (onPageChange)="pageChanged($event)">
+    </p-paginator>
   </div>
 </div>
