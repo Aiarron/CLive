@@ -17,7 +17,10 @@ import { BackLiveDetailComponent } from './back-live/back-live-detail/back-live-
 
 import { PaginatorModule } from 'primeng/primeng';
 import { LiveRoomComponent } from './live-room/live-room.component';
-import { TabsDirective } from './live-room/tabs.directive';
+import { TabsDirective } from './live-room/directive/tabs.directive';
+import { RankingTabsDirective } from './live-room/directive/ranking-tabs.directive';
+import { ShowRankDirective } from './live-room/directive/show-rank.directive';
+import { BarrageSwitchDirective } from './live-room/directive/barrage-switch.directive';
 
 const router: Routes = [
     { path: '', redirectTo: 'lives', pathMatch: 'full' },
@@ -49,6 +52,9 @@ const router: Routes = [
         BackLiveDetailComponent,
         LiveRoomComponent,
         TabsDirective,
+        RankingTabsDirective,
+        ShowRankDirective,
+        BarrageSwitchDirective,
     ],
     providers: [
         LiveService

@@ -113,31 +113,161 @@
     <div class="flag">
       <div class="tables">
         <div class="header">
-          <div class="contribution" appTabs="contribution">贡献榜</div>
+          <div class="contribution active" appTabs="contribution">贡献榜</div>
           <div class="online" appTabs="online">在线人数</div>
           <div class="manager" appTabs="manager">管理员</div>
         </div>
         <div class="body">
-          <div class="contribution">
+          <div class="contribution active">
             <div class="conHeader">
-              <div class="day">1</div>
-              <div class="week">2</div>
-              <div class="month">3</div>
-              <div class="total">4</div>
+              <div class="day active" appRankingTabs="day">日榜</div>
+              <div class="week" appRankingTabs="week">周榜</div>
+              <div class="month" appRankingTabs="month">月榜</div>
+              <div class="total" appRankingTabs="total">总榜</div>
             </div>
-            <div>
-              
+            <div class="conBody" appShowRank>
+              <div class="box">
+                <div class="day active">
+                  <div class="li">
+                    <div class="imgBox">
+                      <div class="img"></div>
+                      <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                    </div>
+                    <p class="name">haha</p>
+                    <div class="level">
+                      <p>Lv34</p>
+                    </div>
+                    <div class="wrap">
+                      <p class="silver">123</p>
+                      <span class="icon"></span>
+                    </div>
+                  </div>
+                  <div class="li">
+                    <div class="imgBox">
+                      <div class="img"></div>
+                      <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                    </div>
+                    <p class="name">hahaa</p>
+                    <div class="level">
+                      <p>Lv34</p>
+                    </div>
+                    <div class="wrap">
+                      <p class="silver">123</p>
+                      <span class="icon"></span>
+                    </div>
+                  </div>
+                  <div class="li">
+                    <div class="imgBox">
+                      <div class="img"></div>
+                      <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                    </div>
+                    <p class="name">hahaa</p>
+                    <div class="level">
+                      <p>Lv34</p>
+                    </div>
+                    <div class="wrap">
+                      <p class="silver">123</p>
+                      <span class="icon"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="week">2</div>
+                <div class="month">3</div>
+                <div class="total">4</div>
+              </div>
+              <div class="rankItem">
+                <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,0]; let i = index">
+
+                  <div class="item">
+                    <div class="left">
+                      <div class="num">{{i + 1}}</div>
+                      <div class="headimg">
+                        <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                      </div>
+                      <p class="name">花开花落</p>
+                      <div class="level">
+                        <p>Lv34</p>
+                      </div>
+                    </div>
+                    <div class="right">
+                      <p class="silver">123</p>
+                      <span class="icon"></span>
+                    </div>
+                  </div>
+
+                </ng-container>
+              </div>
             </div>
+
           </div>
           <div class="online">
-            在线人数
+            <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,0]; let i = index">
+              <div class="item">
+                <div class="left">
+                  <div class="num">{{i + 1}}</div>
+                  <div class="headimg">
+                    <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                  </div>
+                  <p class="name">花开花落</p>
+                  <div class="level">
+                    <p>Lv34</p>
+                  </div>
+                </div>
+                <div class="right">
+                  <p class="silver">123</p>
+                  <span class="icon"></span>
+                </div>
+              </div>
+            </ng-container>
           </div>
           <div class="manager">
-            管理员
+            <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,0]; let i = index">
+              <div class="item">
+                <div class="left">
+                  <div class="num">{{i + 1}}</div>
+                  <div class="headimg">
+                    <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                  </div>
+                  <p class="name">花开花落</p>
+                  <div class="level">
+                    <p>Lv34</p>
+                  </div>
+                </div>
+                <div class="right">
+                  <p class="silver">123</p>
+                  <span class="icon"></span>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
+      <div class="chatBox">
+        <div class="getMessage">
+          <div class="bulletin">公告：根据上级部门指示...</div>
+          <!-- <div class="tips">2</div> -->
+          <ng-container *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1]">
+            <div class="item">
+              <a class="level">
+                      <span>LV48</span>
+                    </a>
+              <span class="name">王宝宝：</span>
+              <span class="content">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</span>
+            </div>
+            <div class="tips">2</div>
+          </ng-container>
 
+        </div>
+        <div class="operator">
+          <div class="col">
+            <div class="emoji"></div>
+            <div class="sms"></div>
+            <div class="barrage" [appBarrageSwitch]="barrageSwitch" (barrage)="getBarrage($event)"></div>
+          </div>
+          <div class="messageBox"></div>
+          <div class="spend">消耗1个银币</div>
+        </div>
+      </div>
 
     </div>
   </div>

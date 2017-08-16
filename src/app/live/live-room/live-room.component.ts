@@ -13,10 +13,12 @@ export class LiveRoomComponent implements OnInit {
   public player;
   public cover;
   public source;
+  public barrageSwitch: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+
     this.player = new prismplayer({
       id: "J_prismPlayer", // 容器id
       // source: "http://pili-live-hls.www.autoclub.com.cn/diwei-live/test.m3u8",
@@ -34,17 +36,10 @@ export class LiveRoomComponent implements OnInit {
       console.log("播放器暂停啦！");
     });
 
-    // var mySwiper = new Swiper('.swiper-container', {
-    //   slidesPerView: 'auto',
-    //   observer: true,
-    //   observeParents: true,
-    //   spaceBetween: 10,
-    //   slidesOffsetBefore: 40,
-    //   slidesOffsetAfter: 40,
-    //   grabCursor: true,
-    //   prevButton: '.swiper-button-prev',
-    //   nextButton: '.swiper-button-next',
-    // })
+  }
+
+  getBarrage(data){ // 弹幕开关
+    this.barrageSwitch = data;
   }
 
 }

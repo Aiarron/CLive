@@ -272,17 +272,541 @@
         }
         .flag {
             width: 338px;
-            background: green;
+            border: 1px solid $cc;
+            box-sizing: border-box;
             .tables {
                 .header {
                     display: flex;
                     justify-content: flex-end;
+                    cursor: pointer;
                     div {
                         width: 33.333333%;
                         height: 33px;
                         line-height: 33px;
                         text-align: center;
                         background: #EBEBEB;
+                    }
+                    .contribution,
+                    .online,
+                    .manager {
+                        &.active {
+                            background: $cf;
+                        }
+                    }
+                }
+                .body {
+                    height: 182px;
+                    .contribution,
+                    .online,
+                    .manager {
+                        display: none;
+                        &.active {
+                            display: block;
+                        }
+                    }
+                    .contribution {
+                        position: relative;
+                        .conHeader {
+                            display: flex;
+                            justify-content: space-around;
+                            background: $cf;
+                            cursor: pointer;
+                            .day,
+                            .week,
+                            .month,
+                            .total {
+                                font-size: 13px;
+                                height: 30px;
+                                line-height: 30px;
+                                box-sizing: border-box;
+                                &.active {
+                                    color: #fe345e;
+                                    border-bottom: 2px solid #fe345e;
+                                }
+                            }
+                        }
+                        .conBody {
+                            display: flex;
+                            background: #FAFAFA;
+                            .box {
+                                width: 100%;
+                                .day,
+                                .week,
+                                .month,
+                                .total {
+                                    display: none;
+                                    margin: $auto0;
+                                    width: 100%;
+                                    .li {
+                                        width: 33.3333333333%;
+                                        float: left;
+                                        .imgBox {
+                                            position: relative;
+                                            height: 88px;
+                                            .img {
+                                                position: absolute;
+                                                top: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 88px;
+                                                z-index: 999;
+                                                background: url(/assets/img/01icon_all.png);
+                                            }
+                                            img {
+                                                position: absolute;
+                                                display: block;
+                                                z-index: 998;
+                                                border-radius: 50px;
+                                            }
+                                        }
+                                        .name {
+                                            text-align: center;
+                                        }
+                                        .level {
+                                            margin: $auto0;
+                                            width: 26px;
+                                            height: 12px;
+                                            border-radius: 2px;
+                                            text-align: center;
+                                            color: $cf;
+                                            background: #FF6600;
+                                            p {
+                                                transform: scale(0.75);
+                                                font-size: 12px;
+                                                line-height: 13px;
+                                            }
+                                        }
+                                        .wrap {
+                                            display: flex;
+                                            align-items: center;
+                                            padding: 5px 0;
+                                            text-align: center;
+                                            justify-content: center;
+                                            .silver {
+                                                margin-right: 5px;
+                                                color: $c9;
+                                            }
+                                            .icon {
+                                                width: 20px;
+                                                height: 20px;
+                                                background: url(/assets/img/01icon_all.png);
+                                                background-position: -414px -13px;
+                                            }
+                                        }
+                                        &:first-child {
+                                            .imgBox {
+                                                .img {
+                                                    background-position: 5px -507px;
+                                                }
+                                                img {
+                                                    width: 50px;
+                                                    top: 31px;
+                                                    left: 30px;
+                                                }
+                                            }
+                                        }
+                                        &:nth-child(2) {
+                                            .imgBox {
+                                                .img {
+                                                    background-position: -98px -507px;
+                                                }
+                                                img {
+                                                    width: 56px;
+                                                    top: 23px;
+                                                    left: 29px;
+                                                }
+                                            }
+                                        }
+                                        &:nth-child(3) {
+                                            .imgBox {
+                                                .img {
+                                                    background-position: -201px -507px;
+                                                }
+                                                img {
+                                                    width: 50px;
+                                                    top: 31px;
+                                                    left: 33px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    &.active {
+                                        display: block;
+                                    }
+                                }
+                            }
+                            .rankItem {
+                                display: none;
+                                position: absolute;
+                                top: 182px;
+                                left: 0;
+                                height: 300px;
+                                border-bottom: 1px solid #ccc;
+                                box-sizing: border-box;
+                                overflow-y: auto;
+                                width: 100%;
+                                background: #fff;
+                                z-index: 9999;
+                                &::-webkit-scrollbar {
+                                    width: 2px;
+                                    height: 2px;
+                                    background-color: transparent;
+                                }
+                                &::-webkit-scrollbar-track {
+                                    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                                    border-radius: 10px;
+                                    background-color: #F5F5F5;
+                                }
+                                &::-webkit-scrollbar-thumb {
+                                    border-radius: 10px;
+                                    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+                                    background-color: #555;
+                                }
+                                .item {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    padding: 0 10px 10px;
+                                    .left {
+                                        display: flex;
+                                        align-items: center;
+                                        .num {
+                                            margin-right: 10px;
+                                            width: 16px;
+                                            height: 16px;
+                                            font-size: 12px;
+                                            color: $cf;
+                                            background: #E0E0E0;
+                                            text-align: center;
+                                        }
+                                        .headimg {
+                                            margin-right: 10px;
+                                            width: 30px;
+                                            height: 30px;
+                                            overflow: hidden;
+                                            border-radius: 50px;
+                                            img {
+                                                display: block;
+                                                width: 30px;
+                                            }
+                                        }
+                                        .name {
+                                            margin-right: 10px;
+                                            font-size: 14px;
+                                        }
+                                        .level {
+                                            margin: $auto0;
+                                            width: 26px;
+                                            height: 12px;
+                                            border-radius: 2px;
+                                            text-align: center;
+                                            color: $cf;
+                                            background: #FF6600;
+                                            p {
+                                                transform: scale(0.75);
+                                                font-size: 12px;
+                                                line-height: 13px;
+                                            }
+                                        }
+                                    }
+                                    .right {
+                                        display: flex;
+                                        align-items: center;
+                                        padding: 5px 0;
+                                        text-align: center;
+                                        justify-content: center;
+                                        .silver {
+                                            margin-right: 5px;
+                                            color: $c9;
+                                        }
+                                        .icon {
+                                            width: 20px;
+                                            height: 20px;
+                                            background: url(/assets/img/01icon_all.png);
+                                            background-position: -414px -13px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .online {
+                        height: 182px;
+                        overflow-y: auto;
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                            height: 2px;
+                            background-color: transparent;
+                        }
+                        &::-webkit-scrollbar-track {
+                            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                            border-radius: 10px;
+                            background-color: #F5F5F5;
+                        }
+                        &::-webkit-scrollbar-thumb {
+                            border-radius: 10px;
+                            box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+                            background-color: #555;
+                        }
+                        .item {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 0 10px 10px;
+                            .left {
+                                display: flex;
+                                align-items: center;
+                                .num {
+                                    margin-right: 10px;
+                                    width: 16px;
+                                    height: 16px;
+                                    font-size: 12px;
+                                    color: $cf;
+                                    background: #E0E0E0;
+                                    text-align: center;
+                                }
+                                .headimg {
+                                    margin-right: 10px;
+                                    width: 30px;
+                                    height: 30px;
+                                    overflow: hidden;
+                                    border-radius: 50px;
+                                    img {
+                                        display: block;
+                                        width: 30px;
+                                    }
+                                }
+                                .name {
+                                    margin-right: 10px;
+                                    font-size: 14px;
+                                }
+                                .level {
+                                    margin: $auto0;
+                                    width: 26px;
+                                    height: 12px;
+                                    border-radius: 2px;
+                                    text-align: center;
+                                    color: $cf;
+                                    background: #FF6600;
+                                    p {
+                                        transform: scale(0.75);
+                                        font-size: 12px;
+                                        line-height: 13px;
+                                    }
+                                }
+                            }
+                            .right {
+                                display: flex;
+                                align-items: center;
+                                padding: 5px 0;
+                                text-align: center;
+                                justify-content: center;
+                                .silver {
+                                    margin-right: 5px;
+                                    color: $c9;
+                                }
+                                .icon {
+                                    width: 20px;
+                                    height: 20px;
+                                    background: url(/assets/img/01icon_all.png);
+                                    background-position: -414px -13px;
+                                }
+                            }
+                        }
+                    }
+                    .manager {
+                        height: 182px;
+                        overflow-y: auto;
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                            height: 2px;
+                            background-color: transparent;
+                        }
+                        &::-webkit-scrollbar-track {
+                            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                            border-radius: 10px;
+                            background-color: #F5F5F5;
+                        }
+                        &::-webkit-scrollbar-thumb {
+                            border-radius: 10px;
+                            box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+                            background-color: #555;
+                        }
+                        .item {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 0 10px 10px;
+                            .left {
+                                display: flex;
+                                align-items: center;
+                                .num {
+                                    margin-right: 10px;
+                                    width: 16px;
+                                    height: 16px;
+                                    font-size: 12px;
+                                    color: $cf;
+                                    background: #E0E0E0;
+                                    text-align: center;
+                                }
+                                .headimg {
+                                    margin-right: 10px;
+                                    width: 30px;
+                                    height: 30px;
+                                    overflow: hidden;
+                                    border-radius: 50px;
+                                    img {
+                                        display: block;
+                                        width: 30px;
+                                    }
+                                }
+                                .name {
+                                    margin-right: 10px;
+                                    font-size: 14px;
+                                }
+                                .level {
+                                    margin: $auto0;
+                                    width: 26px;
+                                    height: 12px;
+                                    border-radius: 2px;
+                                    text-align: center;
+                                    color: $cf;
+                                    background: #FF6600;
+                                    p {
+                                        transform: scale(0.75);
+                                        font-size: 12px;
+                                        line-height: 13px;
+                                    }
+                                }
+                            }
+                            .right {
+                                display: flex;
+                                align-items: center;
+                                padding: 5px 0;
+                                text-align: center;
+                                justify-content: center;
+                                .silver {
+                                    margin-right: 5px;
+                                    color: $c9;
+                                }
+                                .icon {
+                                    width: 20px;
+                                    height: 20px;
+                                    background: url(/assets/img/01icon_all.png);
+                                    background-position: -414px -13px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .chatBox {
+                height: 758px;
+                .getMessage {
+                    position: relative;
+                    padding-top: 20px;
+                    height: 613px;
+                    overflow-y: auto;
+                    &::-webkit-scrollbar {
+                        width: 2px;
+                        height: 2px;
+                        background-color: transparent;
+                    }
+                    &::-webkit-scrollbar-track {
+                        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                        border-radius: 10px;
+                        background-color: #F5F5F5;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        border-radius: 10px;
+                        box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+                        background-color: #555;
+                    }
+                    .bulletin {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        padding: 0 10;
+                        height: 20px;
+                        color: #FE345E;
+                        width: 100%;
+                        font-size: 14px;
+                        line-height: 20px;
+                    }
+                    .item {
+                        padding: 0 10px 10px;
+                        .level {
+                            display: inline-block;
+                            width: 26px;
+                            height: 12px;
+                            line-height: 12px;
+                            border-radius: 2px;
+                            background: #FF6600;
+                            span {
+                                display: block;
+                                font-size: 12px;
+                                color: $cf;
+                                transform: scale(0.75);
+                            }
+                        }
+                        .name {
+                            color: #5775C0;
+                        }
+                        .content {
+                            word-break: break-all;
+                            word-wrap: break-word;
+                        }
+                    }
+                    .tips {
+                        width: 100%;
+                        height: 38px;
+                        line-height: 38px;
+                        color: #26A674;
+                        text-indent: 10px;
+                        background: url(/assets/img/room_live.png);
+                    }
+                }
+                .operator {
+                    padding: 10px;
+                    height: 105px;
+                    border-top: 1px solid $cc;
+                    .col {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        height: 28px;
+                        .emoji {
+                            margin-right: 15px;
+                            width: 26px;
+                            height: 26px;
+                            background: url(/assets/img/01icon_all.png);
+                            background-position: -160px -392px;
+                            cursor: pointer;
+                        }
+                        .sms {
+                            margin-right: 10px;
+                            width: 26px;
+                            height: 26px;
+                            background: url(/assets/img/01icon_all.png);
+                            background-position: -196px -392px;
+                            cursor: pointer;
+                        }
+                        .barrage {
+                            margin-right: 10px;
+                            width: 47px;
+                            height: 26px;
+                            background: url(/assets/img/01icon_all.png);
+                            background-position: -227px -392px;
+                            cursor: pointer;
+                        }
+                    }
+                    .messageBox {
+                        margin: 10px 0 5px;
+                        height: 52px;
+                    }
+                    .spend {
+                        color: #FF9B52;
+                        font-size: 12px;
                     }
                 }
             }
