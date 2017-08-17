@@ -20,14 +20,16 @@
         }
     }
     .box {
+        display: flex;
+        flex-wrap: wrap;
         margin-top: 40px;
         .item {
             display: flex;
             flex-direction: column;
             margin-right: 20px;
-            width: 286px;
+            width: 285px;
             height: 224px;
-            &:last-child {
+            &:nth-child(4n) {
                 margin-right: 0;
             }
             .showLive {

@@ -17,10 +17,12 @@ export class IndexLiveService {
         public http: Http,
         public errors: ErrorsService,
     ) { }
-    
+
     // 获取回放
     getBackPlay(): Observable<any> {
-        return this.http.get(this.backPlayURL)
+        return this.http.get(this.backPlayURL, {
+            withCredentials: true
+        })
             .map((res: Response) => res.json())
             .catch(this.errors.handleError);
     }

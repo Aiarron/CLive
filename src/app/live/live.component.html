@@ -3,16 +3,16 @@
         <div class="living" gotoRoom>
             <div id="J_prismPlayer" class="prism-player"></div>
             <div class="goRoom">
-                <a class="gotoRoom" [routerLink]="['/live/live-room/', aaaaa]">进入直播间</a>
+                <a class="gotoRoom" [routerLink]="['/live/live-room/1']">进入直播间</a>
             </div>
         </div>
         <div class="agian">
-            <ng-container *ngFor="let items of newLive1">
-                <a class="line" (click)="updateIndexLive(items?.liveaddress, items?.livelogo)">
+            <ng-container *ngFor="let item of topNewLive; let i = index">
+                <a [class.active]="i == 0" class="line active" appIndexChangeLive (click)="updateIndexLive(item?.play_url_m3u8, item?.avatar)">
                     <div class="wrap">
-                        <img src="{{items?.livelogo}}">
+                        <img src="{{item?.avatar}}">
                         <div class="title">
-                            {{items?.livetitle}}
+                            {{item?.livetitle}}
                         </div>
                     </div>
                 </a>
@@ -72,27 +72,29 @@
             </a>
         </div>
         <div class="box">
-            <a class="item" appIndexShow>
-                <div class="showLive">
-                    <img src="">
-                    <div class="liveLayer" style="display: none;">
-                        <span></span>
+            <ng-container *ngFor="let item of hotLive">
+                <a class="item" appIndexShow>
+                    <div class="showLive">
+                        <img src="">
+                        <div class="liveLayer" style="display: none;">
+                            <span></span>
+                        </div>
                     </div>
-                </div>
-                <div class="context">
-                    <img src="">
-                    <div class="act">
-                        <p class="act_title">wqhau</p>
-                        <div class="nameBox">
-                            <p class="name">13713922036</p>
-                            <div class="nameIcon">
-                                <span class="name_icon"></span>
-                                <p class="num">{{items?.liveonlines / 10000 | round: 2}}万</p>
+                    <div class="context">
+                        <img src="">
+                        <div class="act">
+                            <p class="act_title">wqhau</p>
+                            <div class="nameBox">
+                                <p class="name">13713922036</p>
+                                <div class="nameIcon">
+                                    <span class="name_icon"></span>
+                                    <!-- <p class="num">{{items?.liveonlines / 10000 | round: 2}}万</p> -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </ng-container>
         </div>
 
         <div class="wrap playBack">
@@ -106,8 +108,8 @@
             </a>
         </div>
         <div class="box">
-            <ng-container *ngFor="let item of backArray">
-                <a class="item" [routerLink="['/live/back-live/item?.id']"] appIndexShow>
+            <ng-container *ngFor="let item of backArray; let i = index">
+                <a class="item" [routerLink]="['/live/back-live', item?.id]" appIndexShow>
                     <div class="showLive">
                         <img src="{{item?.livelogo}}">
                         <div class="liveLayer" style="display: none;">
@@ -122,7 +124,7 @@
                                 <p class="name">{{item?.nick}}</p>
                                 <div class="nameIcon">
                                     <span class="name_icon"></span>
-                                    <p class="num">0.07万</p>
+                                    <p class="num">{{item?.liveonlines / 10000 | round: 2}}万</p>
                                 </div>
                             </div>
                         </div>

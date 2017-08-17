@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot } from '@angular/router';
 
-declare var Swiper: any;
+// declare var Swiper: any;
 declare var prismplayer: any;
 
 @Component({

@@ -6,19 +6,19 @@
       </div>
       <div class="detailBox">
         <div class="nameLevel">
-          <span class="name">name</span>
+          <span class="name">{{anchorDetail?.anchor?.nick}}</span>
           <p class="level">
-            <span>LV34</span>
+            <span>LV{{anchorDetail?.anchor?.anchorlvl}}</span>
           </p>
         </div>
-        <div class="id">id:123456789</div>
+        <div class="id">id:{{anchorDetail?.anchor?.id}}</div>
       </div>
     </div>
     <div class="operator">
       <div class="box">
-        <p>金币数：123456</p>
-        <div class="follow active">
-          关注
+        <p>金币数：{{anchorDetail?.coin}}</p>
+        <div [class.active]="!isFollow" class="follow active" (click)="doFollow(isFollow)">
+          {{ isFollow ? '取消关注' : '关注' }}
         </div>
       </div>
       <div class="shared">

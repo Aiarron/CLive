@@ -23,7 +23,10 @@ export class SearchService {
     params.set('skey', skey);
     params.set('page', page);
     params.set('pagesize', pagesize);
-    return this.http.get(this.searchAnchors, { params: params })
+    return this.http.get(this.searchAnchors, {
+      params: params,
+      withCredentials: true
+    })
       .map((res: Response) => res.json())
       .catch(this.errors.handleError);
   }

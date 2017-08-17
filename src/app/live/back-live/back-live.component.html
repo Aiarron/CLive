@@ -4,27 +4,29 @@
     <p>精彩回放</p>
   </div>
   <div class="box">
-    <a class="item" [routerLink]="['/live/back-live/1']" appIndexShow>
-      <div class="showLive">
-        <img src="{{items?.livelogo}}">
-        <!-- 遮罩层 -->
-        <div class="liveLayer">
-          <span></span>
+    <ng-container *ngFor="let item of backArray">
+      <a class="item" [routerLink]="['/live/back-live', item.id]" appIndexShow>
+        <div class="showLive">
+          <img src="{{item?.livelogo}}">
+          <!-- 遮罩层 -->
+          <div class="liveLayer">
+            <span></span>
+          </div>
         </div>
-      </div>
-      <div class="context">
-        <img src="{{items?.avatar}}">
-        <div class="act">
-          <p class="act_title">{{items?.livetitle}}</p>
-          <div class="nameBox">
-            <p class="name">{{items?.nick}}</p>
-            <div class="nameIcon">
-              <span class="name_icon"></span>
-              <p class="num">{{items?.liveonlines / 10000 | round: 2}}万</p>
+        <div class="context">
+          <img src="{{item?.avatar}}">
+          <div class="act">
+            <p class="act_title">{{item?.livetitle}}</p>
+            <div class="nameBox">
+              <p class="name">{{item?.nick}}</p>
+              <div class="nameIcon">
+                <span class="name_icon"></span>
+                <p class="num">{{item?.liveonlines / 10000 | round: 2}}万</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </ng-container>
   </div>
 </div>

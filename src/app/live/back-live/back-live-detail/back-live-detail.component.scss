@@ -82,6 +82,8 @@
                     line-height: 30px;
                     text-align: center;
                     border-radius: 4px;
+                    background: $c9;
+                    cursor: pointer;
                     &.active {
                         background: #fe345e;
                     }
@@ -105,5 +107,6 @@
     }
     .window{
         margin-top: 10px;
+        height: 756px;
     }
 }

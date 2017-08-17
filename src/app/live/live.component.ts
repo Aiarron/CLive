@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LiveService } from "./service/live.service";
 
 import { IndexLive } from "../model-data/index-live";
-import { IndexLiveService } from "../service/index.Live.service";
 
 declare var prismplayer: any;
 
@@ -10,88 +9,85 @@ declare var prismplayer: any;
   selector: 'app-live',
   templateUrl: './live.component.html',
   styleUrls: ['./live.component.scss'],
-  providers: [IndexLiveService]
+  providers: [
+    LiveService
+  ]
 })
 export class LiveComponent implements OnInit {
   public player;
   public newLive1;
   public newLive2;
+  public hotLive;
   public cover;
   public source;
   public backArray;
-  public aaaaa; //11111111111111111111
+  public topNewLive;
   constructor(
     public liveService: LiveService,
-    public indexLiveService: IndexLiveService
   ) { }
 
   ngOnInit() {
+    this.getNewLive1(1, 20);
+    // this.getNewLive2(1, 4);
+    this.liveService.getHotLive(1, 20) //热门
+      .subscribe(
+      data => {
+        // console.log(data);
+        this.hotLive = data.d.lives.items.slice(0, 4);
+      },
+      error => console.log(error)
+      );
 
-    this.aaaaa = 1;//11111111111111111111
+    this.liveService.getTopNewLive() // 最新轮播
+      .subscribe(
+      data => {
+        console.log(data);
+        this.topNewLive = data.d.lives;
+        this.source = this.topNewLive[0].play_url_m3u8;
+        this.cover = this.topNewLive[0].avatar;
+        this.media(this.source, this.cover);
+      },
+      error => console.log(error)
+      )
+  }
 
-    this.getNewLive1(1, 9);
-    this.getNewLive2(1, 4);
 
+  updateIndexLive(address, logo) {
+    this.cover = logo;
+    this.source = address;
+    // console.log(this.cover, this.source);
+  }
+
+  public getNewLive1(page: number, pagesize: number) { //最新直播
+    this.liveService.getNewLive(page, pagesize)
+      .subscribe(
+      data => {
+        console.log(data);
+        if (data.d) {
+          this.newLive1 = data.d.lives.items || null;
+          this.newLive2 = data.d.lives.items.slice(0, 4) || null;
+          this.backArray = data.d.plays.items;
+        }
+      },
+      error => console.log(error)
+      )
+  }
+
+  media(source, cover) {
+    console.log(source, cover);
     this.player = new prismplayer({
       id: "J_prismPlayer", // 容器id
-      // source: "http://pili-live-hls.www.autoclub.com.cn/diwei-live/test.m3u8",
-      source: this.source,
+      source: source,
       autoplay: true,    //自动播放：否
       width: "100%",       // 播放器宽度
       height: "inherit",      // 播放器高度
       isLive: true,
       preload: true,
-      cover: this.cover
+      cover: cover
     });
 
-    // 监听播放器的pause事件
     this.player.on("pause", function () {
       console.log("播放器暂停啦！");
     });
-
-    this.indexLiveService.getBackPlay()
-      .subscribe(
-      data => {
-        console.log(data);
-        this.backArray = data.d;
-      },
-      error => console.log(error)
-      );
-  }
-
-  // play() {
-  //   this.player.play();
-  // }
-
-  updateIndexLive(address, logo) {
-    this.cover = logo;
-    this.source = address;
-    console.log(this.cover, this.source);
-  }
-
-  public getNewLive1(page: number, pagesize: number) {
-    this.liveService.getNewLive(page, pagesize)
-      .subscribe(
-      data => {
-        if (data.d) {
-          this.newLive1 = data.d.items;
-          this.source = this.newLive1[0].liveaddress;
-          this.cover = this.newLive1[0].livelogo;
-        }
-      },
-      error => console.log(error)
-      )
-  }
-
-  public getNewLive2(page: number, pagesize: number) {
-    this.liveService.getNewLive(page, pagesize)
-      .subscribe(
-      data => {
-        if (data.d) {
-          this.newLive2 = data.d.items;
-        }
-      },
-      error => console.log(error)
-      )
   }
 }

@@ -11,6 +11,7 @@ import { NgMathPipesModule } from 'angular-pipes';
 import { IndexGotoRoomShowDirective } from './directive/index-goto-room-show.directive';
 import { LiveDetailComponent } from './live-detail/live-detail.component';
 import { HotLiveComponent } from './hot-live/hot-live.component';
+import { NewLiveComponent } from './new-live/new-live.component';
 import { BackLiveComponent } from './back-live/back-live.component';
 import { SearchComponent } from './search/search.component';
 import { BackLiveDetailComponent } from './back-live/back-live-detail/back-live-detail.component';
@@ -21,6 +22,7 @@ import { TabsDirective } from './live-room/directive/tabs.directive';
 import { RankingTabsDirective } from './live-room/directive/ranking-tabs.directive';
 import { ShowRankDirective } from './live-room/directive/show-rank.directive';
 import { BarrageSwitchDirective } from './live-room/directive/barrage-switch.directive';
+import { IndexChangeLiveDirective } from './directive/index-change-live.directive';
 
 const router: Routes = [
     { path: '', redirectTo: 'lives', pathMatch: 'full' },
@@ -47,6 +49,7 @@ const router: Routes = [
         IndexGotoRoomShowDirective,
         LiveDetailComponent,
         HotLiveComponent,
+        NewLiveComponent,
         BackLiveComponent,
         SearchComponent,
         BackLiveDetailComponent,
@@ -55,6 +58,7 @@ const router: Routes = [
         RankingTabsDirective,
         ShowRankDirective,
         BarrageSwitchDirective,
+        IndexChangeLiveDirective,
     ],
     providers: [
         LiveService

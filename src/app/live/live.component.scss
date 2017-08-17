@@ -42,11 +42,26 @@
             width: 182px;
             height: 610px;
             background: rgba(0, 0, 0, 0.4);
+            overflow-y: auto;
+            &::-webkit-scrollbar {
+                width: 2px;
+                height: 2px;
+                background-color: transparent;
+            }
+            &::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+                background-color: #F5F5F5;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+                background-color: #555;
+            }
             .line {
                 display: flex;
-                height: 100px;
-                &:hover,
-                &:first-child {
+                height: 100px; 
+                &.active {
                     z-index: 999;
                     background: url(/assets/img/01icon_all.png);
                     background-position: -10px -92px;
@@ -62,8 +77,10 @@
                     height: 90px;
                     img {
                         display: block;
-                        width: 160px;
-                        height: 90px;
+                        margin: 0 auto;
+                        width: 156px;
+                        height: 88px;
+                        text-align: center;
                     }
                     .title {
                         position: absolute;
@@ -352,7 +369,6 @@
                     position: relative;
                     height: 150px;
                     overflow: hidden;
-                    background: red;
                 }
                 span {
                     position: absolute;
