@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   public isLogin: number = 0;
   public model = new IndexLogin('', '', '');
   public profiles;
-  
+
   constructor(
     public elementRef: ElementRef,
     public renderer: Renderer,
@@ -119,6 +119,25 @@ export class AppComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.login.logout()
+      .subscribe(
+      data => {
+        console.log(data);
+        layer.confirm('确认退出？', {
+          btn: ['确定', '取消'] //按钮
+        }, function () {
+          layer.msg('已退出');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000)
+        }, function () {
+          layer.closeAll();
+        });
+      },
+      error => console.log(error)
+      )
+  }
 
 
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from "@angular/common";
 
 import { LiveComponent } from './live.component';
@@ -27,16 +28,18 @@ import { IndexChangeLiveDirective } from './directive/index-change-live.directiv
 const router: Routes = [
     { path: '', redirectTo: 'lives', pathMatch: 'full' },
     { path: 'lives', component: LiveComponent },
+    { path: 'lives/:id', component: LiveComponent },
     { path: 'hot-live', component: HotLiveComponent },
     { path: 'back-live', component: BackLiveComponent },
     { path: 'search/:id', component: SearchComponent },
     { path: 'back-live/:id', component: BackLiveDetailComponent },
-    { path: 'live-room/:id', component: LiveRoomComponent },
+    { path: 'live-room/:id/:flag', component: LiveRoomComponent }, // :flag  1、主播开播 0、用户进入
 ]
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         NgMathPipesModule,
         PaginatorModule,
         RouterModule.forChild(router)

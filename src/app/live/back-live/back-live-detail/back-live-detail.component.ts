@@ -31,10 +31,11 @@ export class BackLiveDetailComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
       data => {
+        // console.log(data);
         this.backLiveDetailService.getBackLiveDetail(data.id)
           .subscribe(
           datas => {
-            console.log(datas);
+            // console.log(datas);
             this.anchorDetail = datas.d;
             this.cover = this.anchorDetail.avatar;
             this.source = this.anchorDetail.live;
@@ -67,20 +68,25 @@ export class BackLiveDetailComponent implements OnInit {
   }
 
   doFollow(status, id) {
+    console.log(status, id);
     if (status == false) {
-      console.log(status, id);
       this.backLiveDetailService.addFollow(id)
         .subscribe(
         data => {
           console.log(data)
-          layer.msg(data.m);
+          layer.msg("关注成功");
+          this.isFollow = true;
         },
         error => console.log(error)
         )
     } else {
       this.backLiveDetailService.cancelFollow(id)
         .subscribe(
-        data => console.log(data),
+        data => {
+          console.log(data);
+          layer.msg("已取消关注");
+          this.isFollow = false;
+        },
         error => console.log(error)
         )
     }

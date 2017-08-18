@@ -17,7 +17,7 @@
     <div class="operator">
       <div class="box">
         <p>金币数：{{anchorDetail?.coin}}</p>
-        <div [class.active]="!isFollow" class="follow active" (click)="doFollow(isFollow)">
+        <div [class.active]="!isFollow" class="follow active" (click)="doFollow(isFollow, anchorDetail?.anchor?.id)">
           {{ isFollow ? '取消关注' : '关注' }}
         </div>
       </div>

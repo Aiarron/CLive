@@ -4,23 +4,28 @@
       <div class="detail">
         <div class="info">
           <div class="headimg">
-            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502715772358&di=5160312a7d7d2c3ef38eff0c138b4117&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D3758086872%2C4131499317%26fm%3D214%26gp%3D0.jpg">
+            <img src="{{profiles?.avatar}}">
           </div>
           <div class="detailBox">
             <div class="nameLevel">
-              <span class="name">name</span>
+              <span class="name">{{profiles?.nick}}</span>
               <p class="level">
-                <span>LV34</span>
+                <span>LV{{profiles?.richlvl}}</span>
               </p>
             </div>
-            <div class="id">id:123456789</div>
-            <p class="descript">321</p>
+            <div class="id">id:{{profiles?.id}}</div>
+            <p class="descript">{{profiles?.intro}}</p>
           </div>
         </div>
         <div class="operator">
           <div class="box">
-            <p>金币数：123456</p>
-            <div class="follow active">
+            <p>金币数：{{profiles?.coin}}</p>
+            <!-- 是主播 -->
+            <div *ngIf="isAnchor" class="follow active" [style.background]="isAnchor?'#999':'#fe345e'">
+              关注
+            </div>
+            <!-- 是用户 -->
+            <div *ngIf="!isAnchor" class="follow active">
               关注
             </div>
           </div>
@@ -35,69 +40,90 @@
         <div class="box">
           <div id="J_prismPlayer" class="prism-player"></div>
         </div>
+        <div class="startLiveLayer" *ngIf="startLivePanel && enterroomAnchor?.livestatus == 0">
+          <div class="startLive">
+            <div class="wrap">
+              <div class="topbar">
+                <p>开始直播</p>
+                <span (click)="closeStartLive()"></span>
+              </div>
+              <div class="body">
+                <form (ngSubmit)="onStartLive()">
+                  <div class="titleBox">
+                    <p>直播标题</p>
+                    <textarea required [(ngModel)]="startLiveForm.title" maxlength="20" name="title" placeholder="请写下您的直播标题（不超过20个字）"></textarea>
+                  </div>
+                  <div class="topicBox">
+                    <p>直播话题</p>
+                    <span></span>
+                    <select name="topic" id="" [(ngModel)]="startLiveForm.topic">
+                      <ng-container *ngFor="let item of topic; let i = index">
+                        <option [value]="item?.name">{{item?.name}}</option>
+                      </ng-container>
+                    </select>
+                  </div>
+                  <div class="coverBox">
+                    <p>直播封面</p>
+                    <div class="imgBox">
+                      <input type="file" #file (change)="coverChange(file.files)">
+                      <img src="/assets/img/comment_addimg.png">
+                    </div>
+                  </div>
+                  <input type="submit" value="开始直播">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="gift">
           <div class="swiper-container1">
             <div class="swiper-wrapper1">
-              <div class="swiper-slide1">
-                <img src="/assets/img/bouquet@2x.png">
-                <div class="layerBox">
-                  <div class="giftDetail">
-                    <div class="giftImg">
-                      <img src="/assets/img/bouquet@3x.png">
-                    </div>
-                    <div class="detail">
-                      <div class="detailWrap">
-                        <p class="name">小黄瓜</p>
-                        <span class="silver">(999银币)</span>
+              <ng-container *ngFor="let item of averageGift">
+                <div class="swiper-slide1">
+                  <img src="/assets/img/bouquet@2x.png">
+                  <div class="layerBox">
+                    <div class="giftDetail">
+                      <div class="giftImg">
+                        <img src="/assets/img/bouquet@3x.png">
                       </div>
-                      <div class="give">
-                        赠送
+                      <div class="detail">
+                        <div class="detailWrap">
+                          <p class="name">{{item?.name}}</p>
+                          <span class="silver">({{item?.coin}}银币)</span>
+                        </div>
+                        <div class="give">
+                          赠送
+                        </div>
                       </div>
                     </div>
+                    <div class="temp"></div>
                   </div>
-                  <div class="temp"></div>
                 </div>
-              </div>
-              <div class="swiper-slide1">
-                <img src="/assets/img/bouquet@2x.png">
-                <div class="layerBox">
-                  <div class="giftDetail">
-                    <div class="giftImg">
-                      <img src="/assets/img/bouquet@3x.png">
-                    </div>
-                    <div class="detail">
-                      <div class="detailWrap">
-                        <p class="name">小黄瓜</p>
-                        <span class="silver">(999银币)</span>
+              </ng-container>
+
+              <ng-container *ngFor="let item of advancedGift">
+                <div class="swiper-slide1">
+                  <img src="/assets/img/bouquet@2x.png">
+                  <div class="layerBox">
+                    <div class="giftDetail">
+                      <div class="giftImg">
+                        <img src="/assets/img/bouquet@3x.png">
                       </div>
-                      <div class="give">
-                        赠送
+                      <div class="detail">
+                        <div class="detailWrap">
+                          <p class="name">{{item?.name}}</p>
+                          <span class="silver">({{item?.coin}}银币)</span>
+                        </div>
+                        <div class="give">
+                          赠送
+                        </div>
                       </div>
                     </div>
+                    <div class="temp"></div>
                   </div>
-                  <div class="temp"></div>
                 </div>
-              </div>
-              <div class="swiper-slide1">
-                <img src="/assets/img/bouquet@2x.png">
-                <div class="layerBox">
-                  <div class="giftDetail">
-                    <div class="giftImg">
-                      <img src="/assets/img/bouquet@3x.png">
-                    </div>
-                    <div class="detail">
-                      <div class="detailWrap">
-                        <p class="name">小黄瓜</p>
-                        <span class="silver">(999银币)</span>
-                      </div>
-                      <div class="give">
-                        赠送
-                      </div>
-                    </div>
-                  </div>
-                  <div class="temp"></div>
-                </div>
-              </div>
+              </ng-container>
+
             </div>
           </div>
 

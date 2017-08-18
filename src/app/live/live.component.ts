@@ -74,7 +74,7 @@ export class LiveComponent implements OnInit {
   }
 
   media(source, cover) {
-    console.log(source, cover);
+    // console.log(source, cover);
     this.player = new prismplayer({
       id: "J_prismPlayer", // 容器id
       source: source,

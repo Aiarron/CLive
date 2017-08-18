@@ -89,6 +89,7 @@
                             line-height: 30px;
                             text-align: center;
                             border-radius: 4px;
+                            cursor: pointer;
                             &.active {
                                 background: #fe345e;
                             }
@@ -100,6 +101,7 @@
                         justify-content: flex-end;
                         width: 100%;
                         color: $c9;
+                        cursor: pointer;
                         span {
                             margin-right: 10px;
                             width: 20px;
@@ -111,12 +113,145 @@
                 }
             }
             .window {
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 margin-top: 10px;
                 width: 100%;
                 .box {
                     height: 757px;
+                }
+                .startLiveLayer {
+                    .startLive {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        z-index: 99999;
+                        margin: 153px auto 0;
+                        margin-left: calc((100% - 445px) / 2);
+                        width: 445px;
+                        height: 450px;
+                        background: rgba(255, 255, 255, 0.3);
+                        .wrap {
+                            display: flex;
+                            flex-direction: column;
+                            margin: 5px;
+                            width: calc(100% - 10px);
+                            height: calc(100% - 10px);
+                            background: $cf;
+                            .topbar {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                padding: 0 20px;
+                                height: 42px;
+                                background: #F7F7F7;
+                                p {
+                                    font-size: 14px;
+                                }
+                                span {
+                                    display: block;
+                                    width: 20px;
+                                    height: 20px;
+                                    background: url(/assets/img/01icon_all.png);
+                                    background-position: -33px -394px;
+                                }
+                            }
+                            .body {
+                                padding: 0 30px;
+                                .titleBox {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-top: 40px;
+                                    p {
+                                        margin-right: 5px;
+                                    }
+                                    textarea {
+                                        padding: 5px;
+                                        resize: none;
+                                        width: 288px;
+                                        height: 50px;
+                                        border-radius: 4px;
+                                    }
+                                }
+                                .topicBox {
+                                    position: relative;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-top: 40px;
+                                    p {
+                                        margin-right: 5px;
+                                    }
+                                    span {
+                                        position: absolute;
+                                        top: 0;
+                                        right: 5px;
+                                        z-index: 9999;
+                                        display: block;
+                                        width: 20px;
+                                        height: 20px;
+                                        background: url(/assets/img/01icon_all.png) no-repeat;
+                                        background-position: -227px -684px;
+                                    }
+                                    select {
+                                        -webkit-appearance: none;
+                                        width: 300px;
+                                        height: 30px;
+                                        border-radius: 4px;
+                                        text-indent: 10px;
+                                        option {
+                                            -webkit-appearance: none;
+                                            display: block;
+                                            padding: 10px;
+                                            margin: 10px;
+                                        }
+                                    }
+                                }
+                                .coverBox {
+                                    display: flex;
+                                    justify-content: flex-start;
+                                    margin-top: 40px;
+                                    p {
+                                        margin-right: 10px;
+                                    }
+                                    .imgBox {
+                                        position: relative;
+                                        input {
+                                            position: absolute;
+                                            -webkit-appearance: none;
+                                            top: 0;
+                                            left: 0;
+                                            opacity: 0;
+                                            width: 64px;
+                                            height: 64px;
+                                            cursor: pointer;
+                                        }
+                                        img {
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            z-index: 999;
+                                            display: block;
+                                            width: 64px;
+                                            height: 64px;
+                                            cursor: pointer;
+                                            pointer-events: none;
+                                        }
+                                    }
+                                }
+                                input[type="submit"] {
+                                    margin-top: 90px;
+                                    margin-left: calc((100% - 100px) / 2);
+                                    width: 100px;
+                                    height: 30px;
+                                    border-radius: 4px;
+                                    background: #fe345e;
+                                    color: $cf;
+                                    border: 0;
+                                }
+                            }
+                        }
+                    }
                 }
                 .gift {
                     position: relative;
@@ -711,6 +846,9 @@
                         width: 2px;
                         height: 2px;
                         background-color: transparent;
+                    }
+                    &::-moz-scrollbar {
+                        width: 150px;
                     }
                     &::-webkit-scrollbar-track {
                         box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

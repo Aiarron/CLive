@@ -12,6 +12,7 @@ export class LoginService {
     public loginURL = GLOBAL_URL + '/app/1/login';
     public registerURL = GLOBAL_URL + '/app/1/register';
     public codeURL = GLOBAL_URL + '/app/1/sendSms';
+    public logoutURL = GLOBAL_URL + '/app/1/logout';
 
     constructor(
         public http: Http,
@@ -57,4 +58,11 @@ export class LoginService {
             .map((res: Response) => res.json());
     }
 
+    // 退出
+    public logout() : Observable<any>{
+        return this.http.get(this.logoutURL, {
+            withCredentials: true,
+        })
+            .map((res: Response) => res.json());
+    }
 }

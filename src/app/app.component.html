@@ -5,13 +5,15 @@
       <div class="wrap">
         <div class="ul">
           <ul>
-            <li [routerLink]="['/live/lives']" routerLinkActive="active">首页</li>
+            <li *ngIf="!profiles?.id" [routerLink]="['/live/lives']" routerLinkActive="active">首页</li>
+            <li *ngIf="profiles?.id" [routerLink]="['/live/lives', profiles?.id]" routerLinkActive="active">首页</li>
             <li [routerLink]="['/shop/shops']" routerLinkActive="active">商城</li>
             <li>购物车</li>
           </ul>
         </div>
         <div class="search">
-          <input #doSearch (keyup.enter)="search($event, doSearch.value)" (click)="search($event, doSearch.value)" type="" name="" value="" placeholder="主播昵称">
+          <input #doSearch (keyup.enter)="search($event, doSearch.value)" (click)="search($event, doSearch.value)" type="" name=""
+            value="" placeholder="主播昵称">
           <span></span>
         </div>
       </div>
@@ -19,8 +21,8 @@
 
     <div class="right">
       <div class="wrap" *ngIf="profiles" showInfo>
-        <img src="{{profiles.avatar}}" class="headImg">
-        <p>{{profiles.nick}}</p>
+        <img src="{{profiles?.avatar}}" class="headImg">
+        <p>{{profiles?.nick}}</p>
         <span class="direcIcon"></span>
 
         <div class="showInfo">
@@ -29,7 +31,7 @@
             <div class="info">
               <div class="exit">
                 <span></span>
-                <p>退出</p>
+                <p (click)="logout()">退出</p>
               </div>
               <div class="headImg2">
                 <div class="imgBox">
@@ -37,21 +39,21 @@
                 </div>
               </div>
               <div class="nameLevelSex">
-                <p>寂寞如雪</p>
+                <p>{{profiles?.nick}}</p>
                 <div>
-                  <i>LV 34</i>
+                  <i>LV {{profiles?.richlvl}}</i>
                 </div>
-                <span class="man"></span>
+                <span class="{{profiles?.richlvl ? 'man' : 'woman'}}"></span>
               </div>
               <div class="money">
                 <div class="moneyBox">
                   <div class="silver">
                     <span></span>
-                    <p>1234</p>
+                    <p>{{profiles?.coin}}</p>
                   </div>
                   <div class="gold">
                     <span></span>
-                    <p>1234</p>
+                    <p>{{profiles?.coin}}</p>
                   </div>
                 </div>
                 <div class="recharge">
@@ -73,7 +75,7 @@
                   <span></span>
                   <p>消息</p>
                 </li>
-                <li class="startLive">
+                <li class="startLive" [routerLink]="['/live/live-room', profiles.id, 1]">
                   <span></span>
                   <p>开始直播</p>
                 </li>
