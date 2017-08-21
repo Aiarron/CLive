@@ -16,6 +16,11 @@ export class LiveRoomService {
   public getGiftsURL = GLOBAL_URL + '/app/1/getGifts';
   public getLiveClassUrl = GLOBAL_URL + '/app/1/getLiveClass';
   public startLiveUrl = GLOBAL_URL + '/app/1/startLive';
+  public getFansRankUrl = GLOBAL_URL + '/app/1/getFansRank';
+  public getRankTotalUrl = GLOBAL_URL + '/app/1/getRankTotal';
+  public getRoomAdminsUrl = GLOBAL_URL + '/app/1/getRoomAdmins';
+  public sendPubmsgsUrl = GLOBAL_URL + '/app/1/sendPubmsg';
+  public getPubNotifyUrlUrl = GLOBAL_URL + '/app/1/getPubNotifyUrl';
 
   constructor(
     public http: Http,
@@ -66,6 +71,65 @@ export class LiveRoomService {
     data.set('liveaddr', liveaddr);
     return this.http.get(this.startLiveUrl, {
       params: data,
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  getFansRank(rid, livelogo, pagesize): Observable<any> { // 获取直播间贡献榜
+    let data = new URLSearchParams();
+    data.set('rid', livelogo);
+    data.set('livelogo', livelogo);
+    data.set('pagesize', pagesize);
+    return this.http.get(this.getFansRankUrl, {
+      params: data,
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  getRankTotal(uid, page, pagesize, type): Observable<any> { // 粉丝贡献榜(前十)
+    let data = new URLSearchParams();
+    data.set('uid', uid);
+    data.set('page', page);
+    data.set('pagesize', pagesize);
+    data.set('type', type);
+    return this.http.get(this.getRankTotalUrl, {
+      params: data,
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  getRoomAdmins(): Observable<any> { // 获取管理员列表
+    let data = new URLSearchParams();
+    data.set('page', '1');
+    data.set('pagesize', '20');
+    return this.http.get(this.getRoomAdminsUrl, {
+      params: data,
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  sendPubmsg(rid, msg): Observable<any> { // 公聊
+    let data = new URLSearchParams();
+    data.set('rid', rid);
+    data.set('msg', msg);
+    return this.http.get(this.sendPubmsgsUrl, {
+      params: data,
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  getPubNotifyUrl() { // 获取公用通知地址接口
+    return this.http.get(this.getPubNotifyUrlUrl, {
       withCredentials: true
     })
       .map((res: Response) => res.json())

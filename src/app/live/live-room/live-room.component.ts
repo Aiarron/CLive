@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ElementRef, ViewChild, ViewChildren, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot } from '@angular/router';
@@ -6,12 +6,20 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStat
 import { ProfileService } from "../../service/profile.service";
 import { BackLiveDetailService } from "../../live/back-live/back-live-detail/service/back-live-detail.service";
 import { LiveRoomService } from "./service/live-room.service";
+import { ToolsService } from "../../service/tools.service";
 
 import { StartLive } from "../../model-data/startLive";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
+import * as io from 'socket.io-client';
 
 // declare var Swiper: any;
 declare var layer: any;
 declare var prismplayer: any;
+declare var OSS: any;
+
 
 @Component({
     selector: 'app-live-room',
@@ -20,10 +28,12 @@ declare var prismplayer: any;
     providers: [
         ProfileService,
         BackLiveDetailService,
-        LiveRoomService
+        LiveRoomService,
+        ToolsService
     ]
 })
 export class LiveRoomComponent implements OnInit {
+    @ViewChild('getMessage') getMessage;
     public player;
     public cover;
     public source;
@@ -36,13 +46,23 @@ export class LiveRoomComponent implements OnInit {
     public isAnchor;// 是否主播
     public averageGift; //普通礼物
     public advancedGift; //高级礼物
-    public startLiveForm = new StartLive('', '哈哈');
+    public startLiveForm = new StartLive('', '');
     public topic; // 直播话题
     public startLivePanel; // 开始直播面板
     public enterroom; // 进入房间
     public enterroomAnchor; // 进入房间--主播信息
     public getStartLive; // 开始直播
     public startFiles; // 开始直播的封面logo
+    public rankDay; // 日榜
+    public rankWeek;// 周榜
+    public rankMonth;// 月榜
+    public rankTotal;// 总榜
+    public rankNum;// 总榜
+    public websocket;
+    public websocketInit;
+    public socket;
+    public onlines;
+    public admins; // 管理员列表
 
     public itemsPerPage: number = 9;
     public totalRecords: number = 9;
@@ -51,10 +71,12 @@ export class LiveRoomComponent implements OnInit {
     public end: number = 0;
 
     constructor(
+        public el: ElementRef,
         public activatedRoute: ActivatedRoute,
         public profileService: ProfileService,
         public backLiveDetailService: BackLiveDetailService,
-        public liveRoomService: LiveRoomService
+        public liveRoomService: LiveRoomService,
+        public tools: ToolsService
     ) { }
 
     ngOnInit() {
@@ -97,7 +119,7 @@ export class LiveRoomComponent implements OnInit {
             console.log("播放器暂停啦！");
         });
 
-        this.liveRoomService.getGifts()
+        this.liveRoomService.getGifts() //礼物列表
             .subscribe(
             data => {
                 // console.log(data);
@@ -106,7 +128,7 @@ export class LiveRoomComponent implements OnInit {
             },
             error => console.log(error)
             )
-        this.liveRoomService.getLiveClass()
+        this.liveRoomService.getLiveClass() // 直播话题
             .subscribe(
             data => {
                 // console.log(data);
@@ -114,16 +136,95 @@ export class LiveRoomComponent implements OnInit {
             },
             error => console.log(error)
             )
-        this.liveRoomService.enterroom(this.anchor.id)
+        this.liveRoomService.getPubNotifyUrl() // 获取公用通知地址接口
+            .subscribe(
+            data => {
+                // console.log(data);
+                this.websocketInit = new WebSocket(data.d);
+            },
+            error => console.log(error)
+            )
+        this.liveRoomService.enterroom(this.anchor.id) //进入房间
             .subscribe(
             data => {
                 console.log(data);
                 this.enterroom = data.d;
                 this.enterroomAnchor = data.d.anchor;
+                this.liveRoomWebsocket(this.enterroom.notify)
+                    .subscribe(
+                    data => {
+                        let datas = JSON.parse(data);
+                        console.log(datas);
+                        if (datas.type == 'onlines') { // 在线人数
+                            this.onlines = datas.data;
+                        } else if (datas.type == "sendpubmsg") {
+                            this.fillMsgBox(datas);
+                        }
+                        // this.websocket.close();
+                        // this.websocket.onclose = (e) => console.log(e);
+                    },
+                    error => console.log(error)
+                    );
             },
             error => console.log(error)
             )
-
+        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 1) // 日榜
+            .subscribe(
+            data => {
+                // console.log(data);
+                // this.rankDay = data.d;
+                this.rankDay = [
+                    {
+                        "value": "30.00",
+                        "nick": "test123",
+                        "richlvl": "3",
+                        "avatar": "def_user_icon.png",
+                        "id": "10385",
+                        "sex": "女"
+                    },
+                    {
+                        "value": "30.001",
+                        "nick": "test1231",
+                        "richlvl": "31",
+                        "avatar": "def_user_icon1.png",
+                        "id": "103851",
+                        "sex": "女"
+                    },
+                    {
+                        "value": "30.001",
+                        "nick": "test1231",
+                        "richlvl": "31",
+                        "avatar": "def_user_icon1.png",
+                        "id": "103851",
+                        "sex": "女"
+                    },
+                    {
+                        "value": "30.001",
+                        "nick": "test1231",
+                        "richlvl": "31",
+                        "avatar": "def_user_icon1.png",
+                        "id": "103851",
+                        "sex": "女"
+                    }
+                ];
+                this.rankNum = this.rankDay;
+            },
+            error => console.log(error)
+            )
+        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 1) // 周榜
+            .subscribe(data => { this.rankWeek = data.d; }, error => console.log(error));
+        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 1) // 月榜
+            .subscribe(data => { this.rankMonth = data.d; }, error => console.log(error));
+        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 1) // 总榜
+            .subscribe(data => { this.rankTotal = data.d; }, error => console.log(error))
+        this.liveRoomService.getRoomAdmins() // 获取管理员
+            .subscribe(
+            data => {
+                // console.log(data);
+                this.admins = data.d.items;
+            },
+            error => console.log(error)
+            )
     }
 
     getBarrage(data) { // 弹幕开关
@@ -134,9 +235,14 @@ export class LiveRoomComponent implements OnInit {
         this.textAreNum = value.length;
     }
 
-    sendBarrage(value) {
-        console.log(value);
-
+    sendBarrage(value) { // 发送弹幕 公聊
+        // console.log(value);
+        this.liveRoomService.sendPubmsg(this.anchor.id, value)
+            .subscribe(
+            data => {
+            },
+            error => console.log(error)
+            )
     }
 
     // doFollow(status, id) {
@@ -171,8 +277,15 @@ export class LiveRoomComponent implements OnInit {
     coverChange(file) {
         console.log(file);
         this.startFiles = file[0];
-        let formData = new FormData();
-        formData.append('file', this.startFiles);
+        this.tools.uploadFile(file[0])
+            .subscribe(
+            data => {
+                console.log(data)
+            },
+            error => console.log(error)
+            )
+        // let formData = new FormData();
+        // formData.append('file', this.startFiles);
         // let headers = new Headers();
         // headers.append('Accept', 'application/json');
         // let options = new RequestOptions({ headers: headers });
@@ -180,6 +293,61 @@ export class LiveRoomComponent implements OnInit {
 
     onStartLive() {
         console.log(this.startLiveForm);
+        console.log(this.startFiles);
+        console.log(OSS);
+
+        // 获取推流地址
+        this.liveRoomService.genLive()
+            .subscribe(
+            data => {
+                this.startLivePanel = false;
+                layer.alert('您的推流地址为：' + data.d.up_url, {
+                    closeBtn: 0
+                }, function () {
+                    layer.closeAll();
+                });
+            },
+            error => console.log(error)
+            )
     }
 
+    getRankItems(data) {
+        switch (data) {
+            case 1:
+                this.rankNum = this.rankDay;
+                break;
+            case 2:
+                this.rankNum = this.rankWeek;
+                break;
+            case 3:
+                this.rankNum = this.rankMonth;
+                break;
+            case 4:
+                this.rankNum = this.rankTotal;
+                break;
+            default:
+                break;
+        }
+    }
+
+    liveRoomWebsocket(url) {
+        this.websocket = new WebSocket(url);
+        this.websocket.onopen = (e) => {
+            // this.websocket.send('11111');
+        }
+        return Observable.create(observer => {
+            this.websocket.onmessage = (e) => {
+                observer.next(e);
+            };
+        }).map(res => res.data);
+    }
+
+    fillMsgBox(val) {
+        this.getMessage.nativeElement.insertAdjacentHTML('beforeend', '<div class="item"><a class="level"><span>LV' + val.data.fuser.richlvl + '</span></a><span class="name">' + val.data.fuser.nick + '：</span><span class="content">' + val.data.msg + '</span></div>');
+        this.scrollTopMax(this.getMessage);
+    }
+
+    scrollTopMax(e) {
+        e.nativeElement.scrollTop = e.nativeElement.scrollHeight;
+    }
 }

@@ -146,10 +146,10 @@
         <div class="body">
           <div class="contribution active">
             <div class="conHeader">
-              <div class="day active" appRankingTabs="day">日榜</div>
-              <div class="week" appRankingTabs="week">周榜</div>
-              <div class="month" appRankingTabs="month">月榜</div>
-              <div class="total" appRankingTabs="total">总榜</div>
+              <div class="day active" appRankingTabs="day" (click)="getRankItems(1)">日榜</div>
+              <div class="week" appRankingTabs="week" (click)="getRankItems(2)">周榜</div>
+              <div class="month" appRankingTabs="month" (click)="getRankItems(3)">月榜</div>
+              <div class="total" appRankingTabs="total" (click)="getRankItems(4)">总榜</div>
             </div>
             <div class="conBody" appShowRank>
               <div class="box">
@@ -157,42 +157,42 @@
                   <div class="li">
                     <div class="imgBox">
                       <div class="img"></div>
-                      <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                      <img src="{{rankDay && rankDay[1]?.avatar}}">
                     </div>
-                    <p class="name">haha</p>
+                    <p class="name">{{rankDay && rankDay[1]?.nick}}</p>
                     <div class="level">
-                      <p>Lv34</p>
+                      <p>Lv{{rankDay && rankDay[1]?.richlvl}}</p>
                     </div>
                     <div class="wrap">
-                      <p class="silver">123</p>
+                      <p class="silver">{{rankDay && rankDay[1]?.value}}</p>
                       <span class="icon"></span>
                     </div>
                   </div>
                   <div class="li">
                     <div class="imgBox">
                       <div class="img"></div>
-                      <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                      <img src="{{rankDay && rankDay[0]?.avatar}}">
                     </div>
-                    <p class="name">hahaa</p>
+                    <p class="name">{{rankDay && rankDay[0]?.nick}}</p>
                     <div class="level">
-                      <p>Lv34</p>
+                      <p>Lv{{rankDay && rankDay[0]?.richlvl}}</p>
                     </div>
                     <div class="wrap">
-                      <p class="silver">123</p>
+                      <p class="silver">{{rankDay && rankDay[0]?.value}}</p>
                       <span class="icon"></span>
                     </div>
                   </div>
                   <div class="li">
                     <div class="imgBox">
                       <div class="img"></div>
-                      <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                      <img src="{{rankDay && rankDay[2]?.avatar}}">
                     </div>
-                    <p class="name">hahaa</p>
+                    <p class="name">{{rankDay && rankDay[2]?.nick}}</p>
                     <div class="level">
-                      <p>Lv34</p>
+                      <p>Lv{{rankDay && rankDay[2]?.richlvl}}</p>
                     </div>
                     <div class="wrap">
-                      <p class="silver">123</p>
+                      <p class="silver">{{rankDay && rankDay[2]?.value}}</p>
                       <span class="icon"></span>
                     </div>
                   </div>
@@ -202,21 +202,21 @@
                 <div class="total">4</div>
               </div>
               <div class="rankItem">
-                <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,0]; let i = index">
+                <ng-container *ngFor="let item of rankNum; let i = index">
 
                   <div class="item">
                     <div class="left">
                       <div class="num">{{i + 1}}</div>
                       <div class="headimg">
-                        <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                        <img src="{{item?.avatar}}">
                       </div>
-                      <p class="name">花开花落</p>
+                      <p class="name">{{item?.nick}}</p>
                       <div class="level">
-                        <p>Lv34</p>
+                        <p>Lv{{item?.richlvl}}</p>
                       </div>
                     </div>
                     <div class="right">
-                      <p class="silver">123</p>
+                      <p class="silver">{{item?.value}}</p>
                       <span class="icon"></span>
                     </div>
                   </div>
@@ -227,40 +227,40 @@
 
           </div>
           <div class="online">
-            <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,0]; let i = index">
+            <ng-container *ngFor="let item of onlines; let i = index">
               <div class="item">
                 <div class="left">
                   <div class="num">{{i + 1}}</div>
                   <div class="headimg">
-                    <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                    <img src="{{item?.avatar}}">
                   </div>
-                  <p class="name">花开花落</p>
+                  <p class="name">{{item?.nick}}</p>
                   <div class="level">
-                    <p>Lv34</p>
+                    <p>Lv{{item?.richlvl}}</p>
                   </div>
                 </div>
                 <div class="right">
-                  <p class="silver">123</p>
+                  <p class="silver">{{item?.icons}}</p>
                   <span class="icon"></span>
                 </div>
               </div>
             </ng-container>
           </div>
           <div class="manager">
-            <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,0]; let i = index">
+            <ng-container *ngFor="let item of admins; let i = index">
               <div class="item">
                 <div class="left">
                   <div class="num">{{i + 1}}</div>
                   <div class="headimg">
-                    <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+                    <img src="{{item?.avatar}}">
                   </div>
-                  <p class="name">花开花落</p>
+                  <p class="name">{{item?.nick}}</p>
                   <div class="level">
-                    <p>Lv34</p>
+                    <p>Lv{{item?.richlvl}}</p>
                   </div>
                 </div>
                 <div class="right">
-                  <p class="silver">123</p>
+                  <p class="silver">{{item?.icons}}</p>
                   <span class="icon"></span>
                 </div>
               </div>
@@ -269,10 +269,10 @@
         </div>
       </div>
       <div class="chatBox">
-        <div class="getMessage">
-          <div class="bulletin">公告：根据上级部门指示...</div>
+        <div class="getMessage" #getMessage>
+          <div class="bulletin">公告：{{enterroom?.live_notice}}</div>
           <!-- <div class="tips">2</div> -->
-          <ng-container *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1]">
+          <!-- <ng-container *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1]">
             <div class="item">
               <a class="level">
                       <span>LV48</span>
@@ -280,8 +280,7 @@
               <span class="name">王宝宝：</span>
               <span class="content">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</span>
             </div>
-            <div class="tips">2</div>
-          </ng-container>
+          </ng-container> -->
 
         </div>
         <div class="operator">
