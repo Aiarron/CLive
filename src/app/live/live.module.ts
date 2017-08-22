@@ -24,6 +24,8 @@ import { RankingTabsDirective } from './live-room/directive/ranking-tabs.directi
 import { ShowRankDirective } from './live-room/directive/show-rank.directive';
 import { BarrageSwitchDirective } from './live-room/directive/barrage-switch.directive';
 import { IndexChangeLiveDirective } from './directive/index-change-live.directive';
+import { MessageComponent } from './live-room/message/message.component';
+import { BarrageScrollComponent } from './live-room/barrage-scroll/barrage-scroll.component';
 
 const router: Routes = [
     { path: '', redirectTo: 'lives', pathMatch: 'full' },
@@ -62,9 +64,15 @@ const router: Routes = [
         ShowRankDirective,
         BarrageSwitchDirective,
         IndexChangeLiveDirective,
+        MessageComponent,
+        BarrageScrollComponent,
     ],
     providers: [
         LiveService
     ],
+    entryComponents: [
+        MessageComponent,
+        BarrageScrollComponent,
+    ]
 })
 export class LiveModule { }

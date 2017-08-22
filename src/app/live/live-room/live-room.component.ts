@@ -1,4 +1,4 @@
-import { ElementRef, ViewChild, ViewChildren, Component, OnInit } from '@angular/core';
+import { ComponentFactoryResolver, ViewContainerRef, ElementRef, Renderer, ViewChild, ViewChildren, Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot } from '@angular/router';
@@ -14,6 +14,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import * as io from 'socket.io-client';
+
+import { MessageComponent } from "./message/message.component";
+import { BarrageScrollComponent } from "./barrage-scroll/barrage-scroll.component";
 
 // declare var Swiper: any;
 declare var layer: any;
@@ -33,11 +36,14 @@ declare var OSS: any;
     ]
 })
 export class LiveRoomComponent implements OnInit {
-    @ViewChild('getMessage') getMessage;
+    @ViewChild('getMessage', { read: ViewContainerRef }) getMessage; // 动态添加组件用
+    @ViewChild('getMessage') getMessage1;   // 操作dom用
+    @ViewChild('barrageScroll', { read: ViewContainerRef }) barrageScroll;
+    @ViewChild('saveBarrage') saveBarrage; // 发送消息  弹幕的盒子
     public player;
     public cover;
     public source;
-    public barrageSwitch: boolean = false; //弹幕开关
+    public barrageSwitch: boolean = true; //弹幕开关
     public isFollow: boolean;// 是否关注
     public textAreNum: number = 0;
     public profiles;//个人信息
@@ -76,7 +82,9 @@ export class LiveRoomComponent implements OnInit {
         public profileService: ProfileService,
         public backLiveDetailService: BackLiveDetailService,
         public liveRoomService: LiveRoomService,
-        public tools: ToolsService
+        public tools: ToolsService,
+        public ren: Renderer,
+        public cfr: ComponentFactoryResolver,
     ) { }
 
     ngOnInit() {
@@ -211,11 +219,11 @@ export class LiveRoomComponent implements OnInit {
             },
             error => console.log(error)
             )
-        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 1) // 周榜
+        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 2) // 周榜
             .subscribe(data => { this.rankWeek = data.d; }, error => console.log(error));
-        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 1) // 月榜
+        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 3) // 月榜
             .subscribe(data => { this.rankMonth = data.d; }, error => console.log(error));
-        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 1) // 总榜
+        this.liveRoomService.getRankTotal(this.anchor.id, 1, 10, 4) // 总榜
             .subscribe(data => { this.rankTotal = data.d; }, error => console.log(error))
         this.liveRoomService.getRoomAdmins() // 获取管理员
             .subscribe(
@@ -229,6 +237,7 @@ export class LiveRoomComponent implements OnInit {
 
     getBarrage(data) { // 弹幕开关
         this.barrageSwitch = data;
+        console.log(data);
     }
 
     saveBarrageNum(value) {
@@ -236,10 +245,10 @@ export class LiveRoomComponent implements OnInit {
     }
 
     sendBarrage(value) { // 发送弹幕 公聊
-        // console.log(value);
         this.liveRoomService.sendPubmsg(this.anchor.id, value)
             .subscribe(
             data => {
+                this.saveBarrage.nativeElement.value = "";
             },
             error => console.log(error)
             )
@@ -343,11 +352,22 @@ export class LiveRoomComponent implements OnInit {
     }
 
     fillMsgBox(val) {
-        this.getMessage.nativeElement.insertAdjacentHTML('beforeend', '<div class="item"><a class="level"><span>LV' + val.data.fuser.richlvl + '</span></a><span class="name">' + val.data.fuser.nick + '：</span><span class="content">' + val.data.msg + '</span></div>');
-        this.scrollTopMax(this.getMessage);
+        let dom = this.cfr.resolveComponentFactory(MessageComponent);
+        let barrageDom = this.cfr.resolveComponentFactory(BarrageScrollComponent);
+
+        let componentRef = this.getMessage.createComponent(dom);
+        let barrageRef = this.barrageScroll.createComponent(barrageDom);
+
+        (<MessageComponent>componentRef.instance).data = val;
+        (<BarrageScrollComponent>barrageRef.instance).data = val;
+
+        setTimeout(() => {
+            this.scrollTopMax(this.getMessage1.nativeElement.parentNode);
+        }, 500);
+
     }
 
     scrollTopMax(e) {
-        e.nativeElement.scrollTop = e.nativeElement.scrollHeight;
+        e.scrollTop = e.scrollHeight;
     }
 }

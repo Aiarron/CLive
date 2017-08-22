@@ -75,6 +75,10 @@
             </div>
           </div>
         </div>
+        <!-- 弹幕滚动 -->
+        <div class="barrageScroll" [ngStyle]="{'display': barrageSwitch?'block':'none'}">
+          <ng-container #barrageScroll></ng-container>
+        </div>
         <div class="gift">
           <div class="swiper-container1">
             <div class="swiper-wrapper1">
@@ -269,19 +273,8 @@
         </div>
       </div>
       <div class="chatBox">
-        <div class="getMessage" #getMessage>
-          <div class="bulletin">公告：{{enterroom?.live_notice}}</div>
-          <!-- <div class="tips">2</div> -->
-          <!-- <ng-container *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,1,1]">
-            <div class="item">
-              <a class="level">
-                      <span>LV48</span>
-                    </a>
-              <span class="name">王宝宝：</span>
-              <span class="content">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</span>
-            </div>
-          </ng-container> -->
-
+        <div class="getMessage">
+          <div class="bulletin" #getMessage>公告：{{enterroom?.live_notice}}</div>
         </div>
         <div class="operator">
           <div class="col">

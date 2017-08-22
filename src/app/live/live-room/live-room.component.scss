@@ -253,12 +253,21 @@
                         }
                     }
                 }
+                .barrageScroll {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 707px;
+                    width: 100%;
+                    z-index: 9999;
+                    overflow: hidden;
+                }
                 .gift {
                     position: relative;
                     display: flex;
                     flex-direction: column;
                     padding: 10px 10px 0 0;
-                    height: 100px;
+                    height: 90px;
                     background: $cf;
                     .swiper-container1 {
                         position: relative;
@@ -836,11 +845,11 @@
                 }
             }
             .chatBox {
-                height: 758px;
+                height: 748px;
                 .getMessage {
                     position: relative;
                     padding-top: 20px;
-                    height: 613px;
+                    height: 603px;
                     overflow-y: auto;
                     &::-webkit-scrollbar {
                         width: 2px;

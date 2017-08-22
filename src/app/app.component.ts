@@ -6,7 +6,6 @@ import { IndexProfile } from "./model-data/index-profile";
 import { LoginService } from "./service/login.service";
 import { ProfileService } from "./service/profile.service";
 
-
 declare const $: any;
 declare const layer: any;
 
