@@ -22,7 +22,7 @@
             <p>金币数：{{profiles?.coin}}</p>
             <!-- 是主播 -->
             <div *ngIf="isAnchor" class="follow active" [style.background]="isAnchor?'#999':'#fe345e'">
-              关注
+              关注/退出直播
             </div>
             <!-- 是用户 -->
             <div *ngIf="!isAnchor" class="follow active">
@@ -66,7 +66,7 @@
                     <p>直播封面</p>
                     <div class="imgBox">
                       <input type="file" #file (change)="coverChange(file.files)">
-                      <img src="/assets/img/comment_addimg.png">
+                      <img src="{{fileUploadImg}}">
                     </div>
                   </div>
                   <input type="submit" value="开始直播">
@@ -291,7 +291,6 @@
             <textarea class="saveBarrage" (keyup)="saveBarrageNum(saveBarrage.value)" maxlength="30" #saveBarrage placeholder="来来来，话筒塞到他嘴里。请开始你的表演。"></textarea>
             <div class="sendBarrage" (click)="sendBarrage(saveBarrage.value)">
               发送
-              <!-- {{saveBarrage.value}} -->
             </div>
           </div>
           <div class="spend">消耗1个银币</div>

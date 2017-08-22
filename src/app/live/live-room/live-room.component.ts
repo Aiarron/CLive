@@ -69,6 +69,8 @@ export class LiveRoomComponent implements OnInit {
     public socket;
     public onlines;
     public admins; // 管理员列表
+    public fileUploadToken; // 文件上传token
+    public fileUploadImg; // 图片上传之后预览
 
     public itemsPerPage: number = 9;
     public totalRecords: number = 9;
@@ -100,7 +102,7 @@ export class LiveRoomComponent implements OnInit {
             data => {
                 // console.log(data);
                 this.anchor = data;
-                if (this.anchor.flag) { // 主播
+                if (this.anchor.flag == 1) { // 主播
                     this.isAnchor = true;
                     this.startLivePanel = true; // 开始直播面板
                 } else {
@@ -233,6 +235,7 @@ export class LiveRoomComponent implements OnInit {
             },
             error => console.log(error)
             )
+        this.fileUploadToken = JSON.parse(window.localStorage.getItem('fileUploadToken'));
     }
 
     getBarrage(data) { // 弹幕开关
@@ -284,15 +287,43 @@ export class LiveRoomComponent implements OnInit {
     }
 
     coverChange(file) {
-        console.log(file);
         this.startFiles = file[0];
-        this.tools.uploadFile(file[0])
-            .subscribe(
-            data => {
-                console.log(data)
-            },
-            error => console.log(error)
-            )
+        console.log(this.fileUploadToken);
+        let AccessKeyId = this.fileUploadToken.d.AccessKeyId;
+        let AccessKeySecret = this.fileUploadToken.d.AccessKeySecret;
+        let BucketName = this.fileUploadToken.d.BucketName;
+        let Expiration = this.fileUploadToken.d.Expiration;
+        let SecurityToken = this.fileUploadToken.d.SecurityToken;
+        let Endpoint = this.fileUploadToken.d.Endpoint;
+        OSS.urllib.request(BucketName + '.' + Endpoint,
+            { method: 'GET', },
+            function (err, response) {
+                if (err) {
+                    return alert(err);
+                }
+                try {
+                    let result = JSON.parse(response);
+                } catch (e) {
+                    let errmsg = 'parse sts response info error: ' + e.message;
+                    return alert(errmsg);
+                }
+                // console.log(result)
+                // var client = new OSS.Wrapper({
+                //     accessKeyId: result.AccessKeyId,
+                //     accessKeySecret: result.AccessKeySecret,
+                //     stsToken: result.SecurityToken,
+                //     endpoint: '<oss endpoint>',
+                //     bucket: '<Your bucket name>'
+                // });
+                // client.list({
+                //     'max-keys': 10
+                // }).then(function (result) {
+                //     console.log(result);
+                // }).catch(function (err) {
+                //     console.log(err);
+                // });
+            })
+
         // let formData = new FormData();
         // formData.append('file', this.startFiles);
         // let headers = new Headers();

@@ -12,19 +12,30 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ToolsService {
 
-    public profileURL = 'http://192.168.1.66:8007/upload/index.php'; // 获取个人信息
+    // public profileURL = 'http://192.168.1.66:8007/upload/index.php'; // 获取个人信息
+    public getUploadTokenURL = GLOBAL_URL + '/app/1/getUploadToken'; // 获取文件上传token
 
     constructor(
         public http: Http,
         public errors: ErrorsService
     ) { }
 
-    //文件上传
-    public uploadFile(file): Observable<any> {
-        let data = new URLSearchParams();
-        data.set('file', file);
-        return this.http.post(this.profileURL, {
-            params: data,
+    // //文件上传
+    // public uploadFile(file): Observable<any> {
+    //     let data = new URLSearchParams();
+    //     data.set('file', file);
+    //     return this.http.post(this.profileURL, {
+    //         params: data,
+    //         withCredentials: true
+    //     })
+    //         .map((res: Response) => {
+    //             return res.json();
+    //         })
+    //         .catch(this.errors.handleError);
+    // }
+    // 获取文件上传token
+    getUploadToken() {
+        return this.http.get(this.getUploadTokenURL, {
             withCredentials: true
         })
             .map((res: Response) => {

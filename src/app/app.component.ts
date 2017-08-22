@@ -5,6 +5,7 @@ import { IndexProfile } from "./model-data/index-profile";
 
 import { LoginService } from "./service/login.service";
 import { ProfileService } from "./service/profile.service";
+import { ToolsService } from "./service/tools.service";
 
 declare const $: any;
 declare const layer: any;
@@ -26,11 +27,19 @@ export class AppComponent implements OnInit {
     public router: Router,
     public login: LoginService,
     public profile: ProfileService,
-
+    public tools: ToolsService,
   ) { }
 
   ngOnInit() {
     this.getProfile();
+    this.tools.getUploadToken()
+      .subscribe(
+        data => {
+          // console.log(data);
+          window.localStorage.setItem('fileUploadToken', JSON.stringify(data));
+        },
+        error => console.log(error)
+      )
   }
 
   choosePanle(value) {

@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 
 import { RoutingModule } from "./routing.module";
 import { ErrorsService } from "./service/errors.service";
+import { ToolsService } from "./service/tools.service";
 
 import { HeadTabsDirective } from './directive/head-tabs.directive';
 import { IndexShowInfoDirective } from './directive/index-show-info.directive';
@@ -31,6 +32,7 @@ import { IndexShowInfoDirective } from './directive/index-show-info.directive';
   ],
   providers: [
     ErrorsService,
+    ToolsService,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
