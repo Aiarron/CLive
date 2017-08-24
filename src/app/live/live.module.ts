@@ -8,7 +8,7 @@ import { IndexShowDirective } from './directive/index-show.directive';
 
 import { LiveService } from "./service/live.service";
 
-import { NgMathPipesModule } from 'angular-pipes';
+import { NgMathPipesModule, NgArrayPipesModule } from 'angular-pipes';
 import { IndexGotoRoomShowDirective } from './directive/index-goto-room-show.directive';
 import { LiveDetailComponent } from './live-detail/live-detail.component';
 import { HotLiveComponent } from './hot-live/hot-live.component';
@@ -43,6 +43,7 @@ const router: Routes = [
         CommonModule,
         FormsModule,
         NgMathPipesModule,
+        NgArrayPipesModule,
         PaginatorModule,
         RouterModule.forChild(router)
     ],

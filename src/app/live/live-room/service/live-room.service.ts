@@ -21,6 +21,10 @@ export class LiveRoomService {
   public getRoomAdminsUrl = GLOBAL_URL + '/app/1/getRoomAdmins';
   public sendPubmsgsUrl = GLOBAL_URL + '/app/1/sendPubmsg';
   public getPubNotifyUrlUrl = GLOBAL_URL + '/app/1/getPubNotifyUrl';
+  public getPushGoodsUrl = GLOBAL_URL + '/app/1/getPushGoods';
+  public pushGoodsUrl = GLOBAL_URL + '/app/1/pushGoods';
+  public sendGiftUrl = GLOBAL_URL + '/app/1/sendGift';
+  public getShareUrlUrl = GLOBAL_URL + '/app/1/getShareUrl';
 
   constructor(
     public http: Http,
@@ -49,6 +53,21 @@ export class LiveRoomService {
 
   getGifts(): Observable<any> { // 获取礼物列表
     return this.http.get(this.getGiftsURL, {
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  sendGift(rid, uid, gid, num, gift_type): Observable<any> {
+    let data = new URLSearchParams();
+    data.set('rid', rid);
+    data.set('uid', uid);
+    data.set('gid', gid);
+    data.set('num', num);
+    data.set('gift_type', gift_type);
+    return this.http.get(this.sendGiftUrl, {
+      params: data,
       withCredentials: true
     })
       .map((res: Response) => res.json())
@@ -128,8 +147,44 @@ export class LiveRoomService {
       .catch(this.erroes.handleError);
   }
 
-  getPubNotifyUrl() { // 获取公用通知地址接口
+  getPubNotifyUrl(): Observable<any> { // 获取公用通知地址接口
     return this.http.get(this.getPubNotifyUrlUrl, {
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  getPushGoods(rid, type): Observable<any> {// 获取主播推送商品接口
+    let data = new URLSearchParams();
+    data.set('rid', rid);
+    data.set('type', type);
+    return this.http.get(this.getPushGoodsUrl, {
+      params: data,
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  pushGoods(goods_commonid, rid): Observable<any> {// 主播推送商品
+    let data = new URLSearchParams();
+    data.set('goods_commonid', goods_commonid);
+    data.set('rid', rid);
+    return this.http.get(this.pushGoodsUrl, {
+      params: data,
+      withCredentials: true
+    })
+      .map((res: Response) => res.json())
+      .catch(this.erroes.handleError);
+  }
+
+  getShareUrl(type, id) { // 获取分享地址
+    let data = new URLSearchParams();
+    data.set('type', type);
+    data.set('id', id);
+    return this.http.get(this.getShareUrlUrl, {
+      params: data,
       withCredentials: true
     })
       .map((res: Response) => res.json())

@@ -30,8 +30,32 @@
             </div>
           </div>
           <div class="shared">
-            <span></span>
-            <p>分享</p>
+            <div class="toshow" (mouseenter)="showShare($event)" (mouseleave)="hideShare($event)">
+              <span></span>
+              <p>分享</p>
+              <div class="sharedPanel">
+                <div class="wrap">
+                  <div class="sharedBody">
+                    <div class="sharedTo">
+                      <p>分享到</p>
+                      <div class="shareQQ"></div>
+                      <div class="shareXinlang"></div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="qrcode">
+                      <p>微信扫描二维码</p>
+                      <div class="code">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="footer">
+                    <input type="text" value="{{shareUrl}}">
+                    <div class="copy" [attr.data-clipboard-text]="shareUrl" (click)="clipboradShare($event)">复制链接</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -65,8 +89,9 @@
                   <div class="coverBox">
                     <p>直播封面</p>
                     <div class="imgBox">
-                      <input type="file" #file (change)="coverChange(file.files)">
-                      <img src="{{fileUploadImg}}">
+                      <!--  (change)="coverChange(file.files)" -->
+                      <input type="file" id="startFileUpload" #file>
+                      <img src="{{fileUploadImg?fileUploadImg:'/assets/img/comment_addimg.png'}}">
                     </div>
                   </div>
                   <input type="submit" value="开始直播">
@@ -79,9 +104,21 @@
         <div class="barrageScroll" [ngStyle]="{'display': barrageSwitch?'block':'none'}">
           <ng-container #barrageScroll></ng-container>
         </div>
+        <!-- 推送商品弹层 -->
+        <div class="pushGoods" *ngIf="pubshGoodsValue">
+          <div class="pushImgBox">
+            <img src="{{pubshGoodsValue?.default_img}}">
+          </div>
+          <div class="pushdetail">
+            <div class="title">{{pubshGoodsValue?.goods_name}}</div>
+            <div class="pirce">&yen;{{pubshGoodsValue?.goods_price}}</div>
+            <div class="send" [innerHTML]="'加入购物车'"></div>
+          </div>
+        </div>
         <div class="gift">
           <div class="swiper-container1">
             <div class="swiper-wrapper1">
+              <!-- 赠送 -->
               <ng-container *ngFor="let item of averageGift">
                 <div class="swiper-slide1">
                   <img src="/assets/img/bouquet@2x.png">
@@ -95,16 +132,14 @@
                           <p class="name">{{item?.name}}</p>
                           <span class="silver">({{item?.coin}}银币)</span>
                         </div>
-                        <div class="give">
-                          赠送
-                        </div>
+                        <div class="give" (click)="sendGift(anchor?.id, anchor?.id, item?.id, 1, 'live')">赠送</div>
                       </div>
                     </div>
                     <div class="temp"></div>
                   </div>
                 </div>
               </ng-container>
-
+              <!-- 高级赠送 -->
               <ng-container *ngFor="let item of advancedGift">
                 <div class="swiper-slide1">
                   <img src="/assets/img/bouquet@2x.png">
@@ -118,9 +153,7 @@
                           <p class="name">{{item?.name}}</p>
                           <span class="silver">({{item?.coin}}银币)</span>
                         </div>
-                        <div class="give">
-                          赠送
-                        </div>
+                        <div class="give" (click)="sendGift(anchor?.id, anchor?.id, item?.id, 1, 'live')">赠送</div>
                       </div>
                     </div>
                     <div class="temp"></div>
@@ -132,7 +165,7 @@
           </div>
 
           <div class="recharge">
-            <p>银币 123456</p>
+            <p>银币 <span #lastcoins>{{profiles?.coin}}</span></p>
             <div class="button">充值</div>
           </div>
 
@@ -302,20 +335,21 @@
   <div class="anchorStore">
     <p>我的店铺</p>
     <div class="shopBox">
-      <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,0,1]">
+      <ng-container *ngFor="let item of shouPushGoods">
         <div class="item">
           <div class="img">
-            <img src="http://pic38.nipic.com/20140219/2531170_212621372000_2.jpg">
+            <img src="{{item?.default_img}}">
           </div>
           <div class="detail">
-            <div class="title">哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈啊哈哈哈</div>
-            <div class="pirce">&yen;555.00</div>
-            <div class="send" [innerHTML]="'推送'"></div>
+            <div class="title">{{item?.goods_name}}</div>
+            <div class="pirce">&yen;{{item?.goods_price}}</div>
+            <!-- <div class="send" [innerHTML]="'推送'" #shouPushGoods (click)="pushGoods(item?.goods_commonid, anchor?.id)"></div> -->
+            <div class="send" [innerHTML]="'推送'" #shouPushGoods (click)="pushGoodsAnchor(item?.goods_commonid, anchor?.id, $event)"></div>
           </div>
         </div>
       </ng-container>
     </div>
-    <!-- <p-paginator rows="{{itemsPerPage}}" totalRecords="{{totalRecords}}" first="{{offset}}" (onPageChange)="pageChanged($event)">
-    </p-paginator> -->
+    <p-paginator rows="{{itemsPerPage}}" totalRecords="{{totalRecords}}" first="{{offset}}" (onPageChange)="pageChanged($event)">
+    </p-paginator>
   </div>
 </div>

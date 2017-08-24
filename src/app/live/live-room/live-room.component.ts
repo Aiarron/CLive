@@ -13,16 +13,13 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import * as io from 'socket.io-client';
-
 import { MessageComponent } from "./message/message.component";
 import { BarrageScrollComponent } from "./barrage-scroll/barrage-scroll.component";
 
-// declare var Swiper: any;
 declare var layer: any;
 declare var prismplayer: any;
-declare var OSS: any;
-
+declare var QRCode: any;
+declare var Clipboard: any;
 
 @Component({
     selector: 'app-live-room',
@@ -40,6 +37,7 @@ export class LiveRoomComponent implements OnInit {
     @ViewChild('getMessage') getMessage1;   // 操作dom用
     @ViewChild('barrageScroll', { read: ViewContainerRef }) barrageScroll;
     @ViewChild('saveBarrage') saveBarrage; // 发送消息  弹幕的盒子
+    @ViewChild('lastcoins') lastcoins; // 发送消息  弹幕的盒子
     public player;
     public cover;
     public source;
@@ -71,9 +69,21 @@ export class LiveRoomComponent implements OnInit {
     public admins; // 管理员列表
     public fileUploadToken; // 文件上传token
     public fileUploadImg; // 图片上传之后预览
+    public pushGoods; // 获取主播推送商品列表
+    public shouPushGoods; // 展示主播推送商品列表
+    public pubshGoodsValue;//接受websocket主播商品推送
+    public laseCoin;//赠送礼物剩余的余额
+    public shareUrl;// 分享地址
+    public shareCode;// 分享二维码插件实例化
 
-    public itemsPerPage: number = 9;
-    public totalRecords: number = 9;
+    // public itemsPerPage: number = 9;
+    // public totalRecords: number = 9;
+    // public currentPage: number = 1;
+    // public offset: number = 0;
+    // public end: number = 0;
+
+    public itemsPerPage: number = 20;
+    public totalRecords: number = 120;
     public currentPage: number = 1;
     public offset: number = 0;
     public end: number = 0;
@@ -169,6 +179,8 @@ export class LiveRoomComponent implements OnInit {
                             this.onlines = datas.data;
                         } else if (datas.type == "sendpubmsg") {
                             this.fillMsgBox(datas);
+                        } else if (datas.type == "pubshGoods") {
+                            this.pubshGoods(datas);
                         }
                         // this.websocket.close();
                         // this.websocket.onclose = (e) => console.log(e);
@@ -236,6 +248,30 @@ export class LiveRoomComponent implements OnInit {
             error => console.log(error)
             )
         this.fileUploadToken = JSON.parse(window.localStorage.getItem('fileUploadToken'));
+        // this.liveRoomService.getPushGoods(this.anchor.id, 3)
+        // .subscribe(data => { this.pushGoods = data.d; }, error => console.log(error));
+        this.shouPushGoods = this.pushGoods = [{
+            "index_no": 1,
+            "goods_commonid": "100051",
+            "default_img": "def_user_icon.png",
+            "goods_price": "1111.00",
+            "goods_name": "商品测试11"
+        }, {
+            "index_no": 1,
+            "goods_commonid": "100051",
+            "default_img": "def_user_icon.png",
+            "goods_price": "1111.00",
+            "goods_name": "商品测试1"
+        }]
+        this.shouPushGoods = this.pushGoods.slice(0, 20);
+        this.liveRoomService.getShareUrl(1, 100052)
+            .subscribe(
+            data => {
+                // console.log(data);
+                this.shareUrl = data.d.url;
+            },
+            error => console.log(error)
+            )
     }
 
     getBarrage(data) { // 弹幕开关
@@ -287,54 +323,54 @@ export class LiveRoomComponent implements OnInit {
     }
 
     coverChange(file) {
-        this.startFiles = file[0];
-        console.log(this.fileUploadToken);
-        let AccessKeyId = this.fileUploadToken.d.AccessKeyId;
-        let AccessKeySecret = this.fileUploadToken.d.AccessKeySecret;
-        let BucketName = this.fileUploadToken.d.BucketName;
-        let Expiration = this.fileUploadToken.d.Expiration;
-        let SecurityToken = this.fileUploadToken.d.SecurityToken;
-        let Endpoint = this.fileUploadToken.d.Endpoint;
-        OSS.urllib.request(BucketName + '.' + Endpoint,
-            { method: 'GET', },
-            function (err, response) {
-                if (err) {
-                    return alert(err);
-                }
-                try {
-                    let result = JSON.parse(response);
-                } catch (e) {
-                    let errmsg = 'parse sts response info error: ' + e.message;
-                    return alert(errmsg);
-                }
-                // console.log(result)
-                // var client = new OSS.Wrapper({
-                //     accessKeyId: result.AccessKeyId,
-                //     accessKeySecret: result.AccessKeySecret,
-                //     stsToken: result.SecurityToken,
-                //     endpoint: '<oss endpoint>',
-                //     bucket: '<Your bucket name>'
-                // });
-                // client.list({
-                //     'max-keys': 10
-                // }).then(function (result) {
-                //     console.log(result);
-                // }).catch(function (err) {
-                //     console.log(err);
-                // });
-            })
+        // this.startFiles = file[0];
+        // console.log(this.startFiles);
+        // let AccessKeyId = this.fileUploadToken.d.AccessKeyId;
+        // let AccessKeySecret = this.fileUploadToken.d.AccessKeySecret;
+        // let BucketName = this.fileUploadToken.d.BucketName;
+        // let Expiration = this.fileUploadToken.d.Expiration;
+        // let SecurityToken = this.fileUploadToken.d.SecurityToken;
+        // let Endpoint = this.fileUploadToken.d.Endpoint;
 
-        // let formData = new FormData();
-        // formData.append('file', this.startFiles);
-        // let headers = new Headers();
-        // headers.append('Accept', 'application/json');
-        // let options = new RequestOptions({ headers: headers });
+        // let client = new OSS({
+        //     region: Endpoint,
+        //     accessKeyId: AccessKeyId,
+        //     accessKeySecret: AccessKeySecret,
+        //     stsToken: SecurityToken,
+        //     bucket: BucketName
+        // });
+        // console.log(client);
+        // var storeAs = this.getUuid() + ".jpg";
+        // client.multipartUpload(storeAs, file[0]).then(res => {
+        //     console.log(res);
+        // })
+    }
+
+    getUuid() {
+        var len = 32;//32长度
+        var radix = 16;//16进制
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        var uuid = [], i;
+        radix = radix || chars.length;
+        if (len) {
+            for (i = 0; i < len; i++) {
+                uuid[i] = chars[0 | Math.random() * radix];
+            }
+        } else {
+            var r;
+            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+            uuid[14] = '4';
+            for (i = 0; i < 36; i++) {
+                if (!uuid[i]) {
+                    r = 0 | Math.random() * 16;
+                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                }
+            }
+        }
+        return uuid.join('');
     }
 
     onStartLive() {
-        console.log(this.startLiveForm);
-        console.log(this.startFiles);
-        console.log(OSS);
 
         // 获取推流地址
         this.liveRoomService.genLive()
@@ -351,7 +387,7 @@ export class LiveRoomComponent implements OnInit {
             )
     }
 
-    getRankItems(data) {
+    getRankItems(data) { //排行榜
         switch (data) {
             case 1:
                 this.rankNum = this.rankDay;
@@ -382,7 +418,7 @@ export class LiveRoomComponent implements OnInit {
         }).map(res => res.data);
     }
 
-    fillMsgBox(val) {
+    fillMsgBox(val) { //公聊聊天盒子
         let dom = this.cfr.resolveComponentFactory(MessageComponent);
         let barrageDom = this.cfr.resolveComponentFactory(BarrageScrollComponent);
 
@@ -398,7 +434,76 @@ export class LiveRoomComponent implements OnInit {
 
     }
 
-    scrollTopMax(e) {
+    scrollTopMax(e) { // 滚动条置底
         e.scrollTop = e.scrollHeight;
+    }
+
+    pushGoodsAnchor(goods_commonid, id, event) {//主播推送商品
+        console.log(goods_commonid, id);
+        event.target.innerText = "再次推送";
+        this.liveRoomService.pushGoods(goods_commonid, id)
+            .subscribe(data => { })
+    }
+
+    pubshGoods(val) {
+        console.log(val);
+        this.pubshGoodsValue = val.data.goods;
+        setTimeout(() => {
+            this.pubshGoodsValue = ""
+        }, 60000);
+    }
+
+    addCart() {
+
+    }
+
+    sendGift(rid, uid, gid, num, gift_type) {
+        this.liveRoomService.sendGift(rid, uid, gid, num, gift_type)
+            .subscribe(
+            data => {
+                console.log(data);
+                if (data.c != 20000) {
+                    this.laseCoin = data.d.coin;
+                    this.profiles.coin = data.d.coin;
+                } else {
+                    layer.msg(data.m);
+                }
+                console.log(this.lastcoins.nativeElement);
+            },
+            error => console.log(error)
+            )
+    }
+
+    showShare(e) {
+        e.target.parentNode.querySelector('.sharedPanel').style.display = 'block';
+        this.shareCode = new QRCode(e.target.parentNode.querySelector('.sharedPanel .qrcode .code'), {
+            text: this.shareUrl,
+            width: 140,
+            height: 140,
+        });
+    }
+    
+    hideShare(e) {
+        e.target.parentNode.querySelector('.sharedPanel').style.display = 'none';
+        e.target.parentNode.querySelector('.sharedPanel .qrcode .code').innerHTML = '';
+        this.shareCode.clear();
+    }
+
+    clipboradShare(e) {// 复制分享地址
+        let clipboard = new Clipboard('.copy');
+        clipboard.on('success', (e) => {
+            layer.msg('复制成功');
+        });
+        clipboard.on('error', (e) => {
+            layer.msg('复制失败');
+        });
+    }
+
+
+
+
+    public pageChanged(event: any): void { //假装分页
+        console.log(event);
+        this.shouPushGoods = this.pushGoods.slice(event.first, parseInt(event.first + parseInt(event.rows)));
     }
 }
