@@ -1,3 +1,60 @@
-<p>
-  shop works!
-</p>
+<!-- 商城幻灯片 -->
+<div class="swiperBox">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <ng-container *ngFor="let item of [1,12,13,14,15]">
+        <a class="swiper-slide" [routerLink]="['/shop/shop-detail', item?.id?item.id:'']">
+          <img src="http://pic.hdpic.net/upfile/20131/19/20131193754-7550776.jpg">
+          <!-- <img src="item?.logo"> -->
+        </a>
+      </ng-container>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+<!-- 分类 -->
+<div class="classify">
+  <div class="box">
+    <p>查看更多分类 ></p>
+    <div class="wrap">
+      <ng-container *ngFor="let items of getHomePageCate">
+        <div class="item">
+          <div class="img">
+            <img src="http://pic.hdpic.net/upfile/20131/19/20131193754-7550776.jpg">
+            <!-- <img src="{{items?.img}}"> -->
+          </div>
+          <span># {{items?.name}} #</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<!-- 猜你喜欢 -->
+<div class="guess">
+  <div class="wrap">
+    <div class="title">
+      <span></span>
+      <p>猜你喜欢</p>
+    </div>
+    <a>
+      <p>查看更多</p>
+      <i></i>
+    </a>
+  </div>
+  <div class="box">
+    <ng-container *ngFor="let items of guessLike">
+      <div class="item" [routerLink]="['/shop/shop-detail', item?.id?item.id:'']">
+        <div class="img">
+          <img src="http://pic.hdpic.net/upfile/20131/19/20131193754-7550776.jpg">
+          <!-- <img src="{{items?.default_img}}"> -->
+        </div>
+        <div class="title">{{items?.goods_intro}}</div>
+        <div class="price">&yen;{{items?.goods_price}}</div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="fix"></div>
+  <p-paginator rows="{{itemsPerPage}}" totalRecords="{{totalRecords}}" first="{{offset}}" (onPageChange)="pageChanged($event)">
+  </p-paginator>
+  <div class="fix"></div>
+</div>

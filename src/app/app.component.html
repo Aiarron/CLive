@@ -5,15 +5,15 @@
       <div class="wrap">
         <div class="ul">
           <ul>
-            <li *ngIf="!profiles?.id" [routerLink]="['/live/lives']" routerLinkActive="active">首页</li>
-            <li *ngIf="profiles?.id" [routerLink]="['/live/lives', profiles?.id]" routerLinkActive="active">首页</li>
-            <li [routerLink]="['/shop/shops']" routerLinkActive="active">商城</li>
+            <li (click)="goIndex()" *ngIf="!profiles?.id" [routerLink]="['/live/lives']" routerLinkActive="active">首页</li>
+            <li (click)="goIndex()" *ngIf="profiles?.id" [routerLink]="['/live/lives', profiles?.id]" routerLinkActive="active">首页</li>
+            <li (click)="goShop()" [routerLink]="['/shop/shops']" routerLinkActive="active">商城</li>
             <li>购物车</li>
           </ul>
         </div>
         <div class="search">
           <input #doSearch (keyup.enter)="search($event, doSearch.value)" (click)="search($event, doSearch.value)" type="" name=""
-            value="" placeholder="主播昵称">
+            value="" placeholder="{{placeholder.placeholder}}">
           <span></span>
         </div>
       </div>

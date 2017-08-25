@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   public isLogin: number = 0;
   public model = new IndexLogin('', '', '');
   public profiles;
+  public placeholder;
 
   constructor(
     public elementRef: ElementRef,
@@ -31,14 +32,19 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    window.localStorage.setItem('setSearch', JSON.stringify({
+      id: 1,
+      placeholder: '请输入主播昵称'
+    }));
+    this.placeholder = JSON.parse(window.localStorage.getItem('setSearch'));
     this.getProfile();
     this.tools.getUploadToken()
       .subscribe(
-        data => {
-          // console.log(data);
-          window.localStorage.setItem('fileUploadToken', JSON.stringify(data));
-        },
-        error => console.log(error)
+      data => {
+        // console.log(data);
+        window.localStorage.setItem('fileUploadToken', JSON.stringify(data));
+      },
+      error => console.log(error)
       )
   }
 
@@ -120,7 +126,7 @@ export class AppComponent implements OnInit {
   search(event, value) {
     if (value) {
       let data = JSON.stringify({
-        id: 1,
+        id: this.placeholder.id == 1 ? 1 : 2,
         text: value
       });
       this.router.navigate(["/live/search", data]);
@@ -147,5 +153,20 @@ export class AppComponent implements OnInit {
       )
   }
 
+  goIndex() {
+    window.localStorage.setItem('setSearch', JSON.stringify({
+      id: 1,
+      placeholder: '请输入主播昵称'
+    }));
+    this.placeholder = JSON.parse(window.localStorage.getItem('setSearch'));
+  }
+
+  goShop() {
+    window.localStorage.setItem('setSearch', JSON.stringify({
+      id: 2,
+      placeholder: '请输入商品名称'
+    }));
+    this.placeholder = JSON.parse(window.localStorage.getItem('setSearch'));
+  }
 
 }

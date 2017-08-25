@@ -242,8 +242,12 @@ export class LiveRoomComponent implements OnInit {
         this.liveRoomService.getRoomAdmins() // 获取管理员
             .subscribe(
             data => {
-                // console.log(data);
-                this.admins = data.d.items;
+                console.log(data);
+                if (data.d) {
+                    this.admins = data.d.items;
+                } else {
+                    this.admins = '';
+                }
             },
             error => console.log(error)
             )
@@ -267,8 +271,12 @@ export class LiveRoomComponent implements OnInit {
         this.liveRoomService.getShareUrl(1, 100052)
             .subscribe(
             data => {
-                // console.log(data);
-                this.shareUrl = data.d.url;
+                console.log(data);
+                if (data.d) {
+                    this.shareUrl = data.d.url;
+                } else {
+                    this.shareUrl = '';
+                }
             },
             error => console.log(error)
             )
@@ -482,7 +490,7 @@ export class LiveRoomComponent implements OnInit {
             height: 140,
         });
     }
-    
+
     hideShare(e) {
         e.target.parentNode.querySelector('.sharedPanel').style.display = 'none';
         e.target.parentNode.querySelector('.sharedPanel .qrcode .code').innerHTML = '';
@@ -499,10 +507,23 @@ export class LiveRoomComponent implements OnInit {
         });
     }
 
+    shareToQQ(url, pics, event) {//手动分享到qq
+        let source = event.target.ownerDocument.querySelector("head meta[name='site']").getAttribute('content');
+        let title = event.target.ownerDocument.querySelector("head title").innerHTML;
+        let desc = event.target.ownerDocument.querySelector("head meta[name='description']").getAttribute('content');
+        window.location.href = "http://connect.qq.com/widget/shareqq/index.html?url=" + url + "&title=" + title + "&source=" + source + "&desc=" + desc + "&pics=" + pics;
+    }
+
+    shareToXinlang(url, pics, event) {//手动分享到微博
+        let source = event.target.ownerDocument.querySelector("head meta[name='site']").getAttribute('content');
+        let title = event.target.ownerDocument.querySelector("head title").innerHTML;
+        let desc = event.target.ownerDocument.querySelector("head meta[name='description']").getAttribute('content');
+        window.location.href = "http://service.weibo.com/share/share.php?url=" + url + "&title=" + title + "&pic=" + pics + "&appkey=" + '';
+    }
 
 
 
-    public pageChanged(event: any): void { //假装分页
+    pageChanged(event: any): void { //假装分页
         console.log(event);
         this.shouPushGoods = this.pushGoods.slice(event.first, parseInt(event.first + parseInt(event.rows)));
     }
