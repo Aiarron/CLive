@@ -1,3 +1,171 @@
-<p>
-  shop-detail works!
-</p>
+<div class="container">
+  <div class="shopRole">
+    <div class="nav">
+      商城首页>猜你喜欢
+    </div>
+    <div class="shopRoleBox">
+      <div class="imgBox">
+        <div class="showImg">
+          <img src="http://pic.hdpic.net/upfile/20131/19/20131193754-7550776.jpg">
+        </div>
+        <div class="imgList">
+          <ng-container *ngFor="let item of goodsDetail?.imgs, let i =index">
+            <div class="item {{i == 0?'active':''}}" (click)="imgListSelect($event)">
+              <!-- <img src="http://pic.hdpic.net/upfile/20131/19/20131193754-7550776.jpg"> -->
+              <img src="{{item}}">
+            </div>
+          </ng-container>
+        </div>
+        <div class="sharedFavor">
+          <div class="shared">
+            <span></span>
+            <p>分享</p>
+          </div>
+          <div class="favor">
+            <span></span>
+            <p>收藏商品</p>
+          </div>
+        </div>
+      </div>
+      <div class="roleDetail">
+        <div class="title">{{goodsDetail?.goods_name}}</div>
+        <div class="desc">{{goodsDetail?.goods_name}}</div>
+        <div class="priceBox">
+          <div class="pirce1">
+            <p>专柜价</p>
+            <span>&yen;{{goodsDetail?.goods_market_price}}</span>
+          </div>
+          <div class="pirce2">
+            <p>促销价</p>
+            <span>&yen;<i>{{goodsDetail?.goods_price}}</i></span>
+          </div>
+        </div>
+        <div class="post">
+          <p>运费</p>
+          <span>快递：0.00</span>
+        </div>
+        <div class="color">
+          <p>颜色</p>
+          <div class="colorBox">
+            <ng-container *ngFor="let item of [1,2,3,4,5], let i =index">
+              <div class="colorItem {{i == 0?'active':''}}" (click)="colorItemSelect($event)">
+                <img src="http://pic.hdpic.net/upfile/20131/19/20131193754-7550776.jpg">
+                <div class="check"></div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="role">
+          <p>尺码</p>
+          <div class="roleBox">
+            <ng-container *ngFor="let item of [1,2,3,4,5], let i =index">
+              <div class="roleItem {{i == 0?'active':''}}" (click)="roleItemSelect($event)">
+                123
+                <img src="">
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="num">
+          <p>数量</p>
+          <div class="addReduce">
+            <div class="expressBox">
+              <div class="reduce" (click)="reduce()">-</div>
+              <input type="text" value="1" #addReduceInput>
+              <div class="add" (click)="add()">+</div>
+            </div>
+            <p class="flag">件</p>
+            <p class="lastNum">库存{{goodsDetail?.goods_store}}件</p>
+          </div>
+        </div>
+        <div class="payMethod">
+          <p>支付方式</p>
+          <div class="methodBox">
+            <div class="alipay active" (click)="payMethodSelect($event)">
+              <img src="/assets/img/pay_zfb.png">
+              <div class="check"></div>
+            </div>
+            <div class="weixin" (click)="payMethodSelect($event)">
+              <img src="/assets/img/pay_wechat.png">
+              <div class="check"></div>
+            </div>
+          </div>
+        </div>
+        <div class="servicePromise">
+          <p>服务承诺</p>
+          <div class="promiseBox">
+            <ng-container *ngFor="let item of [1,2,3,4], let i =index">
+              <div class="promiseItem">
+                正品保证
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="operator">
+          <div class="addCart">
+            加入购物车
+          </div>
+          <div class="buy">
+            立即购买
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="shopDetail">
+    <div class="tabs">
+      <div class="item active" (click)="detailSelect($event)">商品详情</div>
+      <div class="item" (click)="detailSelect($event)">累计评价</div>
+    </div>
+    <div class="body">
+      <div class="item active">
+        <div class="params">
+          <p>产品参数：</p>
+          <ul>
+            <li>风格：哈伦风</li>
+            <li>风格：哈伦风</li>
+            <li>风格：哈伦风</li>
+            <li>风格：哈伦风</li>
+            <li>风格：哈伦风</li>
+          </ul>
+        </div>
+        <div class="img">
+          <p>产品图片：</p>
+          <div class="shopImg">
+            123
+          </div>
+        </div>
+      </div>
+      <div class="item evaluate">
+        <ng-container *ngFor="let item of [1,2,3,4,5]">
+          <div class="evaluateItem">
+            <div class="evaluateDetail">
+              <div class="levelTime">
+                <div class="level">
+                  <ng-container *ngFor="let item of [1,2,3,4,5], let i = index">
+                    <span class="{{i < 4?'active':''}}"></span>
+                  </ng-container>
+                </div>
+                <div class="time">
+                  2017-8-26 16:55:58
+                </div>
+              </div>
+              <div class="descRole">
+                <div class="desc">
+                  哈哈哈哈哈哈
+                </div>
+                <div class="role">
+                  <span>尺码：M</span>
+                  <span>颜色：白色</span>
+                </div>
+              </div>
+            </div>
+            <div class="nickName">
+              廖红东
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

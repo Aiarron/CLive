@@ -11,7 +11,7 @@ import { ShopDetailComponent } from './shop-detail/shop-detail.component';
 const router: Routes = [
     { path: '', redirectTo: 'shops', pathMatch: 'full' },
     { path: 'shops', component: ShopComponent },
-    { path: 'shops/:id', component: ShopDetailComponent }
+    { path: 'shop-detail/:id', component: ShopDetailComponent }
 ]
 
 @NgModule({

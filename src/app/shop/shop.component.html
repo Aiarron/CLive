@@ -42,8 +42,8 @@
     </a>
   </div>
   <div class="box">
-    <ng-container *ngFor="let items of guessLike">
-      <div class="item" [routerLink]="['/shop/shop-detail', item?.id?item.id:'']">
+    <ng-container *ngFor="let items of guessLike, let i = index">
+      <div class="item" [routerLink]="['/shop/shop-detail', items?.goods_commonid]">
         <div class="img">
           <img src="http://pic.hdpic.net/upfile/20131/19/20131193754-7550776.jpg">
           <!-- <img src="{{items?.default_img}}"> -->
