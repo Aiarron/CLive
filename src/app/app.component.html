@@ -5,10 +5,11 @@
       <div class="wrap">
         <div class="ul">
           <ul>
-            <li (click)="goIndex()" *ngIf="!profiles?.id" [routerLink]="['/live/lives']" routerLinkActive="active">首页</li>
-            <li (click)="goIndex()" *ngIf="profiles?.id" [routerLink]="['/live/lives', profiles?.id]" routerLinkActive="active">首页</li>
-            <li (click)="goShop()" [routerLink]="['/shop/shops']" routerLinkActive="active">商城</li>
-            <li>购物车</li>
+            <li (click)="goIndex()" *ngIf="!profiles?.id" [routerLink]="['/live/lives']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">首页</li>
+            <li (click)="goIndex()" *ngIf="profiles?.id" [routerLink]="['/live/lives', profiles?.id]" [routerLinkActiveOptions]="{exact: true}"
+              routerLinkActive="active">首页</li>
+            <li (click)="goShop()" [routerLink]="['/shop/shops']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">商城</li>
+            <li [routerLink]="['/cart/carts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">购物车</li>
           </ul>
         </div>
         <div class="search">

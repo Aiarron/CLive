@@ -7,11 +7,13 @@ import { PaginatorModule } from 'primeng/primeng';
 
 import { ShopComponent } from './shop.component';
 import { ShopDetailComponent } from './shop-detail/shop-detail.component';
+import { ShopSearchDetailComponent } from './shop-search-detail/shop-search-detail.component';
 
 const router: Routes = [
     { path: '', redirectTo: 'shops', pathMatch: 'full' },
     { path: 'shops', component: ShopComponent },
-    { path: 'shop-detail/:id', component: ShopDetailComponent }
+    { path: 'shop-detail/:id', component: ShopDetailComponent },
+    { path: 'shop-search-detail/:text/:searchParams', component: ShopSearchDetailComponent },
 ]
 
 @NgModule({
@@ -24,7 +26,8 @@ const router: Routes = [
     exports: [],
     declarations: [
         ShopComponent,
-        ShopDetailComponent
+        ShopDetailComponent,
+        ShopSearchDetailComponent
     ],
     providers: [],
 })

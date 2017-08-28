@@ -1,0 +1,174 @@
+.container {
+    padding-top: 45px;
+    margin: 0 auto;
+    width: 1200px;
+    input {
+        margin: 0;
+        padding: 0;
+    }
+    .operatorTitle {
+        background: #fff;
+        display: flex;
+        align-items: center;
+        padding: 0 28px;
+        height: 70px;
+        font-weight: bold;
+        .allSelect {
+            margin-right: 20px;
+            width: 102px;
+        }
+        .shopName {
+            margin-right: 50px;
+            width: 150px;
+            text-align: center;
+        }
+        .shopRole {
+            margin-right: 117px;
+            width: 219px;
+            text-align: center;
+        }
+        .shopPrice {
+            margin-right: 111px;
+            width: 110px;
+            text-align: center;
+        }
+        .num {
+            margin-right: 136px;
+            width: 89px;
+            text-align: center;
+        }
+        .operator {
+            width: 100px;
+            text-align: center;
+        }
+    }
+    ul {
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 0 28px;
+            width: calc(100% - 58px);
+            height: 118px;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #fff;
+            background: #fff;
+            .check {
+                display: flex;
+                margin-right: 20px;
+                width: 102px;
+                .headImg {
+                    width: 74px;
+                    height: 74px;
+                    overflow: hidden;
+                    img {
+                        width: 74px;
+                        display: block;
+                    }
+                }
+            }
+            .shopName {
+                margin-right: 50px;
+                width: 150px;
+                text-align: center;
+                color: #666;
+                font-size: 14px;
+            }
+            .shopRole {
+                margin-right: 117px;
+                width: 219px;
+                text-align: center;
+                color: #999;
+                font-size: 14px;
+            }
+            .shopPrice {
+                margin-right: 111px;
+                width: 110px;
+                text-align: center;
+                color: #fe345e;
+            }
+            .num {
+                display: flex;
+                margin-right: 136px;
+                width: 89px;
+                text-align: center;
+                border: 1px solid #ddd;
+                div {
+                    width: 23px;
+                    background: #fff;
+                }
+                input {
+                    border: 0;
+                    outline: 0;
+                    width: 37px;
+                    border-left: 1px solid #ddd;
+                    border-right: 1px solid #ddd;
+                    text-align: center;
+                }
+            }
+            .operator {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100px;
+                text-align: center;
+                color: #666;
+                font-size: 14px;
+            }
+        }
+    }
+    .count {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 auto;
+        padding-left: 28px;
+        width: calc(1200px - 28px);
+        height: 49px;
+        background: #fff;
+        .left {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+            .selectDelete {
+                margin-left: 20px;
+            }
+        }
+        .right {
+            display: flex;
+            align-items: center;
+            .info {
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+                .getCount {
+                    font-size: 14px;
+                    color: #666;
+                    span {
+                        font-size: 20px;
+                        color: #fe345e;
+                    }
+                }
+                .post {
+                    font-size: 14px;
+                    color: #666;
+                    span {
+                        font-size: 20px;
+                        color: #fe345e;
+                    }
+                }
+            }
+            .account {
+                margin-left: 30px;
+                width: 160px;
+                height: 49px;
+                line-height: 49px;
+                color: #fff;
+                text-align: center;
+                background: #fe345e;
+            }
+        }
+    }
+}

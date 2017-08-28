@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="wrap">
+    <p class="flag">确认收货地址</p>
+    <div class="address">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <ng-container *ngFor="let item of [1,2,3,4,5,6], let i = index">
+            <div class="swiper-slide {{i == 1 ? 'active':''}}">
+              <div class="title">
+                <div class="name">
+                  廖红东
+                </div>
+                <span class="default">默认地址</span>
+              </div>
+              <div class="body">
+                <p class="adderssDetail">广东省深圳市宝安区西乡盐田新一村三巷十五号</p>
+                <p class="mobile">13714553315</p>
+                <span>编辑</span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+    <div class="useNewAddress">使用新地址</div>
+  </div>
+  <div class="box">
+    <p class="orderInfo">
+      确认订单信息
+    </p>
+    <div class="title">
+      <div class="shopInfo">商品信息</div>
+      <div class="price">单价</div>
+      <div class="num">数量</div>
+    </div>
+    <div class="body">
+      <ng-container *ngFor="let item of [1,1,1,1,1]">
+        <div class="item">
+          <div class="img">
+            <img src="">
+          </div>
+          <div class="shopName">
+            哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+          </div>
+          <div class="shopRole">
+            哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+          </div>
+          <div class="price">&yen;188.00</div>
+          <div class="num">55</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

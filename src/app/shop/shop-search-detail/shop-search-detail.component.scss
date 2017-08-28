@@ -1,0 +1,109 @@
+.container {
+    padding-top: 75px;
+    .searchRole {
+        position: relative;
+        margin: 0 auto;
+        display: flex;
+        justify-content: flex-end;
+        width: 1200px;
+        height: 40px;
+        .marl {
+            margin-left: 20px;
+        }
+        .numberBox,
+        .priceBox {
+            display: flex;
+            width: 216px;
+            border: 1px solid #999;
+            background: #fff;
+            .number,
+            .price {
+                position: relative;
+                width: 182px;
+                text-indent: 10px;
+                -webkit-appearance: none;
+                border: 0;
+                outline: 0;
+            }
+            span {
+                margin-top: 10px;
+                width: 20px;
+                height: 20px;
+                background: url(/assets/img/01icon_all.png) no-repeat;
+                background-position: -70px -690px;
+                &.active {
+                    background-position: -93px -690px;
+                }
+            }
+        }
+        .minPrice,
+        .maxPrice {
+            width: 66px;
+            text-align: right;
+        }
+        .flag {
+            padding: 0 5px;
+            align-self: center;
+        }
+        .minFlag {
+            position: absolute;
+            top: 10px;
+            right: 139px;
+        }
+        .maxFlag {
+            position: absolute;
+            top: 10px;
+            right: 52px;
+        }
+    }
+    .box {
+        display: flex;
+        flex-wrap: wrap;
+        width: 1200px;
+        margin: 0 auto;
+        margin-top: 35px;
+        .item {
+            margin-right: 15px;
+            margin-bottom: 15px;
+            padding: 18px;
+            width: 228px;
+            height: 358px;
+            background: #fff;
+            box-sizing: border-box;
+            border: 1px solid #fff;
+            cursor: pointer;
+            &:hover {
+                border: 1px solid #fe345e;
+            }
+            &:nth-child(5n) {
+                margin-right: 0;
+            }
+            .img {
+                width: 193px;
+                height: 250px;
+                overflow: hidden;
+                img {
+                    display: block;
+                    width: 193px;
+                }
+            }
+            .title {
+                min-height: 42px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                text-align: center;
+            }
+            .price {
+                margin-top: 5px;
+                color: #fe345e;
+                text-align: center;
+            }
+        }
+    }
+    .fix {
+        margin: 20px 0 0 0;
+    }
+}

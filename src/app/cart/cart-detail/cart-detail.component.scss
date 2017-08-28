@@ -1,0 +1,155 @@
+.container {
+    padding-top: 45px;
+    margin: 0 auto;
+    width: 1200px;
+    .wrap {
+        padding: 30px;
+        background: #fff;
+        p.flag {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .address {
+            margin-top: 15px;
+            height: 170px;
+            .swiper-container {
+                .swiper-wrapper {
+                    .swiper-slide {
+                        padding: 12px 18px;
+                        width: 205px;
+                        height: 136px;
+                        background: url(/assets/img/nor_address.png) no-repeat;
+                        &.active {
+                            background: url(/assets/img/sel_address.png) no-repeat;
+                            .title {
+                                .default {
+                                    display: block;
+                                }
+                            }
+                        }
+                        .title {
+                            display: flex;
+                            justify-content: space-between;
+                            padding-bottom: 5px;
+                            font-size: 13px;
+                            height: 24px;
+                            align-items: center;
+                            font-weight: bold;
+                            border-bottom: 1px solid #ddd;
+                            .default {
+                                display: none;
+                                width: 64px;
+                                height: 18px;
+                                line-height: 18px;
+                                text-align: center;
+                                background: #999;
+                                color: #fff;
+                                font-size: 12px;
+                                border-radius: 20px;
+                            }
+                        }
+                        .body {
+                            position: relative;
+                            height: 110px;
+                            .adderssDetail {
+                                font-size: 12px;
+                                color: #999;
+                                margin-top: 10px;
+                            }
+                            .mobile {
+                                font-size: 12px;
+                                color: #999;
+                            }
+                            span {
+                                position: absolute;
+                                left: 0;
+                                bottom: 9px;
+                                color: #5775C0;
+                                font-size: 12px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                .swiper-button-prev {
+                    background: url(/assets/img/01icon_all.png);
+                    background-position: -46px -747px;
+                }
+                .swiper-button-next {
+                    background: url(/assets/img/01icon_all.png);
+                    background-position: -82px -747px;
+                }
+            }
+        }
+        .useNewAddress {
+            margin-left: 55px;
+            font-size: 12px;
+            color: #fe345e;
+            cursor: pointer;
+        }
+    }
+    .box {
+        background: #fff;
+        .orderInfo {
+            margin: 0 30px;
+            padding: 0 0 10px 0;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            margin: 0 30px;
+            height: 50px;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+            .shopInfo {
+                width: 677px;
+                text-indent: 56px;
+            }
+            .price {
+                width: 357px;
+                text-indent: 75px;
+            }
+            .num {
+                width: 78px;
+            }
+        }
+        .body {
+            margin: 0 30px;
+            background: #F8F8F8;
+            .item {
+                display: flex;
+                padding: 22px;
+                height: 76px;
+                border-bottom: 1px solid #ddd;
+                .img {
+                    margin-right: 20px;
+                    width: 74px;
+                    height: 74px;
+                    overflow: hidden;
+                    img {
+                        display: block;
+                        width: 74px
+                    }
+                }
+                .shopName {
+                    margin-right: 55px;
+                    width: 150px;
+                }
+                .shopRole {
+                    margin-right: 45px;
+                    width: 350px;
+                }
+                .price {
+                    width: 357px;
+                    text-indent: 49px;
+                }
+                .num {
+                    width: 78px;
+                }
+            }
+        }
+    }
+}

@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
   getProfile() {
     this.profile.getProfile().subscribe(
       data => {
-        // console.log(data);
+        console.log(data);
         if (data.c == 1) { // 遊客許可權
           localStorage.setItem('profile', JSON.stringify(data.d));
           this.profiles = data.d;
@@ -124,12 +124,17 @@ export class AppComponent implements OnInit {
   }
 
   search(event, value) {
+
     if (value) {
       let data = JSON.stringify({
         id: this.placeholder.id == 1 ? 1 : 2,
         text: value
       });
-      this.router.navigate(["/live/search", data]);
+      if (this.placeholder.id == 1) {
+        this.router.navigate(["/live/search", data]);
+      } else {
+        this.router.navigate(["/shop/shop-search-detail", value, '']);
+      }
     }
   }
 

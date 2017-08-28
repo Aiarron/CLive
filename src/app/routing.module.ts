@@ -5,6 +5,7 @@ const router: Routes = [
     { path: '', redirectTo: 'live', pathMatch: 'full' },
     { path: 'live', loadChildren: './live/live.module#LiveModule' },
     { path: 'shop', loadChildren: './shop/shop.module#ShopModule' },
+    { path: 'cart', loadChildren: './cart/cart.module#CartModule' },
     { path: '**', loadChildren: './live/live.module#LiveModule' }
 ]
 
