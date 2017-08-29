@@ -10,7 +10,7 @@
             <div class="nameLevel">
               <span class="name">{{profiles?.nick}}</span>
               <p class="level">
-                <span>LV{{profiles?.richlvl}}</span>
+                <span>LV{{profiles?.anchorlvl}}</span>
               </p>
             </div>
             <div class="id">id:{{profiles?.id}}</div>
@@ -21,11 +21,12 @@
           <div class="box">
             <p>金币数：{{profiles?.coin}}</p>
             <!-- 是主播 -->
-            <div *ngIf="isAnchor" class="follow active" [style.background]="isAnchor?'#999':'#fe345e'">
-              关注/退出直播
+            <div *ngIf="isAnchor" (click)="stopLive()" class="follow active" [style.background]="isAnchor?'#999':'#fe345e'">
+              <!-- 关注/退出直播 -->
+              退出直播
             </div>
             <!-- 是用户 -->
-            <div *ngIf="!isAnchor" class="follow active">
+            <div *ngIf="!isAnchor" class="follow {{enterroom?.followed?'':'active'}}" [attr.data-isfollowed]="enterroom?.followed" (click)="doFollow(profiles?.id, $event)">
               关注
             </div>
           </div>
@@ -72,7 +73,7 @@
                 <span (click)="closeStartLive()"></span>
               </div>
               <div class="body">
-                <form (ngSubmit)="onStartLive()">
+                <form (ngSubmit)="onStartLive($event)">
                   <div class="titleBox">
                     <p>直播标题</p>
                     <textarea required [(ngModel)]="startLiveForm.title" maxlength="20" name="title" placeholder="请写下您的直播标题（不超过20个字）"></textarea>
@@ -82,7 +83,7 @@
                     <span></span>
                     <select name="topic" id="" [(ngModel)]="startLiveForm.topic">
                       <ng-container *ngFor="let item of topic; let i = index">
-                        <option [value]="item?.name">{{item?.name}}</option>
+                        <option [value]="item?.id">{{item?.name}}</option>
                       </ng-container>
                     </select>
                   </div>
@@ -90,7 +91,7 @@
                     <p>直播封面</p>
                     <div class="imgBox">
                       <!--  (change)="coverChange(file.files)" -->
-                      <input type="file" id="startFileUpload" #file>
+                      <input type="file" id="startFileUpload" #file (change)="coverChange(file.files, $event)">
                       <img src="{{fileUploadImg?fileUploadImg:'/assets/img/comment_addimg.png'}}">
                     </div>
                   </div>

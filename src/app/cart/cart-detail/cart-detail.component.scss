@@ -151,5 +151,99 @@
                 }
             }
         }
+        .footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 1096px;
+            margin: 0 30px;
+            padding: 0 22px;
+            height: 70px;
+            border-bottom: 1px solid #ddd;
+            .msg {
+                display: flex;
+                align-items: center;
+                p {
+                    font-size: 14px;
+                }
+                input {
+                    padding: 0 10px;
+                    width: 360px;
+                    height: 30px;
+                }
+            }
+            .post {
+                span {
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            }
+        }
+        .submit {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding-bottom: 40px;
+            .orderDetail {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                align-content: space-between;
+                justify-content: space-around;
+                padding: 20px;
+                height: 90px;
+                border: 1px solid #fe345e;
+                font-size: 14px;
+                .money {
+                    display: flex;
+                    align-items: baseline;
+                    span {
+                        font-size: 25px;
+                        font-weight: bold;
+                        color: #fe345e;
+                    }
+                }
+                .address {
+                    display: flex;
+                    align-items: center;
+                }
+                .man {
+                    display: flex;
+                    align-items: center;
+                }
+                p {
+                    font-weight: bold;
+                }
+            }
+            .sub {
+                display: flex;
+                justify-content: flex-end;
+                font-size: 14px;
+                .returnCart {
+                    display: flex;
+                    align-items: center;
+                    margin-right: 40px;
+                    span {
+                        width: 20px;
+                        height: 20px;
+                        background: url(/assets/img/01icon_all.png);
+                        background-position: -116px -760px;
+                    }
+                    div {
+                        color: #5775C0;
+                        font-size: 14px;
+                    }
+                }
+                .postOrder {
+                    width: 191px;
+                    height: 41px;
+                    line-height: 41px;
+                    background: #fe345e;
+                    text-align: center;
+                    color: #fff;
+                }
+            }
+        }
     }
 }

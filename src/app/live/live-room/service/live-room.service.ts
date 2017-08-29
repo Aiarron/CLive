@@ -25,6 +25,7 @@ export class LiveRoomService {
   public pushGoodsUrl = GLOBAL_URL + '/app/1/pushGoods';
   public sendGiftUrl = GLOBAL_URL + '/app/1/sendGift';
   public getShareUrlUrl = GLOBAL_URL + '/app/1/getShareUrl';
+  public stopLiveUrl = GLOBAL_URL + '/app/1/stopLive';
 
   constructor(
     public http: Http,
@@ -189,6 +190,13 @@ export class LiveRoomService {
     })
       .map((res: Response) => res.json())
       .catch(this.erroes.handleError);
+  }
+
+  stopLive(): Observable<any> {
+    return this.http.get(this.stopLiveUrl, {
+      withCredentials: true
+    })
+      .map((res: Response) => res.json()).catch(this.erroes.handleError);
   }
 
 }

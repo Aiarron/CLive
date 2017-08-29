@@ -31,7 +31,7 @@
         <div class="livebox">
             <!-- <ng-template ngFor let-xb [ngForOf]="tempData"> -->
             <ng-container *ngFor="let items of newLive2">
-                <a class="item" appIndexShow>
+                <a class="item" appIndexShow [routerLink]="['/live/live-room', items.id, 0]">
                     <div class="showLive">
                         <img src="{{items?.livelogo}}">
                         <!-- 遮罩层 -->

@@ -24,7 +24,7 @@
         <div class="swiper-button-next"></div>
       </div>
     </div>
-    <div class="useNewAddress">使用新地址</div>
+    <div class="useNewAddress" (click)="useAddress()">使用新地址</div>
   </div>
   <div class="box">
     <p class="orderInfo">
@@ -51,6 +51,43 @@
           <div class="num">55</div>
         </div>
       </ng-container>
+    </div>
+    <div class="footer">
+      <div class="msg">
+        <p>给卖家留言&nbsp;&nbsp;&nbsp;</p>
+        <input type="text" placeholder="选填：对本次交易的说明（建议填写和卖家协商一致的内容）">
+      </div>
+      <div class="post">
+        运费:
+        <span>&yen;0.00</span>
+      </div>
+    </div>
+    <div class="submit">
+      <div class="orderDetail">
+        <div class="money">
+          <p>实付款：</p>
+          <span>&yen;169.00</span>
+        </div>
+        <div class="address">
+          <p>寄送至：</p>
+          <div>
+            广东省深圳市南山区大冲国际中心你随便找个地方放下就好了
+          </div>
+        </div>
+        <div class="man">
+          <p>收货人：</p>
+          <div>廖红东&nbsp;&nbsp;&nbsp;13714553315</div>
+        </div>
+      </div>
+      <div class="sub">
+        <div class="returnCart">
+          <span></span>
+          <div>返回购物车</div>
+        </div>
+        <div class="postOrder">
+          提交订单
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -27,8 +27,7 @@ export class LiveComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getNewLive1(1, 20);
-    // this.getNewLive2(1, 4);
+    this.getNewLive(1, 20);
     this.liveService.getHotLive(1, 20) //热门
       .subscribe(
       data => {
@@ -58,7 +57,7 @@ export class LiveComponent implements OnInit {
     // console.log(this.cover, this.source);
   }
 
-  public getNewLive1(page: number, pagesize: number) { //最新直播
+  public getNewLive(page: number, pagesize: number) { //最新直播
     this.liveService.getNewLive(page, pagesize)
       .subscribe(
       data => {
@@ -67,6 +66,7 @@ export class LiveComponent implements OnInit {
           this.newLive1 = data.d.lives.items || null;
           this.newLive2 = data.d.lives.items.slice(0, 4) || null;
           this.backArray = data.d.plays.items;
+          console.log(this.newLive2);
         }
       },
       error => console.log(error)

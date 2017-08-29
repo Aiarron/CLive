@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStat
 import { ProfileService } from "../../service/profile.service";
 import { BackLiveDetailService } from "../../live/back-live/back-live-detail/service/back-live-detail.service";
 import { LiveRoomService } from "./service/live-room.service";
+import { LiveService } from "../service/live.service";
 import { ToolsService } from "../../service/tools.service";
 
 import { StartLive } from "../../model-data/startLive";
@@ -29,6 +30,7 @@ declare var Clipboard: any;
         ProfileService,
         BackLiveDetailService,
         LiveRoomService,
+        LiveService,
         ToolsService
     ]
 })
@@ -75,6 +77,7 @@ export class LiveRoomComponent implements OnInit {
     public laseCoin;//赠送礼物剩余的余额
     public shareUrl;// 分享地址
     public shareCode;// 分享二维码插件实例化
+    public pullAddress;// 拉流地址
 
     // public itemsPerPage: number = 9;
     // public totalRecords: number = 9;
@@ -94,24 +97,26 @@ export class LiveRoomComponent implements OnInit {
         public profileService: ProfileService,
         public backLiveDetailService: BackLiveDetailService,
         public liveRoomService: LiveRoomService,
+        public liveService: LiveService,
         public tools: ToolsService,
         public ren: Renderer,
         public cfr: ComponentFactoryResolver,
     ) { }
 
     ngOnInit() {
-        this.profileService.getProfile()
-            .subscribe(
-            data => {
-                this.profiles = data.d;
-            },
-            error => console.log(error)
-            );
+        // this.profileService.getProfile()
+        //     .subscribe(
+        //     data => {
+        //         this.profiles = data.d;
+        //     },
+        //     error => console.log(error)
+        //     );
         this.activatedRoute.params
             .subscribe(
             data => {
                 // console.log(data);
                 this.anchor = data;
+                console.log(data);
                 if (this.anchor.flag == 1) { // 主播
                     this.isAnchor = true;
                     this.startLivePanel = true; // 开始直播面板
@@ -122,22 +127,22 @@ export class LiveRoomComponent implements OnInit {
             }
             );
 
-        this.player = new prismplayer({
-            id: "J_prismPlayer", // 容器id
-            // source: "http://pili-live-hls.www.autoclub.com.cn/diwei-live/test.m3u8",
-            source: this.source,
-            autoplay: true,    //自动播放：否
-            width: "100%",       // 播放器宽度
-            height: "inherit",      // 播放器高度
-            isLive: true,
-            preload: true,
-            cover: this.cover
-        });
+        // this.player = new prismplayer({
+        //     id: "J_prismPlayer", // 容器id
+        //     // source: "http://pili-live-hls.www.autoclub.com.cn/diwei-live/test.m3u8",
+        //     source: "rtmp://gsup.rtmp.eeniao.com/clive/10080",
+        //     autoplay: true,    //自动播放：否
+        //     width: "100%",       // 播放器宽度
+        //     height: "inherit",      // 播放器高度
+        //     isLive: true,
+        //     preload: true,
+        //     cover: this.cover
+        // });
 
         // 监听播放器的pause事件
-        this.player.on("pause", function () {
-            console.log("播放器暂停啦！");
-        });
+        // this.player.on("pause", function () {
+        //     console.log("播放器暂停啦！");
+        // });
 
         this.liveRoomService.getGifts() //礼物列表
             .subscribe(
@@ -169,6 +174,19 @@ export class LiveRoomComponent implements OnInit {
             data => {
                 console.log(data);
                 this.enterroom = data.d;
+                this.pullAddress = data.d.live;
+                this.profiles = data.d.anchor;
+                this.player = new prismplayer({
+                    id: "J_prismPlayer", // 容器id
+                    // source: "http://pili-live-hls.www.autoclub.com.cn/diwei-live/test.m3u8",
+                    source: this.pullAddress,
+                    autoplay: true,    //自动播放：否
+                    width: "100%",       // 播放器宽度
+                    height: "inherit",      // 播放器高度
+                    isLive: true,
+                    preload: true,
+                    cover: this.cover
+                });
                 this.enterroomAnchor = data.d.anchor;
                 this.liveRoomWebsocket(this.enterroom.notify)
                     .subscribe(
@@ -177,10 +195,12 @@ export class LiveRoomComponent implements OnInit {
                         console.log(datas);
                         if (datas.type == 'onlines') { // 在线人数
                             this.onlines = datas.data;
-                        } else if (datas.type == "sendpubmsg") {
+                        } else if (datas.type == "sendpubmsg") { // 发送弹幕
                             this.fillMsgBox(datas);
-                        } else if (datas.type == "pubshGoods") {
+                        } else if (datas.type == "pubshGoods") { // 推送商品
                             this.pubshGoods(datas);
+                        } else if (datas.type == "stopLive") { // 主播退出直播
+
                         }
                         // this.websocket.close();
                         // this.websocket.onclose = (e) => console.log(e);
@@ -301,6 +321,25 @@ export class LiveRoomComponent implements OnInit {
             )
     }
 
+    doFollow(id, event) {
+        console.log(id, event);
+        let isfollow = event.target.getAttribute('data-isfollowed');
+        console.log(isfollow);
+        if (isfollow == 'false') {
+            this.backLiveDetailService.addFollow(id)
+                .subscribe(
+                data => {
+                    console.log(data);
+                    if(data.c == 10000){
+                        layer.msg(data.m);
+                    }
+                }, error => console.log(error)
+                )
+        } else {
+            console.log('123123');
+        }
+    }
+
     // doFollow(status, id) {
     //     console.log(status, id);
     //     if (status == false) {
@@ -330,56 +369,39 @@ export class LiveRoomComponent implements OnInit {
         this.startLivePanel = false;
     }
 
-    coverChange(file) {
-        // this.startFiles = file[0];
+    coverChange(file, event) {
+        this.startFiles = file[0];
         // console.log(this.startFiles);
-        // let AccessKeyId = this.fileUploadToken.d.AccessKeyId;
-        // let AccessKeySecret = this.fileUploadToken.d.AccessKeySecret;
-        // let BucketName = this.fileUploadToken.d.BucketName;
-        // let Expiration = this.fileUploadToken.d.Expiration;
-        // let SecurityToken = this.fileUploadToken.d.SecurityToken;
-        // let Endpoint = this.fileUploadToken.d.Endpoint;
-
-        // let client = new OSS({
-        //     region: Endpoint,
-        //     accessKeyId: AccessKeyId,
-        //     accessKeySecret: AccessKeySecret,
-        //     stsToken: SecurityToken,
-        //     bucket: BucketName
-        // });
-        // console.log(client);
-        // var storeAs = this.getUuid() + ".jpg";
-        // client.multipartUpload(storeAs, file[0]).then(res => {
-        //     console.log(res);
-        // })
+        this.liveService.imgUpload(this.startFiles)
+            .subscribe(
+            data => {
+                // console.log(data); console.log(event);
+                this.fileUploadImg = data[0].url;
+                event.target.files[0] = "";
+            }, error => console.log(error)
+            )
     }
 
-    getUuid() {
-        var len = 32;//32长度
-        var radix = 16;//16进制
-        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
-        var uuid = [], i;
-        radix = radix || chars.length;
-        if (len) {
-            for (i = 0; i < len; i++) {
-                uuid[i] = chars[0 | Math.random() * radix];
-            }
-        } else {
-            var r;
-            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
-            uuid[14] = '4';
-            for (i = 0; i < 36; i++) {
-                if (!uuid[i]) {
-                    r = 0 | Math.random() * 16;
-                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
-                }
-            }
+    onStartLive(event) {
+        // 开始直播
+        let logoImg = event.target.querySelector('.imgBox img').getAttribute('src');
+        // console.log(this.startLiveForm);
+        if (this.startLiveForm.title.length <= 0) {
+            layer.msg('直播标题不能为空');
+            return;
+        } else if (this.startLiveForm.topic.length <= 0) {
+            layer.msg('直播话题不能为空');
+            return;
+        } else if (logoImg == '/assets/img/comment_addimg.png') {
+            layer.msg('直播封面不能为空');
+            return;
         }
-        return uuid.join('');
-    }
-
-    onStartLive() {
-
+        this.liveRoomService.startLive(logoImg, this.startLiveForm.title, this.startLiveForm.topic, '')
+            .subscribe(
+            data => {
+                console.log(data)
+            }, error => console.log(error)
+            )
         // 获取推流地址
         this.liveRoomService.genLive()
             .subscribe(
@@ -392,6 +414,15 @@ export class LiveRoomComponent implements OnInit {
                 });
             },
             error => console.log(error)
+            )
+    }
+
+    stopLive() {// 停止直播
+        this.liveRoomService.stopLive()
+            .subscribe(
+            data => {
+                console.log(data);
+            }, error => console.log(error)
             )
     }
 
