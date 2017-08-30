@@ -34,7 +34,7 @@ declare var Clipboard: any;
         ToolsService
     ]
 })
-export class LiveRoomComponent implements OnInit {
+export class LiveRoomComponent implements OnInit, AfterViewInit {
     @ViewChild('getMessage', { read: ViewContainerRef }) getMessage; // 动态添加组件用
     @ViewChild('getMessage') getMessage1;   // 操作dom用
     @ViewChild('barrageScroll', { read: ViewContainerRef }) barrageScroll;
@@ -104,19 +104,19 @@ export class LiveRoomComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        // this.profileService.getProfile()
-        //     .subscribe(
-        //     data => {
-        //         this.profiles = data.d;
-        //     },
-        //     error => console.log(error)
-        //     );
+        this.profileService.getProfile()
+            .subscribe(
+            data => {
+                console.log(data);
+                this.profiles = data.d;
+            },
+            error => console.log(error)
+            );
         this.activatedRoute.params
             .subscribe(
             data => {
                 // console.log(data);
                 this.anchor = data;
-                console.log(data);
                 if (this.anchor.flag == 1) { // 主播
                     this.isAnchor = true;
                     this.startLivePanel = true; // 开始直播面板
@@ -126,28 +126,10 @@ export class LiveRoomComponent implements OnInit {
                 }
             }
             );
-
-        // this.player = new prismplayer({
-        //     id: "J_prismPlayer", // 容器id
-        //     // source: "http://pili-live-hls.www.autoclub.com.cn/diwei-live/test.m3u8",
-        //     source: "rtmp://gsup.rtmp.eeniao.com/clive/10080",
-        //     autoplay: true,    //自动播放：否
-        //     width: "100%",       // 播放器宽度
-        //     height: "inherit",      // 播放器高度
-        //     isLive: true,
-        //     preload: true,
-        //     cover: this.cover
-        // });
-
-        // 监听播放器的pause事件
-        // this.player.on("pause", function () {
-        //     console.log("播放器暂停啦！");
-        // });
-
         this.liveRoomService.getGifts() //礼物列表
             .subscribe(
             data => {
-                // console.log(data);
+                console.log(data);
                 this.averageGift = data.d.gift[0].items;
                 this.advancedGift = data.d.gift[1].items;
             },
@@ -175,10 +157,9 @@ export class LiveRoomComponent implements OnInit {
                 console.log(data);
                 this.enterroom = data.d;
                 this.pullAddress = data.d.live;
-                this.profiles = data.d.anchor;
+                this.anchorDetail = data.d.anchor;
                 this.player = new prismplayer({
                     id: "J_prismPlayer", // 容器id
-                    // source: "http://pili-live-hls.www.autoclub.com.cn/diwei-live/test.m3u8",
                     source: this.pullAddress,
                     autoplay: true,    //自动播放：否
                     width: "100%",       // 播放器宽度
@@ -302,6 +283,12 @@ export class LiveRoomComponent implements OnInit {
             )
     }
 
+    ngAfterViewInit() {
+        if (this.profiles.id == this.anchor.id) { //判断进入的是不是自己的房间
+            console.log(123123);
+        }
+    }
+
     getBarrage(data) { // 弹幕开关
         this.barrageSwitch = data;
         console.log(data);
@@ -330,7 +317,7 @@ export class LiveRoomComponent implements OnInit {
                 .subscribe(
                 data => {
                     console.log(data);
-                    if(data.c == 10000){
+                    if (data.c == 10000) {
                         layer.msg(data.m);
                     }
                 }, error => console.log(error)
@@ -503,7 +490,7 @@ export class LiveRoomComponent implements OnInit {
                 console.log(data);
                 if (data.c != 20000) {
                     this.laseCoin = data.d.coin;
-                    this.profiles.coin = data.d.coin;
+                    this.anchorDetail.coin = data.d.coin;
                 } else {
                     layer.msg(data.m);
                 }

@@ -4,29 +4,29 @@
       <div class="detail">
         <div class="info">
           <div class="headimg">
-            <img src="{{profiles?.avatar}}">
+            <img src="{{anchorDetail?.avatar}}">
           </div>
           <div class="detailBox">
             <div class="nameLevel">
-              <span class="name">{{profiles?.nick}}</span>
+              <span class="name">{{anchorDetail?.nick}}</span>
               <p class="level">
-                <span>LV{{profiles?.anchorlvl}}</span>
+                <span>LV{{anchorDetail?.anchorlvl}}</span>
               </p>
             </div>
-            <div class="id">id:{{profiles?.id}}</div>
-            <p class="descript">{{profiles?.intro}}</p>
+            <div class="id">id:{{anchorDetail?.id}}</div>
+            <p class="descript">{{anchorDetail?.intro}}</p>
           </div>
         </div>
         <div class="operator">
           <div class="box">
-            <p>金币数：{{profiles?.coin}}</p>
+            <p>金币数：{{enterroom?.coin}}</p>
             <!-- 是主播 -->
             <div *ngIf="isAnchor" (click)="stopLive()" class="follow active" [style.background]="isAnchor?'#999':'#fe345e'">
               <!-- 关注/退出直播 -->
               退出直播
             </div>
             <!-- 是用户 -->
-            <div *ngIf="!isAnchor" class="follow {{enterroom?.followed?'':'active'}}" [attr.data-isfollowed]="enterroom?.followed" (click)="doFollow(profiles?.id, $event)">
+            <div *ngIf="!isAnchor" class="follow {{enterroom?.followed?'':'active'}}" [attr.data-isfollowed]="enterroom?.followed" (click)="doFollow(anchorDetail?.id, $event)">
               关注
             </div>
           </div>
@@ -122,7 +122,7 @@
               <!-- 赠送 -->
               <ng-container *ngFor="let item of averageGift">
                 <div class="swiper-slide1">
-                  <img src="/assets/img/bouquet@2x.png">
+                  <img src="/assets/img/bouquet@3x.png">
                   <div class="layerBox">
                     <div class="giftDetail">
                       <div class="giftImg">
@@ -131,7 +131,7 @@
                       <div class="detail">
                         <div class="detailWrap">
                           <p class="name">{{item?.name}}</p>
-                          <span class="silver">({{item?.coin}}银币)</span>
+                          <span class="silver">({{item?.consume}}银币)</span>
                         </div>
                         <div class="give" (click)="sendGift(anchor?.id, anchor?.id, item?.id, 1, 'live')">赠送</div>
                       </div>
@@ -143,16 +143,17 @@
               <!-- 高级赠送 -->
               <ng-container *ngFor="let item of advancedGift">
                 <div class="swiper-slide1">
-                  <img src="/assets/img/bouquet@2x.png">
+                  <img src="/assets/img/bouquet@3x.png">
                   <div class="layerBox">
                     <div class="giftDetail">
                       <div class="giftImg">
                         <img src="/assets/img/bouquet@3x.png">
+                        <!-- <img src="{{item?.icon}}"> -->
                       </div>
                       <div class="detail">
                         <div class="detailWrap">
                           <p class="name">{{item?.name}}</p>
-                          <span class="silver">({{item?.coin}}银币)</span>
+                          <span class="silver">({{item?.consume}}银币)</span>
                         </div>
                         <div class="give" (click)="sendGift(anchor?.id, anchor?.id, item?.id, 1, 'live')">赠送</div>
                       </div>
@@ -166,7 +167,7 @@
           </div>
 
           <div class="recharge">
-            <p>银币 <span #lastcoins>{{profiles?.coin}}</span></p>
+            <p>银币 <span #lastcoins>{{enterroom?.coin}}</span></p>
             <div class="button">充值</div>
           </div>
 
