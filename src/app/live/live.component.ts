@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LiveService } from "./service/live.service";
 
 import { IndexLive } from "../model-data/index-live";
@@ -14,6 +14,7 @@ declare var prismplayer: any;
   ]
 })
 export class LiveComponent implements OnInit {
+  @ViewChild('playerBox') playerBox;
   public player;
   public newLive1;
   public newLive2;
@@ -50,20 +51,27 @@ export class LiveComponent implements OnInit {
       )
   }
 
-
-  updateIndexLive(address, logo) {
-    this.cover = logo;
-    this.source = address;
-    // console.log(this.cover, this.source);
+  gotoRoom(event) {//进入直播间
+    let url = event.target.getAttribute('data-url');
+    let id = event.target.getAttribute('data-id');
+    console.log(url, id);
   }
 
-  public getNewLive(page: number, pagesize: number) { //最新直播
+  updateIndexLive(address, logo) { //右侧最新直播切换
+    console.log(address, logo);
+    this.cover = logo;
+    this.source = address;
+    this.playerBox.nativeElement.innerHTML = '<div id="J_prismPlayer" class="prism-player"></div>';
+    this.media(address, logo);
+  }
+
+  getNewLive(page: number, pagesize: number) { //最新直播
     this.liveService.getNewLive(page, pagesize)
       .subscribe(
       data => {
         console.log(data);
         if (data.d) {
-          this.newLive1 = data.d.lives.items || null;
+          this.newLive1 = data.d.lives.items.slice(0, 1) || null;
           this.newLive2 = data.d.lives.items.slice(0, 4) || null;
           this.backArray = data.d.plays.items;
           console.log(this.newLive2);

@@ -1,9 +1,12 @@
 <div class="bigBanner">
     <div class="box">
         <div class="living" gotoRoom>
-            <div id="J_prismPlayer" class="prism-player"></div>
+            <div class="playerBox" #playerBox>
+                <div id="J_prismPlayer" class="prism-player"></div>
+            </div>
             <div class="goRoom">
-                <a class="gotoRoom" [routerLink]="['/live/live-room/1']">进入直播间</a>
+                <!-- <a class="gotoRoom" [routerLink]="['/live/live-room/1']">进入直播间</a> -->
+                <a class="gotoRoom" (click)="gotoRoom($event)" [attr.data-url]="'/live/live-room/'" [attr.data-id]="newLive1 && newLive1[0].id">进入直播间</a>
             </div>
         </div>
         <div class="agian">

@@ -284,7 +284,9 @@ export class LiveRoomComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        if (this.profiles.id == this.anchor.id) { //判断进入的是不是自己的房间
+        // this.profiles.id
+        let profile = JSON.parse(window.localStorage.getItem('profile'));
+        if (profile.id == this.anchor.id) { //判断进入的是不是自己的房间
             console.log(123123);
         }
     }

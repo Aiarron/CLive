@@ -15,6 +15,9 @@
             margin-right: 10px;
             width: 1008px;
             height: 610px;
+            .playerBox{
+                height: inherit;
+            }
             .goRoom {
                 position: absolute;
                 top: 0;
